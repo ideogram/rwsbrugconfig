@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bяυɢ Dıαɢяαм Tσσʟ</title>
+  <link href="css/app.css" type="text/css" rel="stylesheet" >
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+</head>
+<body>
+
+  <div id="toolbar-wrapper">
+    <ul id="toolbar"></ul>
+  </div>
+
+  <ul id="diagram"></ul>
+
+
+<!--Javascript YAML-library for reading in the element-configuration: https://github.com/nodeca/js-yaml-->
+<script src="vendor/js-yaml.min.js"></script>
+
+<!-- jQuery Minified: -->
+<script src="vendor/jquery-3.2.1.min.js"></script>
+
+  <!--Parts of jQuery UI for drag/drop behaviour-->
+<script src="vendor/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+
+<!--Application script-->
+<script src="js/app.js"></script>
+
+<!-- Implementation of application-script -->
+<script>
+
+  libConfig.setPaths({"folderAssets":"assets/"});
+  libConfig.loadAssetsAndCatalogue();
+  libConfig.setToolbar('#toolbar');
+  libConfig.setDiagram('#diagram');
+  libConfig.setConfigString("(Z)--[HD_/\_]--"); // implicit drawDiagram
+
+  // Add download button to options bar. This button should be implemented into the app-menu-bar
+  $download = $('<li><button id="download">Download</button></li>').appendTo('#options');
+
+  $download.on("click", function () {
+    strFileName = uniqueStringFromTime();
+    libConfig.composeSVG(strFileName);
+  });
+
+  $("#get-config-string").on("click", function () {
+    str = libConfig.getConfigString();
+
+    $("#config-string")
+            .val(str)
+            .attr('style', "width: " + (str.length) * 0.6 + "em");
+  });
+
+  $("#set-config-string").on("click", function () {
+    libConfig.setConfigString($("#config-string").val());
+    libConfig.drawDiagram();
+  });
+
+  $("#chamber-id").on("change", function () {
+    libConfig.setChamberID($(this).val());
+  });
+
+  /**
+   *
+   * @returns {string}
+   */
+  function uniqueStringFromTime() {
+    var d = new Date();
+    var n = d.getTime();
+    return n.toString(36); // Number to 36-base string.
+  }
+</script>
+
+</body>
+</html>
