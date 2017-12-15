@@ -2,7 +2,7 @@
  * Created by M. H. van der Velde (ideogram.nl) on 08/09/2017.
  */
 
-var libConfig;
+var libConfigBridges;
 
 (function (window) {
     /**
@@ -11,7 +11,7 @@ var libConfig;
      * @namespace libConfig
      */
 
-    libConfig = {
+    libConfigBridges = {
         // Settings
         path: {
             folderAssets: "assets/",
@@ -59,18 +59,18 @@ var libConfig;
          * @memberof libConfig
          */
         setPaths: function (objPathOptions) {
-            var l = libConfig;
+            var l = libConfigBridges;
             // use the jQuery extend option to override the default path settings:
             jQuery.extend(l.path, objPathOptions);
-            libConfig.loadImagesUI();
+            libConfigBridges.loadImagesUI();
         },
 
         /**
          * Force loading of the images of the GUI. This is only needed if 'setPaths' is never called
          */
         loadImagesUI: function(){
-            var l = libConfig;
-            var sheet = libConfig.addStyleSheet();
+            var l = libConfigBridges;
+            var sheet = libConfigBridges.addStyleSheet();
 
             var strSelector, strRule = "";
 
@@ -86,8 +86,8 @@ var libConfig;
 
             for(var i=0; i<images.length; i++){
                 strSelector = images[i][0];
-                strRule = "background-image: " + libConfig.getCssUrl( images[i][1] );
-                libConfig.addCSSRule(sheet, strSelector, strRule );
+                strRule = "background-image: " + libConfigBridges.getCssUrl( images[i][1] );
+                libConfigBridges.addCSSRule(sheet, strSelector, strRule );
             }
         },
 
@@ -98,13 +98,13 @@ var libConfig;
          */
         setToolbar: function (strSelector ) {
 
-            libConfig.$toolbar = $(strSelector);
+            libConfigBridges.$toolbar = $(strSelector);
 
             // Prepare a special welcome for our SVG-elements by calling the elementRendered function.
-            libConfig.observer = new MutationObserver(this.elementRendered);
+            libConfigBridges.observer = new MutationObserver(this.elementRendered);
             $.fx.off = true;
 
-            libConfig.$toolbar.find("li").disableSelection();
+            libConfigBridges.$toolbar.find("li").disableSelection();
         },
 
         /**
@@ -112,12 +112,12 @@ var libConfig;
          * @memberof libConfig
          */
         loadAssetsAndCatalogue: function(){
-            l = libConfig;
+            l = libConfigBridges;
 
             // Load the YAML-configuration file containig names and properties of the lock-elements
             // and add them to our UI
 
-            $.get(l.path.fileCatalogue, null, libConfig.loadElements);
+            $.get(l.path.fileCatalogue, null, libConfigBridges.loadElements);
 
         },
 
@@ -127,7 +127,7 @@ var libConfig;
          * @memberof libConfig
          */
         setDiagram: function(strSelector) {
-            var l = libConfig;
+            var l = libConfigBridges;
             l.$diagram = $(strSelector);
 
             l.draggableOptions.connectToSortable = strSelector;
@@ -135,7 +135,7 @@ var libConfig;
             // jQuery-UI interactions: allow for drag-and-drop and duplication of lock elements
             l.$diagram.sortable({
                 revert: true,
-                receive: libConfig.elementDropped,
+                receive: libConfigBridges.elementDropped,
                 stop: this.diagramChanged,
                 forcePlaceholderSize: true
             });
@@ -159,7 +159,7 @@ var libConfig;
 
                 $.get(l.path.folderPartials + "option-" + strOptions[i] + ".partial.html", function (data) {
                     $(data).appendTo(l.$options)
-                        .find("input").on("change", libConfig.optionChanged);
+                        .find("input").on("change", libConfigBridges.optionChanged);
                 });
             }
 
@@ -183,7 +183,7 @@ var libConfig;
          * @memberof libConfig
          */
         getConfigString: function () {
-            var l = libConfig;
+            var l = libConfigBridges;
 
             l.strConfig = "";
 
@@ -216,7 +216,7 @@ var libConfig;
          * @memberof libConfig
          */
         composeSVG: function(strFileName) {
-            var l = libConfig;
+            var l = libConfigBridges;
             var margin = 32;
             var h = l.height + 2*margin;
             var strLeft, strRight;
@@ -288,7 +288,7 @@ var libConfig;
             l.$result.attr("height", h + "px");
 
             // Offer the download
-            libConfig.offerDownload(l.$result[0].outerHTML, strFileName );
+            libConfigBridges.offerDownload(l.$result[0].outerHTML, strFileName );
         },
 
         /**
@@ -297,7 +297,7 @@ var libConfig;
          * @memberof libConfig
          */
         setConfigString: function(strConfig){
-            var l = libConfig;
+            var l = libConfigBridges;
             var matches = strConfig.match(/\((.*?)\)/g);
             var strPre, strComment;
 
@@ -331,7 +331,7 @@ var libConfig;
          * @memberof libConfig
          */
         setNetworkDirection : function( value ){
-            var l = libConfig;
+            var l = libConfigBridges;
             l.networkDirection = value;
         },
 
@@ -341,7 +341,7 @@ var libConfig;
          * @memberof libConfig
          */
         getNetworkDirection : function(  ){
-            var l = libConfig;
+            var l = libConfigBridges;
             return l.networkDirection;
         },
 
@@ -351,7 +351,7 @@ var libConfig;
          * @memberof libConfig
          */
         setGateNumbering: function( value ){
-            var l = libConfig;
+            var l = libConfigBridges;
             l.gateNumbering = value;
         },
 
@@ -361,7 +361,7 @@ var libConfig;
          * @memberof libConfig
          */
         getGateNumbering: function(){
-            var l = libConfig;
+            var l = libConfigBridges;
             return l.gateNumbering;
         },
 
@@ -370,7 +370,7 @@ var libConfig;
          * @memberof libConfig
          */
         drawDiagram: function () {
-            var l = libConfig;
+            var l = libConfigBridges;
             var s = l.strConfig;
             var elements = [];
             var fill = "";
@@ -449,7 +449,7 @@ var libConfig;
             l.$diagramElements.each(function (i) {
                 var $me = $(this);
                 l.arr$SVG[i] = $me.find("svg");
-                libConfig.prepareForDiagramLife($me);
+                libConfigBridges.prepareForDiagramLife($me);
             });
 
             l.L = l.$diagramElements.length;
@@ -460,7 +460,7 @@ var libConfig;
 
         // Iterate over the elements array and add the drawings to the toolbar
         addElementsToToolbar: function() {
-            var l = libConfig;
+            var l = libConfigBridges;
             l.countElementsLoaded = 0;
 
             $.each( l.elementCatalogue, function (key, val) {
@@ -468,36 +468,36 @@ var libConfig;
                 var tooltip = val.tooltip;
 
                 var $li = $('<li class="element"></li>' ).
-                    appendTo(libConfig.$toolbar)
+                    appendTo(libConfigBridges.$toolbar)
                         .attr({"title": tooltip, "data-ref": key})
                         .addClass(val.name)
                         .disableSelection()
                         .draggable(l.draggableOptions)
-                        .load(l.path.folderAssets + id + ".svg", libConfig.elementLoaded);
+                        .load(l.path.folderAssets + id + ".svg", libConfigBridges.elementLoaded);
 
                 // After the SVG is rendered, rework the SVG
-                libConfig.observer.observe($li[0], {childList: true});
+                libConfigBridges.observer.observe($li[0], {childList: true});
             });
         },
 
         // Keeps track of the number of elements loaded
         elementLoaded: function(){
-            var l = libConfig;
+            var l = libConfigBridges;
             l.countElementsLoaded++;
 
             if (l.countElementsLoaded == l.elementCatalogue.length){
 
                 if ( l.strConfig != null ){
-                    libConfig.drawDiagram();
+                    libConfigBridges.drawDiagram();
                 }
             }
         },
 
         // Loads all the separate elements into an array and add them to the toolbar
         loadElements: function(data) {
-            l = libConfig;
+            l = libConfigBridges;
             l.elementCatalogue = jsyaml.load(data);
-            libConfig.addElementsToToolbar();
+            libConfigBridges.addElementsToToolbar();
         },
 
         // Scale the SVG-elements, so they take up less space
@@ -505,7 +505,7 @@ var libConfig;
             var $li = $(mutationRecords["0"].target);
             var $svg = $li.find("svg");
             var id = $svg.attr("id");
-            var l = libConfig;
+            var l = libConfigBridges;
 
             // Use half the width and remove the height
             var w = $svg.attr("width");
@@ -520,7 +520,7 @@ var libConfig;
 
         // Update the #diagram after adding, removing or re-arranging elements
         diagramChanged: function() {
-            var l = libConfig;
+            var l = libConfigBridges;
 
             // Store the element-information from the palette
             // into a an array connected to every element in the #diagram
@@ -546,17 +546,17 @@ var libConfig;
 
         // Event-handler for when an element from the toolbar is dropped on the diagram
         elementDropped: function(event, ui) {
-            libConfig.prepareForDiagramLife( $(ui.helper) );
+            libConfigBridges.prepareForDiagramLife( $(ui.helper) );
         },
 
         // Preparing an element for it's life inside the #diagram
         prepareForDiagramLife: function( $target ){
-            var l = libConfig;
+            var l = libConfigBridges;
 
             // Add a button to erase the element from the #diagram again
             var $btnRemove = $("<a></a>").appendTo($target).addClass("btn-remove");
 
-            $btnRemove.on("click", libConfig.removeElement );
+            $btnRemove.on("click", libConfigBridges.removeElement );
 
         },
 
@@ -573,7 +573,7 @@ var libConfig;
         // Shift elements upward or downward if needed because of some special chamber-shapes
         shiftElements: function() {
             var shift = 0;
-            var l = libConfig;
+            var l = libConfigBridges;
 
             for (var i = 0; i < l.L; i++) {
                 var deltaY = l.element[i]['deltay'];
@@ -593,7 +593,7 @@ var libConfig;
         // Draw the elements in the diagram as close to the top of the #diagram as possible
         moveDiagramUp: function() {
             var highest = 1000; // infinity
-            var l = libConfig;
+            var l = libConfigBridges;
 
             // Move all elements uo
 
@@ -636,7 +636,7 @@ var libConfig;
             var gateCount = 0;
             var totalGates = 0;
             var gate = false;
-            var l = libConfig;
+            var l = libConfigBridges;
             var $svg = null;
 
             // First, find the total amount of gates
@@ -670,12 +670,12 @@ var libConfig;
 
         // event-handler for receiving a bridge dropped on a ui-element
         receiveDropOnElement: function(event, ui){
-            libConfig.drawBridge($(event.target),$(ui.helper));
+            libConfigBridges.drawBridge($(event.target),$(ui.helper));
         },
 
         // Draw a bridge over the target element
         drawBridge: function($target, $bridge) {
-            var l = libConfig;
+            var l = libConfigBridges;
             var viewBox;
 
             // Determine the right DOM-elements
@@ -711,7 +711,7 @@ var libConfig;
             l.bridges[i] =  l.elementCatalogue[$bridge.attr('data-ref')]['symbol'];
 
             // Update drawing
-            libConfig.diagramChanged();
+            libConfigBridges.diagramChanged();
         },
 
         // offer a string containing SVG as download
@@ -730,48 +730,48 @@ var libConfig;
 
         // Set the configuration strings options
         optionChanged: function() {
-            var l = libConfig;
+            var l = libConfigBridges;
             var $me = $(this);
             var value = $me.val();
 
             l.networkDirection = value;
-            libConfig.drawNetworkLetter(value);
+            libConfigBridges.drawNetworkLetter(value);
 
             l.diagramChanged();
         },
 
         // Draw network-arrow on top of the diagram
         drawNetworkLetter: function(value) {
-            var l = libConfig;
+            var l = libConfigBridges;
 
 
             switch (value){
                 case "N":
-                    l.$diagram.css("background-image", libConfig.getCssUrl("network-n-z.svg"));
+                    l.$diagram.css("background-image", libConfigBridges.getCssUrl("network-n-z.svg"));
                     break;
 
                 case "W":
-                    l.$diagram.css("background-image", libConfig.getCssUrl("network-w-o.svg"));
+                    l.$diagram.css("background-image", libConfigBridges.getCssUrl("network-w-o.svg"));
                     break;
 
                 case "O":
-                    l.$diagram.css("background-image", libConfig.getCssUrl("network-o-w.svg"));
+                    l.$diagram.css("background-image", libConfigBridges.getCssUrl("network-o-w.svg"));
                     break;
 
                 case "Z":
-                    l.$diagram.css("background-image", libConfig.getCssUrl("network-z-n.svg"));
+                    l.$diagram.css("background-image", libConfigBridges.getCssUrl("network-z-n.svg"));
                     break;
             }
         },
 
         setChamberID: function(value){
-            libConfig.chamberID = value;
+            libConfigBridges.chamberID = value;
         },
 
         // --- CSS Helper functions ---
         // Helper function to construct a css-style url for an image.
         getCssUrl: function (filename){
-            var l = libConfig;
+            var l = libConfigBridges;
 
             // Returns for example: url("to/images/folder/filename.jpg")
             return "url("+l.path.folderImages + filename + ")";

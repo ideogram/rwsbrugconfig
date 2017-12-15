@@ -22,5 +22,6 @@
     <path d="M396.63 253.56v9.69h-3.87v9.78l-224.56 9.02v-18.8h-9.07v-19l237.5 9.31zm-237.5 9.69H90.46v-14.31l68.67-4.69v19z" fill="#673327"/>
     <path d="M168 263.13l-68-.13" fill="none" stroke="#000" stroke-miterlimit="10"/>
     <path d="M168.2 282.05l-68.2-4.68v-14.12h68.2v18.8zm-9.07-18.8H90.46v-14.31l68.67-4.69v19z" opacity=".2"/>
-    <text font-family="sans-serif" font-size="36" text-anchor="middle" x="240" y="468"/>
+    <text font-family="sans-serif" font-size="36" text-anchor="middle" x="120" y="468"/>
+    <text font-family="sans-serif" font-size="36" text-anchor="middle" x="360" y="468"/>
 </svg>

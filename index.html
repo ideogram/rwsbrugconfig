@@ -32,22 +32,22 @@
 <!-- Implementation of application-script -->
 <script>
 
-  libConfig.setPaths({"folderAssets":"assets/"});
-  libConfig.loadAssetsAndCatalogue();
-  libConfig.setToolbar('#toolbar');
-  libConfig.setDiagram('#diagram');
-  libConfig.setConfigString("(Z)--[HD_/\_]--"); // implicit drawDiagram
+  libConfigBridges.setPaths({"folderAssets":"assets/"});
+  libConfigBridges.loadAssetsAndCatalogue();
+  libConfigBridges.setToolbar('#toolbar');
+  libConfigBridges.setDiagram('#diagram');
+  libConfigBridges.setConfigString("(Z)--[HD_/\_]--"); // implicit drawDiagram
 
   // Add download button to options bar. This button should be implemented into the app-menu-bar
   $download = $('<li><button id="download">Download</button></li>').appendTo('#options');
 
   $download.on("click", function () {
     strFileName = uniqueStringFromTime();
-    libConfig.composeSVG(strFileName);
+    libConfigBridges.composeSVG(strFileName);
   });
 
   $("#get-config-string").on("click", function () {
-    str = libConfig.getConfigString();
+    str = libConfigBridges.getConfigString();
 
     $("#config-string")
             .val(str)
@@ -55,12 +55,12 @@
   });
 
   $("#set-config-string").on("click", function () {
-    libConfig.setConfigString($("#config-string").val());
-    libConfig.drawDiagram();
+    libConfigBridges.setConfigString($("#config-string").val());
+    libConfigBridges.drawDiagram();
   });
 
   $("#chamber-id").on("change", function () {
-    libConfig.setChamberID($(this).val());
+    libConfigBridges.setChamberID($(this).val());
   });
 
   /**
