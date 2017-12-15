@@ -578,22 +578,6 @@ var libConfigBridges;
             var gate = false;
             var $svg = null;
 
-            // First, find the total amount of gates
-            for (i = 0; i < l.L; i++) {
-
-                gate = l.element[i]['gate'];
-
-                console.log(gate);
-
-                if (gate != false) {
-
-                    totalGates++;
-
-                    if ( gate == "D" ){
-                        totalGates++;
-                    }
-                }
-            }
 
             // Fill the text element with the DVO number
             for (i = 0; i < l.L; i++) {
@@ -609,7 +593,12 @@ var libConfigBridges;
 
                 if (gate == true ) {
                     gateCount++;
-                    $svg.find("text").html( gateCount + suffix[l.networkDirection] );
+                    $svg.find("text").first().html( gateCount + suffix[l.networkDirection] );
+
+                    if ( l.element[i].name == "draai" ){
+                        gateCount++;
+                        $svg.find("text").last().html( gateCount + suffix[l.networkDirection] );
+                    }
 
                 }
             }
