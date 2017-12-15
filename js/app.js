@@ -75,7 +75,7 @@ var libConfigBridges;
             var strSelector, strRule = "";
 
             var images = [
-                ["#diagram","network-n-z.svg"],
+                ["#bridges-diagram","network-n-z.svg"],
                 [".btn-remove","delete-forever.svg"],
                 [".btn-remove:hover","delete-forever-hover.svg"],
                 ["#label-dir-n","network-dir-n-brug.svg"],
@@ -142,14 +142,14 @@ var libConfigBridges;
 
             // Create some extra HTML elements:
 
-            // .. #diagram-wrapper: contains the diagram, compass rose and options
-            l.$diagram.wrap('<div id="diagram-wrapper" />');
-            l.$diagramWrapper = l.$diagram.find("#diagram-wrapper");
+            // .. diagram-wrapper: contains the diagram, compass rose and options
+            l.$diagram.wrap('<div id="bridges-diagram-wrapper" />');
+            l.$diagramWrapper = l.$diagram.find("#bridges-diagram-wrapper");
 
-            // ... #options: contains a series of options that can be set on the diagram
+            // ... options: contains a series of options that can be set on the diagram
             l.$options =
-                $("<ul id='options' />")
-                    .prependTo("#diagram-wrapper");
+                $("<ul id='bridges-options' />")
+                    .prependTo("#bridges-diagram-wrapper");
 
             var strOptions = [
                  'network-direction'
@@ -163,10 +163,10 @@ var libConfigBridges;
                 });
             }
 
-            // ... #result: invisible div containing the SVG before it gets downloaded
+            // ... result: invisible div containing the SVG before it gets downloaded
             var $resultWrapper =
-                $('<div id="result"></div>')
-                    .insertAfter("#diagram-wrapper");
+                $('<div id="bridges-result"></div>')
+                    .insertAfter("#bridges-diagram-wrapper");
 
             l.$result = $('<svg></svg>')
                 .appendTo($resultWrapper)
@@ -227,7 +227,7 @@ var libConfigBridges;
                 "fill": "#9ACAE8"
             };
 
-            // Fill the '#result'-SVG  with the bridge-elements
+            // Fill the 'result'-SVG  with the bridge-elements
             l.$result.html("");
 
             var x = 0;
@@ -518,7 +518,7 @@ var libConfigBridges;
             }
         },
 
-        // Update the #diagram after adding, removing or re-arranging elements
+        // Update the diagram after adding, removing or re-arranging elements
         diagramChanged: function() {
             var l = libConfigBridges;
 
@@ -549,11 +549,11 @@ var libConfigBridges;
             libConfigBridges.prepareForDiagramLife( $(ui.helper) );
         },
 
-        // Preparing an element for it's life inside the #diagram
+        // Preparing an element for it's life inside the diagram
         prepareForDiagramLife: function( $target ){
             var l = libConfigBridges;
 
-            // Add a button to erase the element from the #diagram again
+            // Add a button to erase the element from the diagram again
             var $btnRemove = $("<a></a>").appendTo($target).addClass("btn-remove");
 
             $btnRemove.on("click", libConfigBridges.removeElement );
@@ -590,7 +590,7 @@ var libConfigBridges;
             }
         },
 
-        // Draw the elements in the diagram as close to the top of the #diagram as possible
+        // Draw the elements in the diagram as close to the top of the diagram as possible
         moveDiagramUp: function() {
             var highest = 1000; // infinity
             var l = libConfigBridges;
@@ -631,7 +631,7 @@ var libConfigBridges;
 
         },
 
-        // Put a label under each gate (sluisdeur)
+        // Put a label under each DVO
         annotateDVOs: function() {
             var gateCount = 0;
             var totalGates = 0;
@@ -644,12 +644,20 @@ var libConfigBridges;
 
                 gate = l.element[i]['gate'];
 
+                console.log(gate);
+
                 if (gate != false) {
+
                     totalGates++;
+
+                    if ( gate == "D" ){
+                        totalGates++;
+                    }
+
                 }
             }
 
-            // Fill the text element with the gate number (A, B, C, etc)
+            // Fill the text element with the DVO number
             for (i = 0; i < l.L; i++) {
                 gate = l.element[i]['gate'];
                 $svg = l.arr$SVG[i];
@@ -664,6 +672,7 @@ var libConfigBridges;
                 if (gate == true ) {
                     gateCount++;
                     $svg.find("text").html(gateCount + suffix[l.networkDirection] );
+
                 }
             }
         },

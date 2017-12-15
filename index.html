@@ -10,11 +10,11 @@
 </head>
 <body>
 
-  <div id="toolbar-wrapper">
-    <ul id="toolbar"></ul>
+  <div id="bridges-toolbar-wrapper">
+    <ul id="bridges-toolbar"></ul>
   </div>
 
-  <ul id="diagram"></ul>
+  <ul id="bridges-diagram"></ul>
 
 
 <!--Javascript YAML-library for reading in the element-configuration: https://github.com/nodeca/js-yaml-->
@@ -34,36 +34,20 @@
 
   libConfigBridges.setPaths({"folderAssets":"assets/"});
   libConfigBridges.loadAssetsAndCatalogue();
-  libConfigBridges.setToolbar('#toolbar');
-  libConfigBridges.setDiagram('#diagram');
+  libConfigBridges.setToolbar('#bridges-toolbar');
+  libConfigBridges.setDiagram('#bridges-diagram');
   libConfigBridges.setConfigString("(Z)--[HD_/\_]--"); // implicit drawDiagram
 
   // Add download button to options bar. This button should be implemented into the app-menu-bar
-  $download = $('<li><button id="download">Download</button></li>').appendTo('#options');
+  $download = $('<li><button id="bridges-download">Download</button></li>').appendTo('#bridges-options');
 
   $download.on("click", function () {
     strFileName = uniqueStringFromTime();
     libConfigBridges.composeSVG(strFileName);
   });
 
-  $("#get-config-string").on("click", function () {
-    str = libConfigBridges.getConfigString();
 
-    $("#config-string")
-            .val(str)
-            .attr('style', "width: " + (str.length) * 0.6 + "em");
-  });
-
-  $("#set-config-string").on("click", function () {
-    libConfigBridges.setConfigString($("#config-string").val());
-    libConfigBridges.drawDiagram();
-  });
-
-  $("#chamber-id").on("change", function () {
-    libConfigBridges.setChamberID($(this).val());
-  });
-
-  /**
+ /**
    *
    * @returns {string}
    */

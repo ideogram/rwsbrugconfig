@@ -6,36 +6,36 @@ body, html {
 body {
   font-family: Arial, Helvetica Neue, Helvetica, sans-serif; }
 
-#toolbar-wrapper {
+#bridges-toolbar-wrapper {
   outline: 1px solid #f0f0f0;
   max-height: calc(100% - 420px);
   width: 100%;
   overflow: auto;
   margin: 5px; }
 
-#toolbar, #diagram {
+#bridges-toolbar, #bridges-diagram {
   text-align: center;
   overflow: hidden;
   display: block;
   padding: 24px 0;
   background-color: white; }
-  #toolbar li, #diagram li {
+  #bridges-toolbar li, #bridges-diagram li {
     height: auto;
     display: inline-block;
     position: relative; }
-    #toolbar li:hover, #diagram li:hover {
+    #bridges-toolbar li:hover, #bridges-diagram li:hover {
       background-color: white;
       outline: 1px solid black;
       cursor: move; }
 
-#toolbar {
+#bridges-toolbar {
   height: auto;
   margin-top: 10px; }
-  #toolbar li {
+  #bridges-toolbar li {
     margin: 2px;
     outline: 1px solid silver;
     background-color: #f8f8f8; }
-    #toolbar li[title]:hover::after {
+    #bridges-toolbar li[title]:hover::after {
       content: attr(title);
       padding: 4px 8px;
       position: absolute;
@@ -47,7 +47,7 @@ body {
       box-shadow: 0px 0px 4px #222;
       background-color: white; }
 
-#diagram {
+#bridges-diagram {
   box-shadow: inset 0px 0px 45px 0px rgba(0, 0, 0, 0.13);
   height: 240px;
   float: left;
@@ -56,13 +56,13 @@ body {
   background-position: center;
   margin-top: 0;
   padding-top: 24px; }
-  #diagram li {
+  #bridges-diagram li {
     position: relative; }
-    #diagram li:hover {
+    #bridges-diagram li:hover {
       cursor: ew-resize;
       background-color: #f8f8f8;
       z-index: 1000; }
-      #diagram li:hover .btn-remove {
+      #bridges-diagram li:hover .btn-remove {
         cursor: pointer;
         opacity: 0.5; }
 
@@ -79,19 +79,19 @@ body {
   .btn-remove:hover {
     opacity: 1 !important; }
 
-#result {
+#bridges-result {
   display: none; }
 
-#download-wrapper {
+#bridges-download-wrapper {
   text-align: center; }
 
-#download {
+#bridges-download {
   width: 200px;
   height: 40px;
   border: 1px solid silver;
   background-color: white;
   font-size: 18px; }
-  #download:hover {
+  #bridges-download:hover {
     background-color: #f8f8f8; }
 
 .ui-sortable-placeholder {
@@ -101,14 +101,14 @@ body {
 svg {
   pointer-events: none; }
 
-#options {
+#bridges-options {
   list-style: none inside none;
   text-align: center; }
-  #options li {
+  #bridges-options li {
     display: inline-block;
     margin-right: 50px;
     vertical-align: top; }
-  #options legend {
+  #bridges-options legend {
     margin-bottom: 0.5em; }
 
 #network-direction input, #gates-direction input {
