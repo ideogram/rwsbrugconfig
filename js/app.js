@@ -21,9 +21,7 @@ var libConfigBridges;
         },
 
         // Defaults
-        chamberID: "0000",
         networkDirection : "N",
-        gateNumbering : "ABC",
         draggableOptions : {connectToSortable: null, helper: "clone", revert: "invalid"},
 
         // Variables
@@ -42,8 +40,6 @@ var libConfigBridges;
         L : 0,
         strConfig: "",
         height: 528,
-        svgArrowLeft: null,
-        svgArrowRight: null,
 
         /**
          * Set the paths used within the app.
@@ -189,9 +185,7 @@ var libConfigBridges;
 
             l.strConfig = [
                 "(",
-                l.chamberID,
                 l.networkDirection,
-                l.gateNumbering,
                 ")"
             ].join(" ");
 
@@ -203,8 +197,6 @@ var libConfigBridges;
                 }
 
             }
-
-            l.strConfig += "(" + l.strComment + ")";
 
             return l.strConfig;
 
@@ -299,7 +291,7 @@ var libConfigBridges;
         setConfigString: function(strConfig){
             var l = libConfigBridges;
             var matches = strConfig.match(/\((.*?)\)/g);
-            var strPre, strComment;
+            var strPre;
 
             // Split the string into three parts and keep the middle part
             if (matches.length > 0) {
@@ -654,9 +646,6 @@ var libConfigBridges;
             }
         },
 
-        setChamberID: function(value){
-            libConfigBridges.chamberID = value;
-        },
 
         // --- CSS Helper functions ---
         // Helper function to construct a css-style url for an image.

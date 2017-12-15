@@ -1,91 +1,91 @@
 - name: wal
   tooltip: "Wal"
-  symbol: "-"
+  symbol: "a"
 
 - name: wal-links
   tooltip: "Overgang tussen brug en wal. Links"
-  symbol: "["
+  symbol: "b"
 
 - name: wal-rechts
   tooltip: "Overgang tussen brug en wal. Rechts"
-  symbol: "]"
+  symbol: "c"
 
 - name: ellipses
   tooltip: "Weggelaten doorvaartopening(en)"
-  symbol: "..."
+  symbol: "d"
 
 - name: geen-doorvaart
   tooltip: "Geen doorvaartopening"
-  symbol: "X"
+  symbol: "e"
 
 - name: vast
   tooltip: "Vaste brug"
-  symbol: "="
+  symbol: "f"
   gate: true
 
 - name: draai
   tooltip: "Draaibrug"
-  symbol: "D"
+  symbol: "g"
   gate: true
 
 - name: draai-enkel-A
   tooltip: "Ongelijkarmige draaibrug"
-  symbol: "E"
+  symbol: "h"
   gate: true
 
 - name: draai-enkel-B
   tooltip: "Ongelijkarmige draaibrug"
-  symbol: "F"
+  symbol: "i"
   gate: true
 
 - name: hef
   tooltip: "Hefbrug"
-  symbol: "H"
+  symbol: "j"
   gate: true
 
 - name: bascule-A
   tooltip: "Basculebrug of klapbrug"
-  symbol: "_/"
+  symbol: "k"
   gate: true
 
 - name: bascule-B
   tooltip: "Basculebrug of klapbrug"
-  symbol: \_
+  symbol: "l"
   gate: true
 
 - name: bascule-overtrokken-A
   tooltip: "Overtrekbare basculebrug"
-  symbol: "_|"
+  symbol: "m"
   gate: true
 
 - name: bascule-overtrokken-B
   tooltip: "Overtrekbare basculebrug"
-  symbol: "|_"
+  symbol: "n"
   gate: true
 
 - name: dubbele-bascule
   tooltip: "Dubbele basculebrug"
-  symbol: "_/\_"
+  symbol: "o"
   gate: true
 
 - name: dubbele-bascule-overtrokken
   tooltip: "Dubbele, overtrekbare basculebrug"
-  symbol: "_||_"
+  symbol: "p"
   gate: true
 
 - name: ophaalbrug-A
   tooltip: "Ophaalbrug"
-  symbol: "_//"
+  symbol: "q"
   gate: true
 
 - name: ophaalbrug-B
   tooltip: "Ophaalbrug"
-  symbol: "\\_"
+  symbol: "r"
   gate: true
 
 - name: dubbele-ophaalbrug
   tooltip: "Dubbele ophaalbrug"
-  symbol: "_//\\_"
+  symbol: "s"
   gate: true
   
 
