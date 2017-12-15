@@ -570,73 +570,12 @@ var libConfigBridges;
             l.diagramChanged();
         },
 
-        // Shift elements upward or downward if needed because of some special chamber-shapes
-        shiftElements: function() {
-            var shift = 0;
-            var l = libConfigBridges;
-
-            for (var i = 0; i < l.L; i++) {
-                var deltaY = l.element[i]['deltay'];
-                var viewBox = l.arr$SVG[i].attr("viewBox");
-
-                if (viewBox !== undefined) {
-                    viewBox = viewBox.split(" ");
-                    viewBox[1] = -24 * shift - 2;
-                    viewBox[3] = 27 * 24;
-                    l.arr$SVG[i].attr("viewBox", viewBox.join(" "));
-                    l.shifts[i] = shift;
-                    shift += parseInt(deltaY);
-                }
-            }
-        },
-
-        // Draw the elements in the diagram as close to the top of the diagram as possible
-        moveDiagramUp: function() {
-            var highest = 1000; // infinity
-            var l = libConfigBridges;
-
-            // Move all elements uo
-
-            // ... Loop over the elements twice.
-
-            // ... ... First, find the highest position
-            for (var i = 0; i < l.L; i++) {
-                var top = 0;
-                var name = l.element[i]['name'];
-                var shift = l.shifts[i];
-
-                if ( typeof l.bridges[i] !== 'undefined' ) {
-                    top = Math.min(3, l.element[i]['top'])
-                } else {
-                    top = l.element[i]['top'];
-                }
-
-                highest = Math.min(highest, top + shift);
-            }
-
-            // ... ... Next, move all elements up to the top
-            for (i = 0; i < l.L; i++) {
-                var gate = l.element[i]['gate'];
-                var $svg = l.arr$SVG[i];
-                var viewBox = $svg.attr("viewBox");
-
-                if (viewBox !== undefined) {
-                    viewBox = viewBox.split(" ");
-                    viewBox[1] = parseFloat(viewBox[1]) + highest * 24;
-                    $svg.attr("viewBox", viewBox.join(" "));
-                }
-            }
-
-            l.highest = highest;
-
-        },
-
         // Put a label under each DVO
         annotateDVOs: function() {
+            var l = libConfigBridges;
             var gateCount = 0;
             var totalGates = 0;
             var gate = false;
-            var l = libConfigBridges;
             var $svg = null;
 
             // First, find the total amount of gates
@@ -653,7 +592,6 @@ var libConfigBridges;
                     if ( gate == "D" ){
                         totalGates++;
                     }
-
                 }
             }
 
@@ -671,56 +609,10 @@ var libConfigBridges;
 
                 if (gate == true ) {
                     gateCount++;
-                    $svg.find("text").html(gateCount + suffix[l.networkDirection] );
+                    $svg.find("text").html( gateCount + suffix[l.networkDirection] );
 
                 }
             }
-        },
-
-        // event-handler for receiving a bridge dropped on a ui-element
-        receiveDropOnElement: function(event, ui){
-            libConfigBridges.drawBridge($(event.target),$(ui.helper));
-        },
-
-        // Draw a bridge over the target element
-        drawBridge: function($target, $bridge) {
-            var l = libConfigBridges;
-            var viewBox;
-
-            // Determine the right DOM-elements
-            var $svg = $target.find("svg");
-            var $bridgeGroup = $bridge.find("g");
-            var i = $target.index();
-            var isStopStreep = ( l.element[i].name == 'stopstreep');
-
-            // Calculate the position
-            var pxTargetWidth = 2 * parseFloat($svg.attr("width"));
-            var pxBridgeWidth = 5 * 24; // 120;
-            var pxCentre = (pxTargetWidth - pxBridgeWidth) / 2;
-
-            // Change the DOM of the receiving element
-            $svg.append($bridgeGroup);
-
-            // ... positioning the bridge nicely in the centre
-            if (pxCentre != 0 && l.element[i].name != 'stopstreep') {
-                $svg.find(".bridge").attr("transform", "translate(" + pxCentre + ",0)");
-            }
-
-            // ... make the 'stopstreep' wider if a bridge is dropped on it
-            if ( isStopStreep ) {
-                viewBox = $svg.attr('viewBox');
-                viewBox = viewBox.split(" ");
-                viewBox[0] = -0;
-                viewBox[2] = 120;
-                $svg.attr("viewBox", viewBox.join(" ")).attr("width", 60);
-                $target.css("width", 60);
-            }
-
-            // Change the 'bridge' value of the element
-            l.bridges[i] =  l.elementCatalogue[$bridge.attr('data-ref')]['symbol'];
-
-            // Update drawing
-            libConfigBridges.diagramChanged();
         },
 
         // offer a string containing SVG as download
