@@ -373,8 +373,14 @@ var libConfigBridges;
             var i;
 
             // Pre-flight check
-            if ( !(l.$diagram instanceof jQuery) ) console.error("No DOM-object assigned to contain the diagram.");
-            if ( l.elementCatalogue.length == 0 ) console.error("No element catalogue found.");
+            if (!(l.$diagram instanceof jQuery)) {
+                console.warn("No DOM-object assigned to contain the diagram.");
+                return;
+            }
+            if (l.elementCatalogue.length == 0) {
+                console.warn("No element catalogue found.");
+                return;
+            }
 
             // Clear the diagram
             l.$diagram.html("");
