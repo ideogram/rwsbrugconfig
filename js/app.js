@@ -21,7 +21,14 @@ var libConfigBridges;
         },
 
         // Defaults
-        networkDirection : "N",
+        default: {
+            networkDirection : "N",
+            strConfig : ""
+
+        },
+
+
+        // Behaviour
         draggableOptions : {connectToSortable: null, helper: "clone", revert: "invalid"},
 
         // Variables
@@ -290,6 +297,17 @@ var libConfigBridges;
          */
         setConfigString: function(strConfig){
             var l = libConfigBridges;
+
+            // Check if the config string is empty. If so, re-install defaults.
+            if (strConfig == "") {
+                for (var property in l.default) {
+                    if (l.default.hasOwnProperty(property)) {
+                        l[property] = l.default[property];
+                    }
+                }
+                return;
+            }
+
             var matches = strConfig.match(/\((.*?)\)/g);
             var strPre;
 
