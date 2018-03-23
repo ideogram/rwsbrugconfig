@@ -1,6 +1,5 @@
-<svg data-name="Layer 1" height="480" viewBox="0 0 96 480" width="96" xmlns="http://www.w3.org/2000/svg">
-    <title>wal-rechts</title>
-    <path d="M0 276h18l6 144H0V276z" fill="#999"/>
-    <path d="M48 252H0v24h48l6-6h42v-18H48z" fill="#373737"/>
-    <text font-family="sans-serif" font-size="36" text-anchor="middle" x="120" y="468"/>
+<svg id="1ed45be0-95a8-428f-8d0c-d0c5ffba5173" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="96" height="432" viewBox="0 0 96 432">
+  <title>wal-rechts</title>
+  <polygon points="0 276 18 276 24 420 0 420 0 276" fill="#999"/>
+  <polygon points="48 252 0 252 0 276 48 276 54 270 96 270 96 252 48 252" fill="#373737"/>
 </svg>
