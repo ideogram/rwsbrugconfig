@@ -73,35 +73,19 @@
   symbol: "p"
   gate: true
 
-- name: ophaalbrug-A
-  tooltip: "Ophaalbrug"
-  symbol: "q"
-  gate: true
-
-- name: ophaalbrug-B
-  tooltip: "Ophaalbrug"
-  symbol: "r"
-  gate: true
-
-- name: dubbele-ophaalbrug
-  tooltip: "Dubbele ophaalbrug"
-  symbol: "s"
-  gate: true
-  
-
-#- name: ophaalbrug-overtrokken-A
-#  tooltip: "Overtrekbare ophaalbrug"
-#  symbol: "_||"
+#- name: ophaalbrug-A
+#  tooltip: "Ophaalbrug"
+#  symbol: "q"
 #  gate: true
 #
-#- name: ophaalbrug-overtrokken-B
-#  tooltip: "Overtrekbare ophaalbrug"
-#  symbol: "||_"
+#- name: ophaalbrug-B
+#  tooltip: "Ophaalbrug"
+#  symbol: "r"
 #  gate: true
-
-#- name: dubbele-ophaalbrug-overtrokken
-#  tooltip: "Dubbele, overtrekbare ophaalbrug"
-#  symbol: "_||||_"
+#
+#- name: dubbele-ophaalbrug
+#  tooltip: "Dubbele ophaalbrug"
+#  symbol: "s"
 #  gate: true
-
+#
 ...
