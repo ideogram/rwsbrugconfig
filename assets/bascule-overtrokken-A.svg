@@ -11,7 +11,6 @@
         <path d="M216 280.48h24v144h-24zM0 252.25h24V420H0z" fill="#999"/>
         <path d="M240 280.48h-24v-12h12v-12h12v24zM0 252h24v24H0z" fill="#373737"/>
         <circle cx="24" cy="256.73" fill="#673327" r="6"/>
-        <path d="M-239.32 382.05H.18v10.99h-239.5z" fill="#999"/>
     </g>
     <path d="M24 279.23h24l168-12h12" fill="none" stroke="#d1c1be" stroke-miterlimit="10" stroke-width="3"/>
     <use height="52.78" transform="translate(29 366.47)" width="182" xlink:href="#a"/>

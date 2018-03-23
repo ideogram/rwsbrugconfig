@@ -16,7 +16,6 @@
         <path d="M456 276h24v144h-24z" fill="#999"/>
         <path d="M0 276h24v-12H12v-12H0v24zm480 0h-24v-12h12v-12h12v24z" fill="#373737"/>
         <path d="M204 280.25l71.67-2.49" fill="none" stroke="#535353" stroke-miterlimit="10" stroke-width="2"/>
-        <path d="M0 274.5h-240m0-21H0" fill="none" stroke="#d1c1be" stroke-miterlimit="10" stroke-width="3"/>
     </g>
     <path d="M168.2 282.05l-68.2-4.68v-14.12h68.2v18.8z" fill="#673327"/>
     <path d="M396.63 253.56v9.69h-3.87v9.78l-224.56 9.02v-18.8h-9.07v-19l237.5 9.31zm-237.5 9.69H90.46v-14.31l68.67-4.69v19z" fill="#673327"/>
