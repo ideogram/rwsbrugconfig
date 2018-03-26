@@ -1,5 +1,8 @@
-<svg id="bc4e4f02-e8aa-4a74-9a41-e552b95c1f53" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="96" height="432" viewBox="0 0 96 432">
-  <title>wal-links</title>
-  <polygon points="96 276 78 276 72 420 96 420 96 276" fill="#999"/>
-  <polygon points="48 252 0 252 0 270 42 270 48 276 96 276 96 252 48 252" fill="#373737"/>
+<svg data-name="Layer 1" height="480" viewBox="0 0 96 480" width="96" xmlns="http://www.w3.org/2000/svg">
+    <title>
+        wal-links
+    </title>
+    <path fill="#999" d="M96 276H78l-6 144h24V276z"/>
+    <path fill="#373737" d="M48 252H0v18h42l6 6h48v-24H48z"/>
+    <text font-family="RijksoverheidSansWebText-Bold, RijksoverheidSansWebText, sans-serif" font-size="24" font-weight="700" text-anchor="middle" x="48" y="465"/>
 </svg>

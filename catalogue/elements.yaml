@@ -7,8 +7,16 @@
   symbol: "W02"
 
 - name: wal-rechts
-  tooltip: "Overgang tussen brug en wal. Rechts"
+  tooltip: "Overgang tussen brug en wal. Links"
   symbol: "W03"
+
+- name: op-land
+  tooltip: "Brugdeel liggend op land of kunstwerk"
+  symbol: "F01"
+
+- name: boven-land
+  tooltip: "brugdeel over land"
+  symbol: "F02"
 
 - name: ellipses
   tooltip: "Weggelaten doorvaartopening(en)"

@@ -1,4 +1,7 @@
-<svg id="7baaf766-9226-48cf-a3be-223d8d8cbd58" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="120" height="432" viewBox="0 0 120 432">
-  <title>wal</title>
-  <rect y="252" width="120" height="18" fill="#373737"/>
+<svg data-name="Layer 1" height="480" viewBox="0 0 120 480" width="120" xmlns="http://www.w3.org/2000/svg">
+    <title>
+        wal
+    </title>
+    <path fill="#373737" d="M0 252h120v18H0z"/>
+    <text font-family="RijksoverheidSansWebText-Bold, RijksoverheidSansWebText, sans-serif" font-size="24" font-weight="700" text-anchor="middle" x="60" y="465"/>
 </svg>
