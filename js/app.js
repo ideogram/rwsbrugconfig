@@ -23,13 +23,15 @@ var libConfigBridges;
         // Defaults
         default: {
             networkDirection : "N",
-            strConfig : ""
-
+            strConfig : "",
+            gateNumbering: "123"
         },
+
 
 
         // Behaviour
         draggableOptions : {connectToSortable: null, helper: "clone", revert: "invalid"},
+        scale: "3", // How much should the tiles be scaled down when used in the toolbar? 3 means 33% of the original
 
         // Variables
         diagramTool: {},
@@ -219,6 +221,7 @@ var libConfigBridges;
             var margin = 32;
             var h = l.height + 2*margin;
             var strLeft, strRight;
+
             var textStyle = {
                 "font-family": "sans-serif",
                 "font-size": 24,
@@ -233,7 +236,7 @@ var libConfigBridges;
             for (var i = 0; i < l.L; i++) {
                 var $svg = l.arr$SVG[i];
                 var html = $svg.html();
-                var w = 2 * parseFloat($svg.attr("width"));
+                var w = l.scale * parseFloat($svg.attr("width"));
                 var viewBox = $svg.attr("viewBox");
                 var y = 0;
 
@@ -523,9 +526,9 @@ var libConfigBridges;
             var id = $svg.attr("id");
             var l = libConfigBridges;
 
-            // Use half the width and remove the height
+            // Scale the element down and remove height-attribute
             var w = $svg.attr("width");
-            $svg.attr('width', w / 2);
+            $svg.attr('width', w / l.scale );
             $svg.removeAttr("height");
 
             l.countElementsRendered++;
