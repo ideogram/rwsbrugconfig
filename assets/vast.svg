@@ -6,5 +6,5 @@
     <path fill="#999" d="M0 276h18l6 144H0V276z"/>
     <path fill="#373737" d="M0 252h240v24H0z"/>
     <path fill="#999" d="M240 276h-18l-6 144h24V276z" data-name="brug onderkant"/>
-    <text font-family="RijksoverheidSansWebText-Bold, RijksoverheidSansWebText, sans-serif" font-size="24" font-weight="700" text-anchor="middle" x="120" y="465"/>
+    <text font-family="RijksoverheidSansWebText-Bold, RijksoverheidSansWebText, sans-serif" font-size="36" font-weight="700" text-anchor="middle" x="120" y="465"/>
 </svg>

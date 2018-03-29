@@ -81,6 +81,16 @@
   symbol: "E45"
   gate: true
 
+- name: over-sluishoofd-A
+  tooltip: "Symbool: brug loopt over hoofd van sluiskolk. De brug ligt aan het begin van de kolk."
+  symbol: "Q01"
+  gate: true
+
+- name: over-sluishoofd-B
+  tooltip: "Symbool: brug loopt over hoofd van sluiskolk. De brug ligt aan het einde van de kolk."
+  symbol: "Q02"
+  gate: true
+
 #- name: ophaalbrug-A
 #  tooltip: "Ophaalbrug"
 #  symbol: "q"

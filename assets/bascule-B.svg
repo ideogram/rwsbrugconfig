@@ -12,5 +12,5 @@
     </g>
     <path fill="#673327" d="M80.2 116.5L216 252.3l-17 16.9-16.9-16.9L71.8 125l-8.5-8.5 8.5-8.5 8.4 8.5z"/>
     <path d="M78.3 166.2l3.5-29.7-27.5 11.8 8 6a181.6 181.6 0 0 0-26.6 71.8l-10.1-.7 13.2 26.8 16.7-24.8-9.8-.6a172.7 172.7 0 0 1 24.6-66.5z" fill="#d1c1be"/>
-    <text font-family="RijksoverheidSansWebText-Bold, RijksoverheidSansWebText, sans-serif" font-size="24" font-weight="700" text-anchor="middle" x="120" y="465"/>
+    <text font-family="RijksoverheidSansWebText-Bold, RijksoverheidSansWebText, sans-serif" font-size="36" font-weight="700" text-anchor="middle" x="120" y="465"/>
 </svg>

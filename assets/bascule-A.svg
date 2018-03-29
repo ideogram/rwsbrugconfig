@@ -11,5 +11,5 @@
     <circle cx="24" cy="252.2" fill="#673327" r="6"/>
     <path fill="#673327" d="M159.8 116.5L24 252.3l17 16.9 16.9-16.9L168.3 125l8.4-8.5-8.4-8.5-8.5 8.5z"/>
     <path d="M204.3 226.1a181.6 181.6 0 0 0-26.6-71.8l8-6-27.5-11.8 3.5 29.7 8-5.9a172.1 172.1 0 0 1 24.6 66.5l-9.8.6 16.7 24.8 13.2-26.8z" fill="#d1c1be"/>
-    <text font-family="RijksoverheidSansWebText-Bold, RijksoverheidSansWebText, sans-serif" font-size="24" font-weight="700" text-anchor="middle" x="120" y="465"/>
+    <text font-family="RijksoverheidSansWebText-Bold, RijksoverheidSansWebText, sans-serif" font-size="36" font-weight="700" text-anchor="middle" x="120" y="465"/>
 </svg>

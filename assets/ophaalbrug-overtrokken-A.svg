@@ -28,5 +28,5 @@
         <path d="M243 231.4a169 169 0 0 0-9.3-38.5l9.4-3.5a182.6 182.6 0 0 1 9.8 40.8z"/>
         <path d="M226.1 201.1l3.7-29.7 23.9 18.1-27.6 11.6zM232.4 227.5l16.8 24.8 13.1-27-29.9 2.2z"/>
     </g>
-    <text font-family="RijksoverheidSansWebText-Bold, RijksoverheidSansWebText, sans-serif" font-size="24" font-weight="700" text-anchor="middle" x="144" y="465"/>
+    <text font-family="RijksoverheidSansWebText-Bold, RijksoverheidSansWebText, sans-serif" font-size="36" font-weight="700" text-anchor="middle" x="144" y="465"/>
 </svg>

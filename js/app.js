@@ -12,6 +12,7 @@ var libConfigBridges;
      */
 
     libConfigBridges = {
+
         // Settings
         path: {
             folderAssets: "assets/",
@@ -26,8 +27,6 @@ var libConfigBridges;
             strConfig : "",
             gateNumbering: "123"
         },
-
-
 
         // Behaviour
         draggableOptions : {connectToSortable: null, helper: "clone", revert: "invalid"},
@@ -45,7 +44,7 @@ var libConfigBridges;
         element : [],
         arr$SVG : [],
         shifts : [],
-        bridges: [],
+        overlays: [],
         L : 0,
         strConfig: "",
         height: 528,
@@ -137,7 +136,7 @@ var libConfigBridges;
 
             l.draggableOptions.connectToSortable = strSelector;
 
-            // jQuery-UI interactions: allow for drag-and-drop and duplication of lock elements
+            // jQuery-UI interactions: allow for drag-and-drop and duplication of  elements
             l.$diagram.sortable({
                 revert: true,
                 receive: libConfigBridges.elementDropped,
@@ -147,7 +146,7 @@ var libConfigBridges;
 
             // Create some extra HTML elements:
 
-            // .. diagram-wrapper: contains the diagram, compass rose and options
+            // ... diagram-wrapper: contains the diagram, compass rose and options
             l.$diagram.wrap('<div id="bridges-diagram-wrapper" />');
             l.$diagramWrapper = l.$diagram.find("#bridges-diagram-wrapper");
 
@@ -156,13 +155,12 @@ var libConfigBridges;
                 $("<ul id='bridges-options' />")
                     .prependTo("#bridges-diagram-wrapper");
 
-            var strOptions = [
-                 'network-direction'
+            var arrOptions = [
+                 'network-direction',
             ];
 
-            for (var i = 0; i < strOptions.length; i++) {
-
-                $.get(l.path.folderPartials + "option-" + strOptions[i] + ".partial.html", function (data) {
+            for (var i = 0; i < arrOptions.length; i++) {
+                $.get(l.path.folderPartials + "option-" + arrOptions[i] + ".partial.html", function (data) {
                     $(data).appendTo(l.$options)
                         .find("input").on("change", libConfigBridges.optionChanged);
                 });
@@ -201,8 +199,8 @@ var libConfigBridges;
             for (var i = 0; i < l.L; i++) {
                 l.strConfig += l.element[i]['symbol'];
 
-                if ( typeof l.bridges[i] !== "undefined" ){
-                    l.strConfig += l.bridges[i];
+                if ( typeof l.overlays[i] !== "undefined" ){
+                    l.strConfig += l.overlays[i];
                 }
 
             }
@@ -407,7 +405,7 @@ var libConfigBridges;
             l.$diagram.html("");
             l.element = [];
             l.shifts = [];
-            l.bridges = [];
+            l.overlays = [];
 
             // Make a local copy of the catalogue
             var c = l.elementCatalogue.slice();
@@ -446,7 +444,7 @@ var libConfigBridges;
             $.each(elements, function (i, value) {
                 if (value !== undefined) {
                     if ( value.symbol == "#" || value.symbol == ":") {
-                        l.bridges[index-1] = value.symbol;
+                        l.overlays[index-1] = value.symbol;
                     } else {
                         l.element.push(value);
                         index++;
@@ -485,6 +483,12 @@ var libConfigBridges;
             $.each( l.elementCatalogue, function (key, val) {
                 var id = val.name;
                 var tooltip = val.tooltip;
+
+                // Overlays may be draggable, but should not be allowed to end up in the diagram as separate entities
+                var draggableOptionsElement = l.draggableOptions;
+                if (val.name == "over-sluishoofd-A" || val.name == "over-sluishoofd-B" ) {
+                    delete draggableOptionsElement.connectToSortable;
+                }
 
                 var $li = $('<li class="element"></li>' ).
                     appendTo(libConfigBridges.$toolbar)
@@ -577,6 +581,49 @@ var libConfigBridges;
 
             $btnRemove.on("click", libConfigBridges.removeElement );
 
+            // Allow for an overlay to be dropped on the element.
+            $target.droppable(
+                {
+                    drop: libConfigBridges.receiveDropOnElement,
+                    accept: ".over-sluishoofd-A, .over-sluishoofd-B"
+                }
+            );
+        },
+
+        // event-handler for receiving an overlay dropped on a ui-element
+        receiveDropOnElement: function(event, ui){
+            console.log("Receive Drop On Element");
+            libConfigBridges.drawOverlay($(event.target),$(ui.helper));
+        },
+
+        // Draw an overlay over the target element
+        drawOverlay: function($target, $overlay) {
+            var l = libConfigBridges;
+            var viewBox;
+
+            // Determine the right DOM-elements
+            var $svg = $target.find("svg");
+            var $overlayGroup = $overlay.find("g");
+            var i = $target.index();
+
+            // Calculate the position
+            var pxTargetWidth = l.scale * parseFloat($svg.attr("width"));
+            var pxBridgeWidth = 5 * 24; // 120;
+            var pxCentre = (pxTargetWidth - pxBridgeWidth) / 2;
+
+            // Change the DOM of the receiving element
+            $svg.append($overlayGroup);
+
+            // ... positioning the overlay nicely in the centre
+            if (pxCentre != 0 ) {
+                $svg.find(".overlay").attr("transform", "translate(" + pxCentre + ",0)");
+            }
+
+            // Change the 'bridge' value of the element
+            l.overlays[i] =  l.elementCatalogue[$overlay.attr('data-ref')]['symbol'];
+
+            // Update drawing
+            libConfigBridges.diagramChanged();
         },
 
         // Remove an element from the diagram
@@ -597,6 +644,13 @@ var libConfigBridges;
             var gate = false;
             var $svg = null;
 
+            // First, find the total amount of gates
+            for (i = 0; i < l.L; i++) {
+                gate = l.element[i]['overlay'];
+                if (gate != false) {
+                    totalGates++;
+                }
+            }
 
             // Fill the text element with the DVO number
             for (i = 0; i < l.L; i++) {
