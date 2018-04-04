@@ -25,7 +25,7 @@ var libConfigBridges;
         default: {
             networkDirection : "N",
             strConfig : "",
-            gateNumbering: "123"
+            dvoNumbering: "123"
         },
 
         // Behaviour
@@ -86,6 +86,9 @@ var libConfigBridges;
                 ["#label-dir-o","network-dir-o-brug.svg"],
                 ["#label-dir-z","network-dir-z-brug.svg"],
                 ["#label-dir-w","network-dir-w-brug.svg"],
+                ["#label-dvo-numbers-123","123.svg"],
+                ["#label-dvo-numbers-321","321.svg"],
+
             ];
 
             for(var i=0; i<images.length; i++){
@@ -155,10 +158,13 @@ var libConfigBridges;
                 $("<ul id='bridges-options' />")
                     .prependTo("#bridges-diagram-wrapper");
 
+            // ...load a series of partials into the options-div
             var arrOptions = [
                  'network-direction',
+                 'dvo-numbers-direction'
             ];
 
+            // ... set an event handler for when these options change
             for (var i = 0; i < arrOptions.length; i++) {
                 $.get(l.path.folderPartials + "option-" + arrOptions[i] + ".partial.html", function (data) {
                     $(data).appendTo(l.$options)
@@ -193,6 +199,7 @@ var libConfigBridges;
             l.strConfig = [
                 "(",
                 l.networkDirection,
+                L.dvoNumbering,
                 ")"
             ].join(" ");
 
@@ -301,7 +308,7 @@ var libConfigBridges;
 
             // Check if the config string is empty. If so, re-install defaults.
             if (strConfig == "") {
-                for (var property in l.default) {
+                for (var property in l.default ) {
                     if (l.default.hasOwnProperty(property)) {
                         l[property] = l.default[property];
                     }
@@ -327,13 +334,19 @@ var libConfigBridges;
                 // ... and extract network direction
                 l.setNetworkDirection( strPre.match(/[NOZW]/)[0] );
 
+                // ... extract gate-numbering direction
+                d = strPre.match(/123|321/g);
+                if (d === null || d[0] === "123"){
+                    l.setDvoNumbering("123");
+                } else {
+                    l.setDvoNumbering("321");
+                }
+
             }
 
             // What remains is the 'actual' config string, the part
             // that contains all the symbols, like e.g. <S.<.   .>
             l.strConfig = strConfig;
-
-
         },
 
         /**
@@ -357,23 +370,22 @@ var libConfigBridges;
         },
 
         /**
-         * Set gate numbering direction. "CBA" should practically never be needed.
-         * @param {string} value Either "ABC" or "CBA"
+         * Set the direction of the DVO Numbering
          * @memberof libConfig
          */
-        setGateNumbering: function( value ){
+        setDvoNumbering: function( value ){
             var l = libConfigBridges;
-            l.gateNumbering = value;
+            l.dvoNumbering = value;
         },
 
         /**
          * Returns  gate numbering
-         * @returns {string} Either "ABC" or "CBA"
+         * @returns {string} Either "123" or "321"
          * @memberof libConfig
          */
-        getGateNumbering: function(){
+        getDvoNumbering: function(){
             var l = libConfigBridges;
-            return l.gateNumbering;
+            return l.dvoNumbering;
         },
 
         /**
@@ -639,17 +651,46 @@ var libConfigBridges;
         // Put a label under each DVO
         annotateDVOs: function() {
             var l = libConfigBridges;
-            var gateCount = 0;
+            var gateNumber = 0;
             var totalGates = 0;
             var gate = false;
             var $svg = null;
+            var inc = 0;
+            var suffix = {
+                "123": {
+                    "N": "O",
+                    "O": "Z",
+                    "Z": "W",
+                    "W": "N"
+                },
+                "321": {
+                    "N": "W",
+                    "O": "N",
+                    "Z": "O",
+                    "W": "Z"
+                }
+            };
 
             // First, find the total amount of gates
             for (i = 0; i < l.L; i++) {
-                gate = l.element[i]['overlay'];
-                if (gate != false) {
+                gate = l.element[i]['gate'];
+                if (gate === true ) {
                     totalGates++;
                 }
+
+                if ( l.element[i].name == "draai" ){
+                    totalGates++;
+                }
+            }
+
+            // Counting up or down?
+            if (l.dvoNumbering === "123") {
+                gateNumber = 0;
+                inc = +1;
+            }
+            if (l.dvoNumbering === "321") {
+                gateNumber = totalGates + 1;
+                inc = -1;
             }
 
             // Fill the text element with the DVO number
@@ -657,20 +698,16 @@ var libConfigBridges;
                 gate = l.element[i]['gate'];
                 $svg = l.arr$SVG[i];
 
-                var suffix = {
-                    "N" : "O",
-                    "O" : "Z",
-                    "Z" : "W",
-                    "W" : "N"
-                };
 
-                if (gate == true ) {
-                    gateCount++;
-                    $svg.find("text").first().html( gateCount + suffix[l.networkDirection] );
+
+                if (gate === true ) {
+                    gateNumber+= inc;
+
+                    $svg.find("text").first().html( gateNumber + suffix[l.dvoNumbering][l.networkDirection] );
 
                     if ( l.element[i].name == "draai" ){
-                        gateCount++;
-                        $svg.find("text").last().html( gateCount + suffix[l.networkDirection] );
+                        gateNumber+= inc;
+                        $svg.find("text").last().html( gateNumber + suffix[l.dvoNumbering][l.networkDirection] );
                     }
 
                 }
@@ -695,10 +732,19 @@ var libConfigBridges;
         optionChanged: function() {
             var l = libConfigBridges;
             var $me = $(this);
+            var varName = $me.attr("name");
             var value = $me.val();
 
-            l.networkDirection = value;
-            libConfigBridges.drawNetworkLetter(value);
+            switch (varName ){
+                case "network-direction":
+                    l.networkDirection = value;
+                    libConfigBridges.drawNetworkLetter(value);
+                    break;
+                case "dvo-numbers-direction":
+                    l.dvoNumbering = value;
+                    libConfigBridges.diagramChanged();
+                    break;
+            }
 
             l.diagramChanged();
         },

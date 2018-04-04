@@ -111,13 +111,13 @@ svg {
   #bridges-options legend {
     margin-bottom: 0.5em; }
 
-#network-direction input, #gates-direction input {
+#network-direction input, #dvo-numbers-direction input {
   display: none; }
-  #network-direction input:checked + label, #gates-direction input:checked + label {
+  #network-direction input:checked + label, #dvo-numbers-direction input:checked + label {
     background-color: #DEECF8;
     border-color: #8CC3E7;
     opacity: 1; }
-#network-direction label, #gates-direction label {
+#network-direction label, #dvo-numbers-direction label {
   display: block;
   float: left;
   width: 64px;
@@ -144,7 +144,7 @@ svg {
   width: 72px;
   height: 72px; }
 
-#label-dir-n, #label-gates-abc {
+#label-dir-n, #label-dvo-numbers-123 {
   border-radius: 8px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px; }
@@ -152,7 +152,7 @@ svg {
 #label-dir-o, #label-dir-z {
   border-radius: 0px; }
 
-#label-dir-w, #label-gates-cba {
+#label-dir-w, #label-dvo-numbers-321 {
   border-radius: 8px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px; }
