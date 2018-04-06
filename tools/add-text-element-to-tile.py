@@ -19,7 +19,7 @@ for file in glob.glob("../assets/*.svg"):
         text = dom.createElement("text")
         text.setAttribute("x", str(int(width)/2))
         text.setAttribute("y", "465" )
-        text.setAttribute("font-size", "24" )
+        text.setAttribute("font-size", "36" )
         text.setAttribute("font-family", "RijksoverheidSansWebText-Bold, RijksoverheidSansWebText, sans-serif" )
         text.setAttribute("font-weight", "700")
         text.setAttribute("text-anchor", "middle")

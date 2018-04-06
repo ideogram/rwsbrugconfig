@@ -2,6 +2,5 @@
     <title>
         wal
     </title>
-    <path fill="#373737" d="M0 252h120v18H0z"/>
-    <text font-family="RijksoverheidSansWebText-Bold, RijksoverheidSansWebText, sans-serif" font-size="36" font-weight="700" text-anchor="middle" x="60" y="465"/>
+    <path d="M0 252h120v18H0z" fill="#373737"/>
 </svg>

@@ -82,12 +82,12 @@
   gate: true
 
 - name: over-sluishoofd-A
-  tooltip: "Symbool: brug loopt over hoofd van sluiskolk. De brug ligt aan het begin van de kolk."
+  tooltip: "DVO overspant hoofd van sluiskolk."
   symbol: "Q01"
   gate: true
 
 - name: over-sluishoofd-B
-  tooltip: "Symbool: brug loopt over hoofd van sluiskolk. De brug ligt aan het einde van de kolk."
+  tooltip: "DVO overspant hoofd van sluiskolk."
   symbol: "Q02"
   gate: true
 

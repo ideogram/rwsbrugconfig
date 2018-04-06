@@ -2,7 +2,6 @@
     <title>
         wal-rechts
     </title>
-    <path fill="#999" d="M0 276h18l6 144H0V276z"/>
-    <path fill="#373737" d="M48 252H0v24h48l6-6h42v-18H48z"/>
-    <text font-family="RijksoverheidSansWebText-Bold, RijksoverheidSansWebText, sans-serif" font-size="36" font-weight="700" text-anchor="middle" x="48" y="465"/>
+    <path d="M0 276h18l6 144H0V276z" fill="#999"/>
+    <path d="M48 252H0v24h48l6-6h42v-18H48z" fill="#373737"/>
 </svg>

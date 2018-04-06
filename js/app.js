@@ -656,6 +656,7 @@ var libConfigBridges;
             var gate = false;
             var $svg = null;
             var inc = 0;
+            var windPoint = "";
             var suffix = {
                 "123": {
                     "N": "O",
@@ -693,25 +694,28 @@ var libConfigBridges;
                 inc = -1;
             }
 
+            if (totalGates > 1) {
+                windPoint = " " + suffix[l.dvoNumbering][l.networkDirection];
+            }
+
+
             // Fill the text element with the DVO number
             for (i = 0; i < l.L; i++) {
                 gate = l.element[i]['gate'];
                 $svg = l.arr$SVG[i];
 
-
-
                 if (gate === true ) {
                     gateNumber+= inc;
 
-                    $svg.find("text").first().html( gateNumber + suffix[l.dvoNumbering][l.networkDirection] );
+                    $svg.find("text").first().html( gateNumber + windPoint );
 
                     if ( l.element[i].name == "draai" ){
                         gateNumber+= inc;
-                        $svg.find("text").last().html( gateNumber + suffix[l.dvoNumbering][l.networkDirection] );
+                        $svg.find("text").last().html( gateNumber + windPoint  );
                     }
-
                 }
             }
+
         },
 
         // offer a string containing SVG as download

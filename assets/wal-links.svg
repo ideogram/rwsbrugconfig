@@ -2,7 +2,6 @@
     <title>
         wal-links
     </title>
-    <path fill="#999" d="M96 276H78l-6 144h24V276z"/>
-    <path fill="#373737" d="M48 252H0v18h42l6 6h48v-24H48z"/>
-    <text font-family="RijksoverheidSansWebText-Bold, RijksoverheidSansWebText, sans-serif" font-size="36" font-weight="700" text-anchor="middle" x="48" y="465"/>
-</svg>
+    <path d="M96 276H78l-6 144h24V276z" fill="#999"/>
+    <path d="M48 252H0v18h42l6 6h48v-24H48z" fill="#373737"/>
+    </svg>
