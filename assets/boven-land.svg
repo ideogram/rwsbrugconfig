@@ -1,0 +1,8 @@
+<svg data-name="Layer 1" height="480" viewBox="0 0 240 480" width="240" xmlns="http://www.w3.org/2000/svg">
+    <title>
+        boven-land
+    </title>
+    <path d="M216 276h24v144h-24zM0 276h24v144H0z" fill="#999"/>
+    <path d="M29 396h182v24H29z" fill="#c3dbb6"/>
+    <path d="M0 252v24h48l6-6h132l6 6h48v-24H0z" fill="#373737"/>
+</svg>

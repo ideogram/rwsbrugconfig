@@ -1,0 +1,48 @@
+<svg id="e5f97015-9e9f-4246-8551-383cabd86a95" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="480" viewBox="0 0 240 480">
+  <defs>
+    <filter id="0b411d5b-5f74-461b-bacb-90aca81cece3" name="AI_GaussianBlur_4">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+    <linearGradient id="f777ca19-6809-45d6-9583-c367e224f283" x1="29.58" y1="285.6" x2="162.42" y2="418.44" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c6b8cf"/>
+      <stop offset="1" stop-color="#42145f"/>
+    </linearGradient>
+  </defs>
+  <title>over-sluishoofd-A</title>
+  <g id="48b81f3c-6444-4109-8554-207409b946ae" data-name="brug onderkant">
+    <defs>
+      <filter id="0b411d5b-5f74-461b-bacb-90aca81cece3" name="AI_GaussianBlur_4">
+        <feGaussianBlur stdDeviation="2"/>
+      </filter>
+      <linearGradient id="f777ca19-6809-45d6-9583-c367e224f283" x1="29.58" y1="285.6" x2="162.42" y2="418.44" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#c6b8cf"/>
+        <stop offset="1" stop-color="#42145f"/>
+      </linearGradient>
+    </defs>
+    <g opacity="0.5" filter="url(#0b411d5b-5f74-461b-bacb-90aca81cece3)">
+      <rect x="26.4" y="297" width="156" height="120" rx="11.9" ry="11.9"/>
+    </g>
+    <g>
+      <rect x="18" y="292" width="156" height="120" rx="11.9" ry="11.9" fill="#42145f" stroke-miterlimit="10" stroke-width="2.63" stroke="url(#f777ca19-6809-45d6-9583-c367e224f283)"/>
+      <polygon points="96.9 322.2 96.9 322.2 89.9 322.2 89.9 322.2 64.1 384.7 122.6 384.7 96.9 322.2" fill="#b2d7ee"/>
+      <polygon points="89.9 319.2 64.1 359.7 64.1 384.7 89.9 322.2 89.9 319.2" fill="#b4b4b4"/>
+      <polygon points="96.9 319.2 96.9 322.2 122.6 384.7 122.6 359.7 96.9 319.2" fill="#b4b4b4"/>
+      <polygon points="119 353.9 116.8 371 70 371 67.8 353.9 64.1 359.7 66.6 378.7 120.2 378.7 122.6 359.7 119 353.9" opacity="0.15"/>
+      <polygon points="63.3 359.7 89.9 319.2 65.3 359.7 63.3 359.7" fill="#ccc"/>
+      <polygon points="96.9 319.2 123.8 359.7 121.5 359.7 96.9 319.2" fill="#ccc"/>
+      <polygon points="21.1 343.5 21.1 351.8 37.7 351.8 37.7 384.8 54.2 384.8 54.2 351.8 133.6 351.8 133.6 384.8 150.2 384.8 150.2 351.8 166.7 351.8 166.7 343.5 21.1 343.5" fill="#fff" stroke="#42145f" stroke-miterlimit="10" stroke-opacity="0.8" stroke-width="2"/>
+      <polyline points="64.1 359.7 64.1 384.7 122.6 384.7 122.6 359.7" fill="none" stroke="#535353" stroke-miterlimit="10" stroke-width="2"/>
+      <polygon points="72.5 364.5 73.2 362.7 113.6 362.7 114.3 364.5 72.5 364.5" fill="#f0f"/>
+      <g>
+        <polygon points="68.1 362.7 118.7 362.7 119.6 364.5 67.2 364.5 68.1 362.7" fill="#a9a9a9"/>
+        <rect x="67.2" y="364.5" width="52.4" height="12.51" fill="#707070"/>
+      </g>
+      <g>
+        <polygon points="89 321.7 97.7 321.7 97.9 322 88.9 322 89 321.7" fill="#a9a9a9"/>
+        <rect x="88.9" y="322" width="9" height="2.15" fill="#707070"/>
+      </g>
+      <line x1="93.4" y1="377" x2="93.4" y2="362.5" fill="none" stroke="#535353" stroke-linejoin="round"/>
+      <line x1="93.4" y1="324.2" x2="93.4" y2="321.7" fill="none" stroke="#535353" stroke-linejoin="round" stroke-width="0.25"/>
+    </g>
+  </g>
+</svg>

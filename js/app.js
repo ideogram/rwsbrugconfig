@@ -631,7 +631,7 @@ var libConfigBridges;
                 $svg.find(".overlay").attr("transform", "translate(" + pxCentre + ",0)");
             }
 
-            // Change the 'bridge' value of the element
+            // Change the 'overlay' value of the element
             l.overlays[i] =  l.elementCatalogue[$overlay.attr('data-ref')]['symbol'];
 
             // Update drawing
@@ -694,10 +694,10 @@ var libConfigBridges;
                 inc = -1;
             }
 
+            // Create the suffix with the windpoint (N, O, Z, W)
             if (totalGates > 1) {
                 windPoint = " " + suffix[l.dvoNumbering][l.networkDirection];
             }
-
 
             // Fill the text element with the DVO number
             for (i = 0; i < l.L; i++) {
