@@ -29,57 +29,57 @@
 - name: vast
   tooltip: "Vaste brug"
   symbol: "E10"
-  gate: true
+  hasLabel: true
 
 - name: draai
   tooltip: "Draaibrug"
   symbol: "E20"
-  gate: true
+  hasLabel: true
 
 - name: draai-enkel-A
   tooltip: "Ongelijkarmige draaibrug"
   symbol: "E21"
-  gate: true
+  hasLabel: true
 
 - name: draai-enkel-B
   tooltip: "Ongelijkarmige draaibrug"
   symbol: "E22"
-  gate: true
+  hasLabel: true
 
 - name: hef
   tooltip: "Hefbrug"
   symbol: "E30"
-  gate: true
+  hasLabel: true
 
 - name: bascule-A
   tooltip: "Basculebrug of klapbrug"
   symbol: "E40"
-  gate: true
+  hasLabel: true
 
 - name: bascule-B
   tooltip: "Basculebrug of klapbrug"
   symbol: "E41"
-  gate: true
+  hasLabel: true
 
 - name: bascule-overtrokken-A
   tooltip: "Overtrekbare basculebrug"
   symbol: "E42"
-  gate: true
+  hasLabel: true
 
 - name: bascule-overtrokken-B
   tooltip: "Overtrekbare basculebrug"
   symbol: "E43"
-  gate: true
+  hasLabel: true
 
 - name: dubbele-bascule
   tooltip: "Dubbele basculebrug"
   symbol: "E44"
-  gate: true
+  hasLabel: true
 
 - name: dubbele-bascule-overtrokken
   tooltip: "Dubbele, overtrekbare basculebrug"
   symbol: "E45"
-  gate: true
+  hasLabel: true
 
 - name: over-sluishoofd-A
   tooltip: "DVO overspant hoofd van sluiskolk."
@@ -104,16 +104,16 @@
 #- name: ophaalbrug-A
 #  tooltip: "Ophaalbrug"
 #  symbol: "q"
-#  gate: true
+#  hasLabel: true
 #
 #- name: ophaalbrug-B
 #  tooltip: "Ophaalbrug"
 #  symbol: "r"
-#  gate: true
+#  hasLabel: true
 #
 #- name: dubbele-ophaalbrug
 #  tooltip: "Dubbele ophaalbrug"
 #  symbol: "s"
-#  gate: true
+#  hasLabel: true
 #
 ...

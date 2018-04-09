@@ -335,7 +335,7 @@ var libConfigBridges;
                 // ... and extract network direction
                 l.setNetworkDirection( strPre.match(/[NOZW]/)[0] );
 
-                // ... extract gate-numbering direction
+                // ... extract element-numbering direction
                 d = strPre.match(/123|321/g);
                 if (d === null || d[0] === "123"){
                     l.setDvoNumbering("123");
@@ -380,7 +380,7 @@ var libConfigBridges;
         },
 
         /**
-         * Returns  gate numbering
+         * Returns  label numbering direction
          * @returns {string} Either "123" or "321"
          * @memberof libConfig
          */
@@ -656,9 +656,9 @@ var libConfigBridges;
         // Put a label under each DVO
         annotateDVOs: function() {
             var l = libConfigBridges;
-            var gateNumber = 0;
-            var totalGates = 0;
-            var gate = false;
+            var labelNumber = 0;
+            var totalLabels = 0;
+            var hasLabel = false;
             var $svg = null;
             var inc = 0;
             var windPoint = "";
@@ -679,44 +679,44 @@ var libConfigBridges;
 
             // First, find the total amount of gates
             for (i = 0; i < l.L; i++) {
-                gate = l.element[i]['gate'];
-                if (gate === true ) {
-                    totalGates++;
+                hasLabel = l.element[i]['hasLabel'];
+                if (hasLabel === true ) {
+                    totalLabels++;
                 }
 
                 if ( l.element[i].name == "draai" ){
-                    totalGates++;
+                    totalLabels++;
                 }
             }
 
             // Counting up or down?
             if (l.dvoNumbering === "123") {
-                gateNumber = 0;
+                labelNumber = 0;
                 inc = +1;
             }
             if (l.dvoNumbering === "321") {
-                gateNumber = totalGates + 1;
+                labelNumber = totalLabels + 1;
                 inc = -1;
             }
 
             // Create the suffix with the windpoint (N, O, Z, W)
-            if (totalGates > 1) {
+            if (totalLabels > 1) {
                 windPoint = " " + suffix[l.dvoNumbering][l.networkDirection];
             }
 
             // Fill the text element with the DVO number
             for (i = 0; i < l.L; i++) {
-                gate = l.element[i]['gate'];
+                hasLabel = l.element[i]['hasLabel'];
                 $svg = l.arr$SVG[i];
 
-                if (gate === true ) {
-                    gateNumber+= inc;
+                if (hasLabel === true ) {
+                    labelNumber+= inc;
 
-                    $svg.find("text").first().html( gateNumber + windPoint );
+                    $svg.find("text").first().html( labelNumber + windPoint );
 
                     if ( l.element[i].name == "draai" ){
-                        gateNumber+= inc;
-                        $svg.find("text").last().html( gateNumber + windPoint  );
+                        labelNumber+= inc;
+                        $svg.find("text").last().html( labelNumber + windPoint  );
                     }
                 }
             }
