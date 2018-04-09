@@ -84,12 +84,22 @@
 - name: over-sluishoofd-A
   tooltip: "DVO overspant hoofd van sluiskolk."
   symbol: "Q01"
-  gate: true
+  overlay: true
 
 - name: over-sluishoofd-B
   tooltip: "DVO overspant hoofd van sluiskolk."
   symbol: "Q02"
-  gate: true
+  overlay: true
+
+- name: sb-bb
+  tooltip: "betonning van vaargeul: SB - BB"
+  symbol: "Q11"
+  overlay: true
+
+- name: bb-sb
+  tooltip: "betonning van vaargeul: BB - SB"
+  symbol: "Q12"
+  overlay: true
 
 #- name: ophaalbrug-A
 #  tooltip: "Ophaalbrug"

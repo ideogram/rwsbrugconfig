@@ -498,7 +498,7 @@ var libConfigBridges;
 
                 // Overlays may be draggable, but should not be allowed to end up in the diagram as separate entities
                 var draggableOptionsElement = l.draggableOptions;
-                if (val.name == "over-sluishoofd-A" || val.name == "over-sluishoofd-B" ) {
+                if (val.name == "over-sluishoofd-A" || val.name == "over-sluishoofd-B" || val.name == "sb-bb" || val.name == "bb-sb" ) {
                     delete draggableOptionsElement.connectToSortable;
                 }
 
@@ -597,7 +597,7 @@ var libConfigBridges;
             $target.droppable(
                 {
                     drop: libConfigBridges.receiveDropOnElement,
-                    accept: ".over-sluishoofd-A, .over-sluishoofd-B"
+                    accept: ".over-sluishoofd-A, .over-sluishoofd-B, .bb-sb, .sb-bb"
                 }
             );
         },
@@ -613,9 +613,9 @@ var libConfigBridges;
             var l = libConfigBridges;
             var viewBox;
 
-            // Determine the right DOM-elements
+            // Determine the right DOM-elements to include.
             var $svg = $target.find("svg");
-            var $overlayGroup = $overlay.find("g");
+            var $overlayGroup = $overlay.find("[data-name=\'overlay']");
             var i = $target.index();
 
             // Calculate the position
