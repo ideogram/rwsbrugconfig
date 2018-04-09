@@ -48,6 +48,7 @@ var libConfigBridges;
         L : 0,
         strConfig: "",
         height: 528,
+        overlayNames: [],
 
         /**
          * Set the paths used within the app.
@@ -490,6 +491,7 @@ var libConfigBridges;
         // Iterate over the elements array and add the drawings to the toolbar
         addElementsToToolbar: function() {
             var l = libConfigBridges;
+            var arrOverlays = []
             l.countElementsLoaded = 0;
 
             $.each( l.elementCatalogue, function (key, val) {
@@ -498,9 +500,11 @@ var libConfigBridges;
 
                 // Overlays may be draggable, but should not be allowed to end up in the diagram as separate entities
                 var draggableOptionsElement = l.draggableOptions;
-                if (val.name == "over-sluishoofd-A" || val.name == "over-sluishoofd-B" || val.name == "sb-bb" || val.name == "bb-sb" ) {
+                if ( val.overlay === true ) {
                     delete draggableOptionsElement.connectToSortable;
+                    l.overlayNames.push(val.name);
                 }
+
 
                 var $li = $('<li class="element"></li>' ).
                     appendTo(libConfigBridges.$toolbar)
@@ -593,18 +597,19 @@ var libConfigBridges;
 
             $btnRemove.on("click", libConfigBridges.removeElement );
 
+            var strOverlaysSelector = "." + l.overlayNames.join(", .");
+
             // Allow for an overlay to be dropped on the element.
             $target.droppable(
                 {
                     drop: libConfigBridges.receiveDropOnElement,
-                    accept: ".over-sluishoofd-A, .over-sluishoofd-B, .bb-sb, .sb-bb"
+                    accept: strOverlaysSelector
                 }
             );
         },
 
         // event-handler for receiving an overlay dropped on a ui-element
         receiveDropOnElement: function(event, ui){
-            console.log("Receive Drop On Element");
             libConfigBridges.drawOverlay($(event.target),$(ui.helper));
         },
 
