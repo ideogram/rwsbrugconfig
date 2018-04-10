@@ -27,7 +27,7 @@ var libConfigBridges;
             strConfig : "",
             dvoNumbering: "default",
             buoys: true,
-            stream: "up"
+            streamDirection: "up"
         },
 
         // Behaviour
@@ -35,6 +35,11 @@ var libConfigBridges;
         scale: "3", // How much should the tiles be scaled down when used in the toolbar? 3 means 33% of the original
 
         // Variables
+        networkDirection : "N",
+        dvoNumbering: "default",
+        buoys: "show",
+        streamDirection: "up",
+
         diagramTool: {},
         $toolbar: null,
         $diagram: null,
@@ -95,17 +100,12 @@ var libConfigBridges;
                 strSelector = images[i][0];
 
                 if ( images[i][1].constructor === Array) {
-                    strRule = "background-image:" + images[i][1].map(libConfigBridges.getCssUrl).join((", "));
-
-                    console.log(images[i][1].map(libConfigBridges.getCssUrl).join(", "));
-
+                    strRule = "background-image:" + images[i][1].map(l.getCssUrl).join((", "));
                 } else {
-                    strRule = "background-image: " + libConfigBridges.getCssUrl( images[i][1] );
+                    strRule = "background-image: " + l.getCssUrl( images[i][1] );
                 }
 
-                console.log(strRule);
-
-                libConfigBridges.addCSSRule(sheet, strSelector, strRule );
+                l.addCSSRule(sheet, strSelector, strRule );
             }
         },
 
@@ -173,10 +173,9 @@ var libConfigBridges;
             var arrOptions = [
                 'network-direction',
                 'dvo-naming-direction',
-                'stream',
+                'stream-direction',
                 'buoys'
             ];
-
 
             for (var i = 0; i < arrOptions.length; i++) {
                 $.get(l.path.folderPartials + "option-" + arrOptions[i] + ".partial.html", function (data) {
@@ -327,6 +326,8 @@ var libConfigBridges;
                 return;
             }
 
+            console.log(l);
+
             var matches = strConfig.match(/\((.*?)\)/g);
             var strPre;
 
@@ -397,6 +398,42 @@ var libConfigBridges;
         getDvoNumbering: function(){
             var l = libConfigBridges;
             return l.dvoNumbering;
+        },
+
+        /**
+         * Sets if buoys should be shown "show" or hidden ("hide")
+         * @param value
+         */
+        setBuoys: function(value){
+            var l = libConfigBridges;
+            l.buoys = value;
+        },
+
+        /**
+         * Returns if buoys should be shown "show" or hidden ("hide")
+         * @returns {*}
+         */
+        getBuoys: function(){
+            var l = libConfigBridges;
+            return l.buoys;
+        },
+
+        /**
+         * Sets the direction of the fysical water flow. Either "up" or "down" in the diagram
+         * @param value
+         */
+        setStreamDirection: function(value){
+            var l = libConfigBridges;
+            l.streamDirection = value;
+        },
+
+        /**
+         * Returns the direction of the fysical water flow. Either "up" or "down" in the diagram
+         * @returns {*}
+         */
+        getStreamDirection: function () {
+            var l = libConfigBridges;
+            return l.streamDirection;
         },
 
         /**
@@ -757,40 +794,65 @@ var libConfigBridges;
             switch (varName ){
                 case "network-direction":
                     l.networkDirection = value;
-                    libConfigBridges.drawNetworkLetter(value);
                     break;
                 case "dvo-numbers-direction":
                     l.dvoNumbering = value;
-                    libConfigBridges.diagramChanged();
+                    break;
+                case "stream-direction":
+                    l.streamDirection = value;
+                    break;
+                case "buoys":
+                    l.buoys = value;
                     break;
             }
 
+            l.drawDiagramBackground();
             l.diagramChanged();
         },
 
         // Draw network-arrow on top of the diagram
-        drawNetworkLetter: function(value) {
+        drawDiagramBackground: function() {
             var l = libConfigBridges;
+            var images = [];
 
 
-            switch (value){
+
+            switch (l.networkDirection){
                 case "N":
-                    l.$diagram.css("background-image", libConfigBridges.getCssUrl("network-n-z.svg"));
+                    images[0] = "network-n-z.svg";
                     break;
 
                 case "W":
-                    l.$diagram.css("background-image", libConfigBridges.getCssUrl("network-w-o.svg"));
+                    images[0] = "network-w-o.svg";
                     break;
 
                 case "O":
-                    l.$diagram.css("background-image", libConfigBridges.getCssUrl("network-o-w.svg"));
+                    images[0] = "network-o-w.svg";
                     break;
 
                 case "Z":
-                    l.$diagram.css("background-image", libConfigBridges.getCssUrl("network-z-n.svg"));
+                    images[0] = "network-z-n.svg";
                     break;
             }
-        },
+
+            console.log("Boeie", l.buoys);
+
+            switch (l.streamDirection){
+                case "up":
+                    images[1] = "omhoog.svg";
+                    if ( l.buoys === "show" ) images[2] = "rood-groen.svg";
+                    break;
+                case "down":
+                    images[1] = "omlaag.svg";
+                    if ( l.buoys === "show" ) images[2] = "groen-rood.svg";
+                    break;
+            }
+
+            console.log( images );
+
+            l.$diagram.css("background-image",images.map(l.getCssUrl).join((", ")))
+
+;        },
 
 
         // --- CSS Helper functions ---
