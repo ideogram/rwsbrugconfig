@@ -121,7 +121,7 @@ svg
   legend
     margin-bottom: 0.5em
 
-#network-direction, #dvo-numbers-direction
+#network-direction, #dvo-numbers-direction, #stream, #buoys
   input
     display: none
     &:checked + label
@@ -166,7 +166,6 @@ svg
 %label-mid
   border-radius: 0px
 
-
 %label-right
   border-radius: 8px
   border-top-left-radius: 0px
@@ -189,13 +188,29 @@ svg
   @extend %label-right
 
 
-#label-dvo-numbers-123
-  //background-image: url(../images/123.svg)
+#dvo-numbers-direction, #stream, #buoys
+  label
+    width: 96px
+    line-height: 32px
+
+#label-dvo-numbers-standard
   @extend %label-left
 
-#label-dvo-numbers-321
-  //background-image: url(../images/321.svg)
+#label-dvo-numbers-reverse
   @extend %label-right
+
+#label-stream-top-bottom
+  @extend %label-left
+
+#label-stream-bottom-top
+  @extend %label-right
+
+#label-buoys-show
+  @extend  %label-left
+
+#label-buoys-hide
+  @extend  %label-right
+
 
 
 // DEBUGGING ONLY

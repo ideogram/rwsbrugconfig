@@ -1,53 +1,41 @@
-<svg id="2814ce1d-8cde-4a3d-88f4-6b262a86bc19" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="480" viewBox="0 0 240 480">
+<svg id="7a88aca2-e820-4991-ae89-ba4ada627f03" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="480" viewBox="0 0 240 480">
+  <defs>
+    <filter id="381b814e-790c-451f-a2a1-3ef97b1b840e" name="AI_GaussianBlur_4">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+    <linearGradient id="955e3781-16e0-48f7-8dc1-a7daa51aa53d" x1="49.4" y1="282.84" x2="182.24" y2="415.69" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c6b8cf"/>
+      <stop offset="1" stop-color="#42145f"/>
+    </linearGradient>
+  </defs>
   <title>over-sluishoofd-B</title>
-  <g id="5ceb8e14-8c10-44fc-bdd4-8369cb2e5a52" data-name="overlay">
-    <defs>
-      <filter id="cf63eb4f-f650-4dbc-901c-ff1c3e4be2ea" name="AI_GaussianBlur_4">
-        <feGaussianBlur stdDeviation="4"/>
-      </filter>
-      <linearGradient id="beaf1a81-0bbe-468b-84ed-6ef2704d25e4" x1="29.58" y1="282.84" x2="162.42" y2="415.69" gradientUnits="userSpaceOnUse">
-        <stop offset="0" stop-color="#c6b8cf"/>
-        <stop offset="1" stop-color="#42145f"/>
-      </linearGradient>
-    </defs>
-    <g opacity="0.5" filter="url(#cf63eb4f-f650-4dbc-901c-ff1c3e4be2ea)">
-      <rect x="26.4" y="297" width="156" height="120" rx="11.9" ry="11.9"/>
+  <g id="137e2412-52d8-43c0-a676-feaa12cae6b6" data-name="overlay">
+    <g opacity="0.5" filter="url(#381b814e-790c-451f-a2a1-3ef97b1b840e)">
+      <rect x="46.18" y="297.02" width="156" height="120" rx="11.94" ry="11.94"/>
     </g>
-    <rect x="18" y="289.3" width="156" height="120" rx="11.9" ry="11.9" fill="#42145f" stroke-miterlimit="10" stroke-width="2.63" stroke="url(#beaf1a81-0bbe-468b-84ed-6ef2704d25e4)"/>
-    <polygon points="71.7 310.2 71.7 313 77.2 313 77.2 324 82.7 324 82.7 313 109.3 313 109.3 324 114.8 324 114.8 313 120.3 313 120.3 310.2 71.7 310.2" fill="#fff" stroke="#42145f" stroke-linejoin="round" stroke-width="0.89"/>
+    <rect x="37.82" y="289.26" width="156" height="120" rx="11.94" ry="11.94" fill="#662a8c" stroke-miterlimit="10" stroke-width="2.63" stroke="url(#955e3781-16e0-48f7-8dc1-a7daa51aa53d)"/>
+    <polygon points="91.52 310.22 91.52 312.98 97.04 312.98 97.04 324.02 102.56 324.02 102.56 312.98 129.08 312.98 129.08 324.02 134.6 324.02 134.6 312.98 140.12 312.98 140.12 310.22 91.52 310.22" fill="#fff" stroke="#662a8c" stroke-linejoin="round" stroke-width="0.89"/>
     <g>
-      <polygon points="100.4 311.6 100.4 311.6 91.6 311.6 91.6 311.6 58.9 390.8 133.1 390.8 100.4 311.6" fill="#b2d7ee"/>
-      <path d="M99.8,312.6l31.8,77.2H60.4l31.8-77.2h7.6m.6-1H91.6L58.9,390.8h74.2l-32.7-79.2Z" fill="none"/>
+      <polygon points="78.73 390.29 109.54 312.05 122.09 312.05 152.27 390.29 78.73 390.29" fill="#b2d7ee"/>
+      <path d="M121.75,312.55l29.79,77.24H79.47l30.41-77.24h11.87m.69-1H109.2L78,390.79h75l-30.56-79.24Z" fill="#b2d7ee"/>
     </g>
-    <polygon points="90.6 307.7 60 360.4 55.8 357.7 90.6 307.7" fill="#42145f"/>
-    <g>
-      <polygon points="91.6 307.7 58.9 359 58.9 390.8 91.6 311.6 91.6 307.7" fill="#b4b4b4"/>
-      <path d="M90.6,311.2v.2L59.9,385.7V359.3l30.7-48.1m1-3.5L58.9,359v31.8l32.7-79.2v-3.9Z" fill="none"/>
-    </g>
-    <g>
-      <line x1="91.6" y1="307.7" x2="58.9" y2="359" fill="none"/>
-      <polygon points="91.6 307.7 59.8 359.5 58.1 358.5 91.6 307.7" fill="#ccc"/>
-    </g>
-    <polygon points="100.9 307.7 135.7 357.7 131.4 360.4 100.9 307.7" fill="#42145f"/>
-    <g>
-      <polygon points="100.4 307.7 100.4 311.6 133.1 390.8 133.1 359 100.4 307.7" fill="#b4b4b4"/>
-      <path d="M101.4,311.2l30.7,48.1v26.4l-30.7-74.3v-.2m-1-3.5v3.9l32.7,79.2V359l-32.7-51.3Z" fill="none"/>
-    </g>
-    <g>
-      <line x1="133.1" y1="359" x2="100.4" y2="307.7" fill="none"/>
-      <polygon points="132.2 359.5 100.4 307.7 133.9 358.5 132.2 359.5" fill="#ccc"/>
-    </g>
-    <polyline points="83.4 313 83.4 310.2 108.6 310.2 108.6 313" fill="#fff"/>
-    <line x1="83.4" y1="313" x2="108.6" y2="313" fill="none" stroke="#42145f" stroke-linejoin="round" stroke-width="0.89"/>
-    <polyline points="58.9 359 58.9 390.8 133.1 390.8 133.1 359" fill="none" stroke="#535353" stroke-miterlimit="10" stroke-width="2"/>
-    <polygon points="103.9 313.6 103.2 318.9 88.8 318.9 88.1 313.6 87 315.4 87.8 321.3 104.2 321.3 105 315.4 103.9 313.6" opacity="0.15"/>
-    <polygon points="65.3 359.6 126.5 359.6 127.7 361.8 64.2 361.8 65.3 359.6" fill="#a9a9a9"/>
-    <rect x="64.2" y="361.8" width="63.5" height="15.14" fill="#707070"/>
-    <polygon points="88.2 315.7 103.8 315.7 104.1 316.2 87.9 316.2 88.2 315.7" fill="#a9a9a9"/>
-    <rect x="87.9" y="316.2" width="16.1" height="3.84" fill="#707070"/>
-    <line x1="96" y1="377" x2="96" y2="359.5" fill="none" stroke="#535353" stroke-linejoin="round"/>
-    <rect x="87" y="304.5" width="15.8" height="5.72" fill="#42145f"/>
-    <line x1="96" y1="320.1" x2="96" y2="315.7" fill="none" stroke="#535353" stroke-linejoin="round" stroke-width="0.25"/>
-    <line x1="108.6" y1="310.2" x2="83.4" y2="310.2" fill="none" stroke="#42145f" stroke-linejoin="round" stroke-width="0.89"/>
+    <polygon points="110.37 307.74 79.86 360.35 75.64 357.67 110.37 307.74" fill="#662a8c"/>
+    <polygon points="111.37 307.74 78.75 359.01 78.75 390.79 111.37 311.55 111.37 307.74" fill="#b4b4b4"/>
+    <polygon points="111.37 307.74 79.59 359.55 77.9 358.47 111.37 307.74" fill="#ccc"/>
+    <polygon points="120.75 307.74 155.48 357.67 151.26 360.35 120.75 307.74" fill="#662a8c"/>
+    <polygon points="120.27 307.74 120.27 311.55 152.89 390.79 152.89 359.01 120.27 307.74" fill="#b4b4b4"/>
+    <polygon points="152.05 359.55 120.27 307.74 153.74 358.47 152.05 359.55" fill="#ccc"/>
+    <polyline points="103.19 312.98 103.19 310.22 128.45 310.22 128.45 312.98" fill="#fff"/>
+    <line x1="103.19" y1="312.98" x2="128.45" y2="312.98" fill="none" stroke="#662a8c" stroke-linejoin="round" stroke-width="0.89"/>
+    <polyline points="78.75 359.01 78.75 390.79 152.89 390.79 152.89 359.01" fill="none" stroke="#333" stroke-miterlimit="10" stroke-width="2"/>
+    <polygon points="123.7 313.63 123.02 318.88 108.62 318.88 107.94 313.63 106.82 315.39 107.58 321.26 124.06 321.26 124.82 315.39 123.7 313.63" opacity="0.15"/>
+    <polygon points="85.09 359.64 146.37 359.64 147.48 361.82 83.98 361.82 85.09 359.64" fill="#a9a9a9"/>
+    <rect x="83.98" y="361.82" width="63.5" height="15.14" fill="#707070"/>
+    <polygon points="108.04 315.69 123.6 315.69 123.88 316.24 107.76 316.24 108.04 315.69" fill="#a9a9a9"/>
+    <rect x="107.76" y="316.24" width="16.12" height="3.84" fill="#707070"/>
+    <line x1="115.82" y1="376.96" x2="115.82" y2="359.52" fill="none" stroke="#535353" stroke-linejoin="round"/>
+    <rect x="106.82" y="304.5" width="15.77" height="5.72" fill="#662a8c"/>
+    <line x1="115.82" y1="320.08" x2="115.82" y2="315.68" fill="none" stroke="#535353" stroke-linejoin="round" stroke-width="0.25"/>
+    <line x1="128.45" y1="310.22" x2="103.19" y2="310.22" fill="none" stroke="#662a8c" stroke-linejoin="round" stroke-width="0.89"/>
   </g>
 </svg>

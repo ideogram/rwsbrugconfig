@@ -91,15 +91,6 @@
   symbol: "Q02"
   overlay: true
 
-- name: sb-bb
-  tooltip: "betonning van vaargeul: SB - BB"
-  symbol: "Q11"
-  overlay: true
-
-- name: bb-sb
-  tooltip: "betonning van vaargeul: BB - SB"
-  symbol: "Q12"
-  overlay: true
 
 #- name: ophaalbrug-A
 #  tooltip: "Ophaalbrug"

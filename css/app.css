@@ -111,13 +111,13 @@ svg {
   #bridges-options legend {
     margin-bottom: 0.5em; }
 
-#network-direction input, #dvo-numbers-direction input {
+#network-direction input, #dvo-numbers-direction input, #stream input, #buoys input {
   display: none; }
-  #network-direction input:checked + label, #dvo-numbers-direction input:checked + label {
+  #network-direction input:checked + label, #dvo-numbers-direction input:checked + label, #stream input:checked + label, #buoys input:checked + label {
     background-color: #DEECF8;
     border-color: #8CC3E7;
     opacity: 1; }
-#network-direction label, #dvo-numbers-direction label {
+#network-direction label, #dvo-numbers-direction label, #stream label, #buoys label {
   display: block;
   float: left;
   width: 64px;
@@ -144,7 +144,7 @@ svg {
   width: 72px;
   height: 72px; }
 
-#label-dir-n, #label-dvo-numbers-123 {
+#label-dir-n, #label-dvo-numbers-standard, #label-stream-top-bottom, #label-buoys-show {
   border-radius: 8px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px; }
@@ -152,10 +152,14 @@ svg {
 #label-dir-o, #label-dir-z {
   border-radius: 0px; }
 
-#label-dir-w, #label-dvo-numbers-321 {
+#label-dir-w, #label-dvo-numbers-reverse, #label-stream-bottom-top, #label-buoys-hide {
   border-radius: 8px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px; }
+
+#dvo-numbers-direction label, #stream label, #buoys label {
+  width: 96px;
+  line-height: 32px; }
 
 #debug {
   list-style-type: none; }

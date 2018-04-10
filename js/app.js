@@ -25,7 +25,9 @@ var libConfigBridges;
         default: {
             networkDirection : "N",
             strConfig : "",
-            dvoNumbering: "123"
+            dvoNumbering: "default",
+            buoys: true,
+            stream: "up"
         },
 
         // Behaviour
@@ -80,21 +82,29 @@ var libConfigBridges;
             var strSelector, strRule = "";
 
             var images = [
-                ["#bridges-diagram","network-n-z.svg"],
+                ["#bridges-diagram",["network-n-z.svg","rood-groen.svg","omlaag.svg"]],
                 [".btn-remove","delete-forever.svg"],
                 [".btn-remove:hover","delete-forever-hover.svg"],
                 ["#label-dir-n","network-dir-n-brug.svg"],
                 ["#label-dir-o","network-dir-o-brug.svg"],
                 ["#label-dir-z","network-dir-z-brug.svg"],
                 ["#label-dir-w","network-dir-w-brug.svg"],
-                ["#label-dvo-numbers-123","123.svg"],
-                ["#label-dvo-numbers-321","321.svg"],
-
             ];
 
             for(var i=0; i<images.length; i++){
                 strSelector = images[i][0];
-                strRule = "background-image: " + libConfigBridges.getCssUrl( images[i][1] );
+
+                if ( images[i][1].constructor === Array) {
+                    strRule = "background-image:" + images[i][1].map(libConfigBridges.getCssUrl).join((", "));
+
+                    console.log(images[i][1].map(libConfigBridges.getCssUrl).join(", "));
+
+                } else {
+                    strRule = "background-image: " + libConfigBridges.getCssUrl( images[i][1] );
+                }
+
+                console.log(strRule);
+
                 libConfigBridges.addCSSRule(sheet, strSelector, strRule );
             }
         },
@@ -161,15 +171,17 @@ var libConfigBridges;
 
             // ...load a series of partials into the options-div
             var arrOptions = [
-                 'network-direction',
-                 'dvo-numbers-direction'
+                'network-direction',
+                'dvo-naming-direction',
+                'stream',
+                'buoys'
             ];
 
-            // ... set an event handler for when these options change
+
             for (var i = 0; i < arrOptions.length; i++) {
                 $.get(l.path.folderPartials + "option-" + arrOptions[i] + ".partial.html", function (data) {
                     $(data).appendTo(l.$options)
-                        .find("input").on("change", libConfigBridges.optionChanged);
+                        .find("input").on("change", libConfigBridges.optionChanged); // set event handler for the on-change event
                 });
             }
 
@@ -184,7 +196,6 @@ var libConfigBridges;
                     "xmlns": "http://www.w3.org/2000/svg",
                     "xmlns:xlink": "http://www.w3.org/1999/xlink"
                 });
-
         },
 
         /**
@@ -210,7 +221,6 @@ var libConfigBridges;
                 if ( typeof l.overlays[i] !== "undefined" ){
                     l.strConfig += l.overlays[i];
                 }
-
             }
 
             return l.strConfig;
@@ -336,11 +346,11 @@ var libConfigBridges;
                 l.setNetworkDirection( strPre.match(/[NOZW]/)[0] );
 
                 // ... extract element-numbering direction
-                d = strPre.match(/123|321/g);
-                if (d === null || d[0] === "123"){
-                    l.setDvoNumbering("123");
+                d = strPre.match(/standard|reverse/g);
+                if (d === null || d[0] === "standard"){
+                    l.setDvoNumbering("standard");
                 } else {
-                    l.setDvoNumbering("321");
+                    l.setDvoNumbering("reverse");
                 }
 
             }
@@ -381,7 +391,7 @@ var libConfigBridges;
 
         /**
          * Returns  label numbering direction
-         * @returns {string} Either "123" or "321"
+         * @returns {string} Either "standard" or "reverse"
          * @memberof libConfig
          */
         getDvoNumbering: function(){
@@ -484,8 +494,8 @@ var libConfigBridges;
 
             l.L = l.$diagramElements.length;
 
-            // With this information, we can do a series of manipulations:
-            l.annotateDVOs();
+            // Determine the content of the labels and annotate the elements that have a label:
+            l.annotate();
         },
 
         // Iterate over the elements array and add the drawings to the toolbar
@@ -579,7 +589,7 @@ var libConfigBridges;
                 l.arr$SVG[i] = $me.find("svg");
             });
 
-            l.annotateDVOs();
+            l.annotate();
 
         },
 
@@ -625,15 +635,15 @@ var libConfigBridges;
 
             // Calculate the position
             var pxTargetWidth = l.scale * parseFloat($svg.attr("width"));
-            var pxBridgeWidth = 5 * 24; // 120;
-            var pxCentre = (pxTargetWidth - pxBridgeWidth) / 2;
+            var pxOverlayWidth = l.scale * parseFloat($overlay.find("svg").attr("width"));
+            var pxCentre = (pxTargetWidth - pxOverlayWidth) / 2;
 
             // Change the DOM of the receiving element
             $svg.append($overlayGroup);
 
             // ... positioning the overlay nicely in the centre
             if (pxCentre != 0 ) {
-                $svg.find(".overlay").attr("transform", "translate(" + pxCentre + ",0)");
+                $svg.find("[data-name='overlay']").attr("transform", "translate(" + pxCentre + ",0)");
             }
 
             // Change the 'overlay' value of the element
@@ -654,7 +664,7 @@ var libConfigBridges;
         },
 
         // Put a label under each DVO
-        annotateDVOs: function() {
+        annotate: function() {
             var l = libConfigBridges;
             var labelNumber = 0;
             var totalLabels = 0;
@@ -663,13 +673,13 @@ var libConfigBridges;
             var inc = 0;
             var windPoint = "";
             var suffix = {
-                "123": {
+                "standard": {
                     "N": "O",
                     "O": "Z",
                     "Z": "W",
                     "W": "N"
                 },
-                "321": {
+                "reverse": {
                     "N": "W",
                     "O": "N",
                     "Z": "O",
@@ -690,11 +700,11 @@ var libConfigBridges;
             }
 
             // Counting up or down?
-            if (l.dvoNumbering === "123") {
+            if (l.dvoNumbering === "standard") {
                 labelNumber = 0;
                 inc = +1;
             }
-            if (l.dvoNumbering === "321") {
+            if (l.dvoNumbering === "reverse") {
                 labelNumber = totalLabels + 1;
                 inc = -1;
             }
