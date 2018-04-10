@@ -144,7 +144,7 @@ svg {
   width: 72px;
   height: 72px; }
 
-#label-dir-n, #label-dvo-numbers-standard, #label-stream-top-bottom, #label-buoys-show {
+#label-dir-n, #label-dvo-numbers-default, #label-stream-bottom-top, #label-buoys-show {
   border-radius: 8px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px; }
@@ -152,7 +152,7 @@ svg {
 #label-dir-o, #label-dir-z {
   border-radius: 0px; }
 
-#label-dir-w, #label-dvo-numbers-reverse, #label-stream-bottom-top, #label-buoys-hide {
+#label-dir-w, #label-dvo-numbers-reverse, #label-stream-top-bottom, #label-buoys-hide {
   border-radius: 8px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px; }

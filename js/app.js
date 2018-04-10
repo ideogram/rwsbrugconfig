@@ -26,7 +26,7 @@ var libConfigBridges;
             networkDirection : "N",
             strConfig : "",
             dvoNumbering: "default",
-            buoys: true,
+            buoys: "show",
             streamDirection: "up"
         },
 
@@ -347,9 +347,9 @@ var libConfigBridges;
                 l.setNetworkDirection( strPre.match(/[NOZW]/)[0] );
 
                 // ... extract element-numbering direction
-                d = strPre.match(/standard|reverse/g);
-                if (d === null || d[0] === "standard"){
-                    l.setDvoNumbering("standard");
+                d = strPre.match(/defult|reverse/g);
+                if (d === null || d[0] === "default"){
+                    l.setDvoNumbering("default");
                 } else {
                     l.setDvoNumbering("reverse");
                 }
@@ -392,7 +392,7 @@ var libConfigBridges;
 
         /**
          * Returns  label numbering direction
-         * @returns {string} Either "standard" or "reverse"
+         * @returns {string} Either "default" or "reverse"
          * @memberof libConfig
          */
         getDvoNumbering: function(){
@@ -709,20 +709,52 @@ var libConfigBridges;
             var $svg = null;
             var inc = 0;
             var windPoint = "";
+            var direction = "";
+
             var suffix = {
-                "standard": {
-                    "N": "O",
-                    "O": "Z",
-                    "Z": "W",
-                    "W": "N"
+                "up": {
+                    "reverse": {
+                        "N": "W",
+                        "O": "N",
+                        "Z": "O",
+                        "W": "Z"
+                    },
+                    "default": {
+                        "N": "O",
+                        "O": "Z",
+                        "Z": "W",
+                        "W": "N"
+                    },
                 },
-                "reverse": {
-                    "N": "W",
-                    "O": "N",
-                    "Z": "O",
-                    "W": "Z"
+                "down": {
+                    "reverse": {
+                        "N": "O",
+                        "O": "Z",
+                        "Z": "W",
+                        "W": "N"
+                    },
+                    "default": {
+                        "N": "W",
+                        "O": "N",
+                        "Z": "O",
+                        "W": "Z"
+                    },
                 }
             };
+
+            // Decide on the direction in which the numbers on the labels increase.
+            // Default is: looking downstream, from left to right.
+
+            var direction  = {
+                "up" : {
+                    "default": "left-to-right",
+                    "reverse": "right-to-left"
+                },
+                "down": {
+                    "default": "right-to-left",
+                    "reverse": "left-to-right"
+                }
+            }[l.streamDirection][l.dvoNumbering];
 
             // First, find the total amount of gates
             for (i = 0; i < l.L; i++) {
@@ -737,18 +769,18 @@ var libConfigBridges;
             }
 
             // Counting up or down?
-            if (l.dvoNumbering === "standard") {
+            if (direction === "left-to-right") {
                 labelNumber = 0;
                 inc = +1;
             }
-            if (l.dvoNumbering === "reverse") {
+            if (direction === "right-to-left") {
                 labelNumber = totalLabels + 1;
                 inc = -1;
             }
 
             // Create the suffix with the windpoint (N, O, Z, W)
             if (totalLabels > 1) {
-                windPoint = " " + suffix[l.dvoNumbering][l.networkDirection];
+                windPoint = " " + suffix[l.streamDirection][l.dvoNumbering][l.networkDirection];
             }
 
             // Fill the text element with the DVO number
@@ -815,8 +847,6 @@ var libConfigBridges;
             var l = libConfigBridges;
             var images = [];
 
-
-
             switch (l.networkDirection){
                 case "N":
                     images[0] = "network-n-z.svg";
@@ -834,8 +864,6 @@ var libConfigBridges;
                     images[0] = "network-z-n.svg";
                     break;
             }
-
-            console.log("Boeie", l.buoys);
 
             switch (l.streamDirection){
                 case "up":
