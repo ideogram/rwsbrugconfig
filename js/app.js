@@ -23,7 +23,7 @@ var libConfigBridges;
 
         // Defaults
         default: {
-            networkDirection : "N",
+            networkDirection : "Z",
             strConfig : "",
             dvoNumbering: "default",
             buoys: "show",
@@ -35,10 +35,10 @@ var libConfigBridges;
         scale: "3", // How much should the tiles be scaled down when used in the toolbar? 3 means 33% of the original
 
         // Variables
-        networkDirection : "N",
-        dvoNumbering: "default",
-        buoys: "show",
-        streamDirection: "up",
+        networkDirection : "",
+        dvoNumbering: "",
+        buoys: "",
+        streamDirection: "",
 
         diagramTool: {},
         $toolbar: null,
@@ -54,7 +54,7 @@ var libConfigBridges;
         overlays: [],
         L : 0,
         strConfig: "",
-        height: 528,
+        height: 700,
         overlayNames: [],
 
         /**
@@ -813,7 +813,6 @@ var libConfigBridges;
             downloadLink.download = fileName + ".svg";
             document.body.appendChild(downloadLink);
             downloadLink.click();
-            // document.body.removeChild(downloadLink);
         },
 
         // Set the configuration strings options
@@ -842,45 +841,32 @@ var libConfigBridges;
             l.diagramChanged();
         },
 
-        // Draw network-arrow on top of the diagram
-        drawDiagramBackground: function() {
+        // Draw backgrounds depending on the various options
+        drawDiagramBackground: function () {
             var l = libConfigBridges;
             var images = [];
 
-            switch (l.networkDirection){
-                case "N":
-                    images[0] = "network-n-z.svg";
-                    break;
+            images[0] = {
+                "N": "network-n-z.svg",
+                "W": "network-w-o.svg",
+                "O": "network-o-w.svg",
+                "Z":"network-z-n.svg"
+            }[l.networkDirection];
 
-                case "W":
-                    images[0] = "network-w-o.svg";
-                    break;
+            images[1] = {
+                "up": "omhoog.svg",
+                "down": "omlaag.svg"
+            }[l.streamDirection];
 
-                case "O":
-                    images[0] = "network-o-w.svg";
-                    break;
-
-                case "Z":
-                    images[0] = "network-z-n.svg";
-                    break;
+            if (l.buoys){
+                images[2] = {
+                    "up": "rood-groen.svg",
+                    "down": "groen-rood.svg"
+                }[l.streamDirection];
             }
 
-            switch (l.streamDirection){
-                case "up":
-                    images[1] = "omhoog.svg";
-                    if ( l.buoys === "show" ) images[2] = "rood-groen.svg";
-                    break;
-                case "down":
-                    images[1] = "omlaag.svg";
-                    if ( l.buoys === "show" ) images[2] = "groen-rood.svg";
-                    break;
-            }
-
-            console.log( images );
-
-            l.$diagram.css("background-image",images.map(l.getCssUrl).join((", ")))
-
-;        },
+            l.$diagram.css("background-image", images.map(l.getCssUrl).join((", ")));
+        },
 
 
         // --- CSS Helper functions ---

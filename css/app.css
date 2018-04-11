@@ -161,6 +161,9 @@ svg {
   width: 96px;
   line-height: 32px; }
 
+#dvo-numbers-direction label {
+  width: 128px; }
+
 #debug {
   list-style-type: none; }
   #debug li {
