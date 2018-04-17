@@ -528,7 +528,7 @@ var libConfigBridges;
                 if (val.symbol === false ) {
                     $.get( l.path.folderAssets + id + ".svg", function(data){
                         l.extraImages[id] = data;
-                    }, "text" );
+                    }, "html" );
                 } else {
                     $li = $('<li class="element"></li>').appendTo(libConfigBridges.$toolbar)
                         .attr({"title": tooltip, "data-ref": key})
@@ -823,35 +823,69 @@ var libConfigBridges;
                 $("#buoyage-direction-" + l.flowDirection + " input").prop("disabled",false);
             }
 
-            l.drawDiagramBackground();
+            l.drawExtraImages();
             l.diagramChanged();
         },
 
         // Draw backgrounds depending on the various options
-        drawDiagramBackground: function () {
+        drawExtraImages: function () {
             var l = libConfigBridges;
             var images = [];
+            var positions = []
+            var sizes = [];
+            var flowIndex = null;
 
-            images[0] = {
-                "N": "network-n-z.svg",
-                "W": "network-w-o.svg",
-                "O": "network-o-w.svg",
-                "Z":"network-z-n.svg"
-            }[l.networkDirection];
+            // Wind points
+            if (l.flowDirection !== null ) {
+                flowIndex = ["north", "east", "south", "west"].indexOf(l.flowDirection);
 
-            images[1] = {
-                "up": "omhoog.svg",
-                "down": "omlaag.svg"
-            }[l.streamDirection];
+                images = l.arrayRotate(["n.svg", "o.svg", "z.svg", "w.svg"], flowIndex);
+                positions = ["top", "right", "bottom", "left"];
+                sizes = ["24px 24px", "24px 24px", "24px 24px", "24px 24px"];
 
-            if (l.buoys){
-                images[2] = {
-                    "up": "rood-groen.svg",
-                    "down": "groen-rood.svg"
-                }[l.streamDirection];
+                // Buoyns
+                if (l.buoyageDirection !== null && l.buoyageDirection !== "none"){
+                    switch(l.buoyageDirection){
+                        case "redright":
+                            pushImage("betonning-rood-rechts.svg", "contain","center")
+
+                            break;
+                        case "redleft":
+                            pushImage("betonning-rood-links.svg", "contain","center")
+
+                            break;
+                    }
+                }
+
+                // "Afvaart" en "Opvaart
+                if (l.buoyageDirection !== null) {
+                    switch (l.buoyageDirection) {
+                        case "none":
+                        case "redright":
+                            pushImage("afvaart-omlaag.svg", "96px 24px", "left 40% bottom 24px");
+                            break;
+                        case "redleft":
+                            pushImage("afvaart-omhoog.svg", "96px 24px", "left 40% bottom 24px");
+                    }
+                }
+
             }
 
-            l.$diagram.css("background-image", images.map(l.getCssUrl).join((", ")));
+            // Flow direction
+            pushImage("stroomafwaarts.svg","96px 24px","right 35% bottom 24px");
+
+            l.$diagram.css({
+                "background-image": images.map(l.getCssAssetsUrl).join((", ")),
+                "background-position": positions.join(","),
+                "background-size": sizes.join(",")
+            });
+
+            // Helper function, pushes an image onto the image-stack
+            function pushImage(name,size,position){
+                images.push(name);
+                sizes.push(size);
+                positions.push(position);
+            }
         },
 
 
@@ -862,6 +896,10 @@ var libConfigBridges;
 
             // Returns for example: url("to/images/folder/filename.jpg")
             return "url("+l.path.folderImages + filename + ")";
+        },
+
+        getCssAssetsUrl: function(filename){
+            return "url("+l.path.folderAssets + filename + ")";
         },
 
         // Create a stylesheet. Returns a reference to the stylesheet
@@ -885,6 +923,10 @@ var libConfigBridges;
             else if ("addRule" in sheet) {
                 sheet.addRule(selector, rules, index);
             }
+        },
+
+        arrayRotate: function(array, n) {
+            return array.slice(n, array.length).concat(array.slice(0, n));
         }
     }
 })(window);

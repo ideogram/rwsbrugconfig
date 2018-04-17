@@ -14,5 +14,5 @@
 
                 .buttongroup{:id => "buoyage-direction-#{windpoint}" }
                     -["redright", "redleft", "none"].each do |direction|
-                        %input{:name => "buoyage-direction", :type => "radio", :value => "upstream---down", :id => "buoyage-direction-#{windpoint}-#{direction}"}/
+                        %input{:name => "buoyage-direction", :type => "radio", :value => "#{direction}", :id => "buoyage-direction-#{windpoint}-#{direction}"}/
                         %label{:for => "buoyage-direction-#{windpoint}-#{direction}", :id => "label-buoyage-direction-#{windpoint}-#{direction}"}
