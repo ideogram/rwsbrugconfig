@@ -1,0 +1,13 @@
+<svg id="b92ecea5-5216-401f-9ff3-ff71b52b6b6c" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72">
+  <title>flow-direction-west</title>
+  <g>
+    <path d="M1.9,36c3.3,0,3.3,4,6.6,4s3.4-4,6.7-4,3.3,4,6.6,4,3.4-4,6.7-4,3.3,4,6.7,4,3.3-4,6.6-4" fill="none" stroke="#59a9db" stroke-miterlimit="10" stroke-width="3"/>
+    <g>
+      <line x1="41.8" y1="36" x2="45.7" y2="36" fill="none" stroke="#59a9db" stroke-miterlimit="10" stroke-width="3"/>
+      <polygon points="44.3 40.5 52.1 36 44.3 31.5 44.3 40.5" fill="#59a9db"/>
+    </g>
+  </g>
+  <g style="isolation: isolate">
+    <path d="M56.2,41.1l-3-11.8h2.6L58,38.9h.1l2.3-7.2-.8-2.4h2.6L65,38.9h.1l2.1-9.6h2.5L66.6,41.1H63.4l-1.9-6.6h-.1l-2,6.6Z" fill="#154273"/>
+  </g>
+</svg>

@@ -1,0 +1,12 @@
+<svg id="e7938482-423a-4652-9540-487a4cbd49d5" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72">
+  <title>buoyage-direction-west-redright</title>
+  <g>
+    <path d="M10.9,35c3.3,0,3.3,4,6.6,4s3.4-4,6.7-4,3.3,4,6.6,4,3.4-4,6.7-4,3.3,4,6.7,4,3.3-4,6.6-4" fill="none" stroke="#59a9db" stroke-miterlimit="10" stroke-width="3"/>
+    <g>
+      <line x1="50.8" y1="35" x2="54.7" y2="35" fill="none" stroke="#59a9db" stroke-miterlimit="10" stroke-width="3"/>
+      <polygon points="53.3 39.5 61.1 35 53.3 30.5 53.3 39.5" fill="#59a9db"/>
+    </g>
+  </g>
+  <rect x="31" y="53.4" width="10" height="10" transform="translate(-22.4 94.4) rotate(-90)" fill="#d52b1e"/>
+  <polygon points="41.4 19 30.6 19 30.6 14.9 36 8.2 41.4 14.9 41.4 19" fill="#39870c" fill-rule="evenodd"/>
+</svg>

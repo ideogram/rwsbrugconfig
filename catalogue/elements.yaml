@@ -10,13 +10,9 @@
   tooltip: "Overgang tussen brug en wal. Links"
   symbol: "W03"
 
-- name: op-land
-  tooltip: "Brugdeel liggend op land of kunstwerk"
-  symbol: "F01"
-
 - name: boven-land
   tooltip: "brugdeel over land"
-  symbol: "F02"
+  symbol: "F01"
 
 - name: ellipses
   tooltip: "Weggelaten doorvaartopening(en)"
@@ -91,20 +87,36 @@
   symbol: "Q02"
   overlay: true
 
+- name: stroomopwaarts
+  symbol: false
 
-#- name: ophaalbrug-A
-#  tooltip: "Ophaalbrug"
-#  symbol: "q"
-#  hasLabel: true
-#
-#- name: ophaalbrug-B
-#  tooltip: "Ophaalbrug"
-#  symbol: "r"
-#  hasLabel: true
-#
-#- name: dubbele-ophaalbrug
-#  tooltip: "Dubbele ophaalbrug"
-#  symbol: "s"
-#  hasLabel: true
-#
+- name: stroomafwaarts
+  symbol: false
+
+- name: opvaart
+  symbol: false
+
+- name: afvaart
+  symbol: false
+
+- name: betonning-rood-links
+  symbol: false
+
+- name: betonning-rood-rechts
+  symbol: false
+
+- name: n
+  symbol: false
+
+- name: o
+  symbol: false
+
+- name: z
+  symbol: false
+
+- name: w
+  symbol: false
+
+
+
 ...

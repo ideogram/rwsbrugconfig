@@ -1,0 +1,11 @@
+<svg id="652d8528-8d17-44ca-b059-7df0784a6028" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72">
+  <title>network-direction-south</title>
+  <g style="isolation: isolate">
+    <path d="M32.2,56.1V54.2H40V56l-5.4,8h5.5v2H31.9V64.1l5.4-7.9H32.2Z"/>
+  </g>
+  <path d="M56.5,20.2l-4,4h-34l-3-4m.3,15,2.9-4H52.6l2.9,4" fill="none" stroke="#673327" stroke-miterlimit="10" stroke-width="2"/>
+  <polygon points="40.7 17.7 35.5 5.4 30.3 17.7 34.5 15.9 34.5 22.2 36.5 22.2 36.5 15.9 40.7 17.7" fill="#999"/>
+  <rect x="34.5" y="33.2" width="2" height="13.16" fill="#999"/>
+  <circle cx="35.5" cy="46.2" r="3.8" fill="#fff"/>
+  <path d="M35.5,50.4h0a4.3,4.3,0,1,1,4.3-4.2A4.2,4.2,0,0,1,35.5,50.4Zm-3.3-4.2h0a3.3,3.3,0,0,0,6.6,0,3.3,3.3,0,1,0-6.6,0Z" fill="#999"/>
+</svg>

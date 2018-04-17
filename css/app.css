@@ -104,80 +104,83 @@ svg {
 #bridges-options {
   list-style: none inside none;
   text-align: center; }
-  #bridges-options li {
+  #bridges-options > li {
     display: inline-block;
     margin-right: 50px;
     vertical-align: top; }
   #bridges-options legend {
     margin-bottom: 0.5em; }
+    #bridges-options legend.disabled {
+      color: silver; }
 
-#network-direction input, #dvo-numbers-direction input, #stream input, #buoys input {
+.diagram-editor-options input {
   display: none; }
-  #network-direction input:checked + label, #dvo-numbers-direction input:checked + label, #stream input:checked + label, #buoys input:checked + label {
+  .diagram-editor-options input:checked + label {
     background-color: #DEECF8;
     border-color: #8CC3E7;
     opacity: 1; }
-#network-direction label, #dvo-numbers-direction label, #stream label, #buoys label {
+  .diagram-editor-options input:disabled + label {
+    filter: grayscale(100%) blur(2px);
+    opacity: 0.35; }
+.diagram-editor-options label {
+  width: 72px;
+  height: 72px;
+  box-sizing: border-box;
+  border-radius: 0px;
   display: block;
   float: left;
-  width: 64px;
-  height: 32px;
   text-align: center;
   vertical-align: bottom;
   border: 1px solid silver;
-  opacity: 0.6;
   background-position: center;
-  background-size: contain; }
+  background-size: 100%;
+  transition: filter 300ms; }
 
-#comment {
-  width: 200px;
-  border-radius: 8px;
-  line-height: 24px;
-  border-color: #8CC3E7;
-  border-width: 1px;
-  border-style: solid;
-  font-size: 18px;
-  padding: 0 0.5em;
-  color: #525252; }
+#label-dir-n {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px; }
 
-#network-direction label {
-  width: 72px;
-  height: 72px; }
+#label-dir-w {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px; }
 
-#label-dir-n, #label-dvo-numbers-default, #label-stream-bottom-top, #label-buoys-show {
-  border-radius: 8px;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px; }
-
-#label-dir-o, #label-dir-z {
-  border-radius: 0px; }
-
-#label-dir-w, #label-dvo-numbers-reverse, #label-stream-top-bottom, #label-buoys-hide {
-  border-radius: 8px;
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px; }
-
-#dvo-numbers-direction label, #stream label, #buoys label {
-  width: 96px;
-  line-height: 32px; }
-
-#dvo-numbers-direction label {
-  width: 128px; }
-
-#debug {
-  list-style-type: none; }
-  #debug li {
-    display: inline-block;
-    margin-right: 1em; }
-  #debug label {
-    display: block;
-    font-size: 10px; }
-  #debug input {
-    font-family: Lucida Console, Lucida Sans Typewriter, monaco, Bitstream Vera Sans Mono, monospace;
-    font-size: 14px;
-    color: black; }
-
-#diagram-wrapper {
+#flow-and-buoyage-direction > ul {
+  width: 432px;
+  display: block;
+  padding: 0;
+  list-type: none;
+  padding: 0;
+  margin: 0;
   overflow: hidden; }
+
+#flow-direction, #buoyage-direction {
+  display: block;
+  padding-left: 144px;
+  position: relative;
+  overflow: hidden; }
+  #flow-direction legend, #buoyage-direction legend {
+    display: block;
+    width: 140px;
+    position: absolute;
+    margin: 0 0 0 -144px;
+    text-align: left; }
+
+#buoyage-direction .buttongroup {
+  width: 72px;
+  float: left; }
+
+#label-flow-direction-north, #label-flow-direction-east {
+  border-top-left-radius: 8px; }
+
+#label-flow-direction-south, #label-flow-direction-west {
+  border-top-right-radius: 8px; }
+
+#buoyage-direction label {
+  border-top-width: 0; }
+#buoyage-direction input:checked + label {
+  background-color: #b5d8f0; }
+#buoyage-direction label:last-child {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px; }
 
 /*# sourceMappingURL=app.css.map */

@@ -18,16 +18,20 @@ var libConfigBridges;
             folderAssets: "assets/",
             fileCatalogue: "catalogue/elements.yaml",
             folderPartials: "partials/",
-            folderImages: 'images/',
+            folderImages: 'ui-images/',
         },
 
         // Defaults
+        // Todo: check if these defaults are still needed and acurate.
+        // Todo: remove commented-out default properties in the rest of this codebase
         default: {
             networkDirection : "Z",
-            strConfig : "",
-            dvoNumbering: "default",
-            buoys: "show",
-            streamDirection: "up"
+            strConfig : null,
+            flowDirection: null,
+            buoyageDirection: null
+            // dvoNumbering: "default",
+            // buoys: "show",
+            // streamDirection: "up"
         },
 
         // Behaviour
@@ -35,10 +39,9 @@ var libConfigBridges;
         scale: "3", // How much should the tiles be scaled down when used in the toolbar? 3 means 33% of the original
 
         // Variables
-        networkDirection : "",
-        dvoNumbering: "",
-        buoys: "",
-        streamDirection: "",
+        networkDirection : null,
+        flowDirection: null,
+        buoyageDirection: null,
 
         diagramTool: {},
         $toolbar: null,
@@ -56,6 +59,39 @@ var libConfigBridges;
         strConfig: "",
         height: 700,
         overlayNames: [],
+        extraImages: [],
+
+        // Assets
+        ui_images : [
+            ["#bridges-diagram",["network-n-z.svg","rood-groen.svg","omlaag.svg"]],
+            [".btn-remove","delete-forever.svg"],
+            [".btn-remove:hover","delete-forever-hover.svg"],
+
+            ["#label-dir-n","network-direction-north.svg"],
+            ["#label-dir-e","network-direction-east.svg"],
+            ["#label-dir-s","network-direction-south.svg"],
+            ["#label-dir-w","network-direction-west.svg"],
+
+            ["#label-flow-direction-down","flow-direction-down.svg"],
+            ["#label-flow-direction-up","flow-direction-up.svg"],
+
+            ["#label-flow-direction-north","flow-direction-north.svg"],
+            ["#label-flow-direction-east","flow-direction-east.svg"],
+            ["#label-flow-direction-south","flow-direction-south.svg"],
+            ["#label-flow-direction-west","flow-direction-west.svg"],
+            ["#label-buoyage-direction-north-redright","buoyage-direction-north-redright.svg"],
+            ["#label-buoyage-direction-north-redleft","buoyage-direction-north-redleft.svg"],
+            ["#label-buoyage-direction-north-none","buoyage-direction-none.svg"],
+            ["#label-buoyage-direction-east-redright","buoyage-direction-east-redright.svg"],
+            ["#label-buoyage-direction-east-redleft","buoyage-direction-east-redleft.svg"],
+            ["#label-buoyage-direction-east-none","buoyage-direction-none.svg"],
+            ["#label-buoyage-direction-south-redright","buoyage-direction-south-redright.svg"],
+            ["#label-buoyage-direction-south-redleft","buoyage-direction-south-redleft.svg"],
+            ["#label-buoyage-direction-south-none","buoyage-direction-none.svg"],
+            ["#label-buoyage-direction-west-redright","buoyage-direction-west-redright.svg"],
+            ["#label-buoyage-direction-west-redleft","buoyage-direction-west-redleft.svg"],
+            ["#label-buoyage-direction-west-none","buoyage-direction-none.svg"],
+        ],
 
         /**
          * Set the paths used within the app.
@@ -65,7 +101,7 @@ var libConfigBridges;
          * - folderAssets: "assets/"
          * - fileCatalogue: "catalogue/elements.yaml"
          * - folderPartials: "partials/"
-         * - folderImages: 'images/'
+         * - folderImages: 'ui-images/'
          *
          * @param {object} objPathOptions Object containing the various paths
          * @memberof libConfig
@@ -86,15 +122,7 @@ var libConfigBridges;
 
             var strSelector, strRule = "";
 
-            var images = [
-                ["#bridges-diagram",["network-n-z.svg","rood-groen.svg","omlaag.svg"]],
-                [".btn-remove","delete-forever.svg"],
-                [".btn-remove:hover","delete-forever-hover.svg"],
-                ["#label-dir-n","network-dir-n-brug.svg"],
-                ["#label-dir-o","network-dir-o-brug.svg"],
-                ["#label-dir-z","network-dir-z-brug.svg"],
-                ["#label-dir-w","network-dir-w-brug.svg"],
-            ];
+            var images = l.ui_images;
 
             for(var i=0; i<images.length; i++){
                 strSelector = images[i][0];
@@ -135,7 +163,7 @@ var libConfigBridges;
             // Load the YAML-configuration file containig names and properties of the lock-elements
             // and add them to our UI
 
-            $.get(l.path.fileCatalogue, null, libConfigBridges.loadElements);
+            $.get(l.path.fileCatalogue, null, l.loadElements);
 
         },
 
@@ -170,21 +198,21 @@ var libConfigBridges;
                     .prependTo("#bridges-diagram-wrapper");
 
             // ...load a series of partials into the options-div
-            var arrOptions = [
-                'network-direction',
-                'dvo-naming-direction',
-                'stream-direction',
-                'buoys'
-            ];
 
-            for (var i = 0; i < arrOptions.length; i++) {
-                $.get(l.path.folderPartials + "option-" + arrOptions[i] + ".partial.html", function (data) {
+            $.get(l.path.folderPartials + "option-network-direction.partial.html", function (data) {
+                $(data).appendTo(l.$options)
+                    .find("input").on("change", libConfigBridges.optionChanged); // set event handler for the on-change event
+
+                $.get(l.path.folderPartials + "option-flow-and-buoyage-direction.partial.html", function (data) {
                     $(data).appendTo(l.$options)
                         .find("input").on("change", libConfigBridges.optionChanged); // set event handler for the on-change event
-                });
-            }
 
-            // ... result: invisible div containing the SVG before it gets downloaded
+                    $("#flow-and-buoyage-direction").find("input").prop("disabled",true);
+                    $("#flow-direction, #buoyage-direction").find("legend").addClass("disabled");
+                });
+            });
+
+            // ...  invisible div containing the SVG just before it gets downloaded
             var $resultWrapper =
                 $('<div id="bridges-result"></div>')
                     .insertAfter("#bridges-diagram-wrapper");
@@ -270,6 +298,7 @@ var libConfigBridges;
 
             w = (x+2*margin);
 
+            /*
             // Show  N, W, O or Z on top and bottom
             switch (l.networkDirection){
                 case "N":
@@ -297,12 +326,16 @@ var libConfigBridges;
                 y: 24})
                 .attr(textStyle)
                 .html( strBottom );
+            */
 
+            // Add the background images as SVG
+            $(l.extraImages['network-dir-n']).appendTo(l.$result);
 
             // Adjust width and heigth
 
             l.$result.attr("width", w + "px");
             l.$result.attr("height", h + "px");
+
 
             // Offer the download
             libConfigBridges.offerDownload(l.$result[0].outerHTML, strFileName );
@@ -326,8 +359,6 @@ var libConfigBridges;
                 return;
             }
 
-            console.log(l);
-
             var matches = strConfig.match(/\((.*?)\)/g);
             var strPre;
 
@@ -339,21 +370,12 @@ var libConfigBridges;
 
                 // From the first part,
                 // ... remove all the spaces and brackets
-                strPre = strPre.replace(/\s/gi,"");
-                strPre = strPre.replace("(","");
-                strPre = strPre.replace(")","");
+                strPre = strPre.replace(/\s/gi, "");
+                strPre = strPre.replace("(", "");
+                strPre = strPre.replace(")", "");
 
                 // ... and extract network direction
-                l.setNetworkDirection( strPre.match(/[NOZW]/)[0] );
-
-                // ... extract element-numbering direction
-                d = strPre.match(/defult|reverse/g);
-                if (d === null || d[0] === "default"){
-                    l.setDvoNumbering("default");
-                } else {
-                    l.setDvoNumbering("reverse");
-                }
-
+                l.setNetworkDirection(strPre.match(/[NOZW]/)[0]);
             }
 
             // What remains is the 'actual' config string, the part
@@ -381,62 +403,7 @@ var libConfigBridges;
             return l.networkDirection;
         },
 
-        /**
-         * Set the direction of the DVO Numbering
-         * @memberof libConfig
-         */
-        setDvoNumbering: function( value ){
-            var l = libConfigBridges;
-            l.dvoNumbering = value;
-        },
-
-        /**
-         * Returns  label numbering direction
-         * @returns {string} Either "default" or "reverse"
-         * @memberof libConfig
-         */
-        getDvoNumbering: function(){
-            var l = libConfigBridges;
-            return l.dvoNumbering;
-        },
-
-        /**
-         * Sets if buoys should be shown "show" or hidden ("hide")
-         * @param value
-         */
-        setBuoys: function(value){
-            var l = libConfigBridges;
-            l.buoys = value;
-        },
-
-        /**
-         * Returns if buoys should be shown "show" or hidden ("hide")
-         * @returns {*}
-         */
-        getBuoys: function(){
-            var l = libConfigBridges;
-            return l.buoys;
-        },
-
-        /**
-         * Sets the direction of the fysical water flow. Either "up" or "down" in the diagram
-         * @param value
-         */
-        setStreamDirection: function(value){
-            var l = libConfigBridges;
-            l.streamDirection = value;
-        },
-
-        /**
-         * Returns the direction of the fysical water flow. Either "up" or "down" in the diagram
-         * @returns {*}
-         */
-        getStreamDirection: function () {
-            var l = libConfigBridges;
-            return l.streamDirection;
-        },
-
-        /**
+       /**
          * Draws the diagram. Call if the diagram is not updated automatically
          * @memberof libConfig
          */
@@ -544,26 +511,38 @@ var libConfigBridges;
             $.each( l.elementCatalogue, function (key, val) {
                 var id = val.name;
                 var tooltip = val.tooltip;
+                var $li = null;
+                var draggableOptionsElement = null;
+                var varName = "test";
 
                 // Overlays may be draggable, but should not be allowed to end up in the diagram as separate entities
-                var draggableOptionsElement = l.draggableOptions;
+                draggableOptionsElement = l.draggableOptions;
                 if ( val.overlay === true ) {
                     delete draggableOptionsElement.connectToSortable;
                     l.overlayNames.push(val.name);
                 }
 
+                // If the element is a symbol, load it into the toolbar.
+                // ... otherwise, load it into an array
 
-                var $li = $('<li class="element"></li>' ).
-                    appendTo(libConfigBridges.$toolbar)
+                if (val.symbol === false ) {
+                    $.get( l.path.folderAssets + id + ".svg", function(data){
+                        l.extraImages[id] = data;
+                    }, "text" );
+                } else {
+                    $li = $('<li class="element"></li>').appendTo(libConfigBridges.$toolbar)
                         .attr({"title": tooltip, "data-ref": key})
                         .addClass(val.name)
                         .disableSelection()
                         .draggable(l.draggableOptions)
                         .load(l.path.folderAssets + id + ".svg", libConfigBridges.elementLoaded);
 
-                // After the SVG is rendered, rework the SVG
-                libConfigBridges.observer.observe($li[0], {childList: true});
+                    // rework the SVG after all the SVG's are rendered
+                    libConfigBridges.observer.observe($li[0], {childList: true});
+                }
             });
+
+            console.log(l.extraImages);
         },
 
         // Keeps track of the number of elements loaded
@@ -583,7 +562,18 @@ var libConfigBridges;
         loadElements: function(data) {
             l = libConfigBridges;
             l.elementCatalogue = jsyaml.load(data);
-            libConfigBridges.addElementsToToolbar();
+            l.addElementsToToolbar();
+            l.preloadExtraImages();
+        },
+
+        // preload some extra images that are added to the final SVG
+        preloadExtraImages: function () {
+            l = libConfigBridges;
+
+            $.get("ui-images/network-dir-n-brug.svg", function (data) {
+                l.extraImages['network-dir-n'] = data;
+            }, 'text');
+
         },
 
         // Scale the SVG-elements, so they take up less space
@@ -704,98 +694,33 @@ var libConfigBridges;
         annotate: function() {
             var l = libConfigBridges;
             var labelNumber = 0;
-            var totalLabels = 0;
             var hasLabel = false;
             var $svg = null;
-            var inc = 0;
-            var windPoint = "";
-            var direction = "";
 
-            var suffix = {
-                "up": {
-                    "reverse": {
-                        "N": "W",
-                        "O": "N",
-                        "Z": "O",
-                        "W": "Z"
-                    },
-                    "default": {
-                        "N": "O",
-                        "O": "Z",
-                        "Z": "W",
-                        "W": "N"
-                    },
-                },
-                "down": {
-                    "reverse": {
-                        "N": "O",
-                        "O": "Z",
-                        "Z": "W",
-                        "W": "N"
-                    },
-                    "default": {
-                        "N": "W",
-                        "O": "N",
-                        "Z": "O",
-                        "W": "Z"
-                    },
-                }
-            };
+            if (l.flowDirection !== null ) {
 
-            // Decide on the direction in which the numbers on the labels increase.
-            // Default is: looking downstream, from left to right.
+                var suffix = {
+                    "north": " W",
+                    "east": " N",
+                    "south": " O",
+                    "west": " Z"
+                }[l.flowDirection];
 
-            var direction  = {
-                "up" : {
-                    "default": "left-to-right",
-                    "reverse": "right-to-left"
-                },
-                "down": {
-                    "default": "right-to-left",
-                    "reverse": "left-to-right"
-                }
-            }[l.streamDirection][l.dvoNumbering];
+                // Fill the text element with the DVO number
+                for (i = 0; i < l.L; i++) {
+                    hasLabel = l.element[i]['hasLabel'];
+                    $svg = l.arr$SVG[i];
+                    console.log(i,hasLabel);
 
-            // First, find the total amount of gates
-            for (i = 0; i < l.L; i++) {
-                hasLabel = l.element[i]['hasLabel'];
-                if (hasLabel === true ) {
-                    totalLabels++;
-                }
+                    if (hasLabel === true) {
+                        labelNumber++;
 
-                if ( l.element[i].name == "draai" ){
-                    totalLabels++;
-                }
-            }
+                        $svg.find("text").first().html(labelNumber + suffix);
 
-            // Counting up or down?
-            if (direction === "left-to-right") {
-                labelNumber = 0;
-                inc = +1;
-            }
-            if (direction === "right-to-left") {
-                labelNumber = totalLabels + 1;
-                inc = -1;
-            }
-
-            // Create the suffix with the windpoint (N, O, Z, W)
-            if (totalLabels > 1) {
-                windPoint = " " + suffix[l.streamDirection][l.dvoNumbering][l.networkDirection];
-            }
-
-            // Fill the text element with the DVO number
-            for (i = 0; i < l.L; i++) {
-                hasLabel = l.element[i]['hasLabel'];
-                $svg = l.arr$SVG[i];
-
-                if (hasLabel === true ) {
-                    labelNumber+= inc;
-
-                    $svg.find("text").first().html( labelNumber + windPoint );
-
-                    if ( l.element[i].name == "draai" ){
-                        labelNumber+= inc;
-                        $svg.find("text").last().html( labelNumber + windPoint  );
+                        if (l.element[i].name == "draai") {
+                            labelNumber++;
+                            $svg.find("text").last().html(labelNumber + suffix);
+                        }
                     }
                 }
             }
@@ -825,16 +750,77 @@ var libConfigBridges;
             switch (varName ){
                 case "network-direction":
                     l.networkDirection = value;
+                    l.flowDirection = null;
+                    $("[name='flow-direction']").prop("checked",false);
                     break;
-                case "dvo-numbers-direction":
-                    l.dvoNumbering = value;
+                case "flow-direction":
+                    l.flowDirection = value;
+                    l.buoyageDirection = null;
+                    $("[name='buoyage-direction']").prop("checked",false);
                     break;
-                case "stream-direction":
-                    l.streamDirection = value;
-                    break;
-                case "buoys":
-                    l.buoys = value;
-                    break;
+                case "buoyage-direction":
+                    l.buoyageDirection = value;
+            }
+
+            // Enable / Disable the flow direction buttons, depending on whether network direction is set
+            if (l.networkDirection == null ){
+                $("#flow-direction").find("input").prop("disabled",true);
+                $("#flow-direction").find("legend").addClass("disabled");
+            } else {
+                $("#flow-direction").find("input").prop("disabled",false);
+                $("#flow-direction").find("legend").removeClass("disabled");
+
+            }
+
+            // Hide the flow direction buttons that are irrelevant to the given network-direction
+            if (l.networkDirection !== null){
+                switch (l.networkDirection){
+                    case "north":
+                    case "south":
+                        $("#label-flow-direction-north, #label-flow-direction-south").show();
+                        $("#label-flow-direction-east, #label-flow-direction-west").hide();
+                        break;
+                    case "east":
+                    case "west":
+                        $("#label-flow-direction-north, #label-flow-direction-south").hide();
+                        $("#label-flow-direction-east, #label-flow-direction-west").show();
+                        break;
+                }
+            }
+            // Enable / Disabe buoyage direction, depending on whether flow direction is set
+            if (l.flowDirection == null ){
+                $("#buoyage-direction").find("input").prop("disabled",true);
+                $("#buoyage-direction").find("legend").addClass("disabled");
+
+            } else {
+                $("#buoyage-direction").find("input").prop("disabled", false);
+                $("#buoyage-direction").find("legend").removeClass("disabled");
+
+            }
+
+            // Hide the buoyage direction buttons that are irrelevant to the given network-direction
+            if (l.networkDirection !== null){
+                switch (l.networkDirection){
+                    case "north":
+                    case "south":
+                        $("#buoyage-direction-east, #buoyage-direction-west").hide();
+                        $("#buoyage-direction-north, #buoyage-direction-south").show();
+                        break;
+                    case "east":
+                    case "west":
+                        $("#buoyage-direction-north, #buoyage-direction-south").hide();
+                        $("#buoyage-direction-east, #buoyage-direction-west").show();
+                        break;
+                }
+            }
+
+
+
+            // Disable the buoyage buttons that are irrelevant to the chosen flow-direction
+            if (l.flowDirection !== null ){
+                console.log("#buoyage-direction-" + l.flowDirection);
+                $("[id*='buoyage-direction-'] input").prop("disabled",true);
+                $("#buoyage-direction-" + l.flowDirection + " input").prop("disabled",false);
             }
 
             l.drawDiagramBackground();
