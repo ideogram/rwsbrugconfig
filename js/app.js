@@ -60,6 +60,7 @@ var libConfigBridges;
         height: 700,
         overlayNames: [],
         extraImages: [],
+        extraImagesCount: 0,
 
         // Assets
         ui_images : [
@@ -198,7 +199,6 @@ var libConfigBridges;
                     .prependTo("#bridges-diagram-wrapper");
 
             // ...load a series of partials into the options-div
-
             $.get(l.path.folderPartials + "option-network-direction.partial.html", function (data) {
                 $(data).appendTo(l.$options)
                     .find("input").on("change", libConfigBridges.optionChanged); // set event handler for the on-change event
@@ -417,6 +417,8 @@ var libConfigBridges;
             var name = "";
             var htmlDiagram = "";
             var i;
+            var c = null;
+            var index = 0;
 
             // Pre-flight check
             if (!(l.$diagram instanceof jQuery)) {
@@ -435,7 +437,7 @@ var libConfigBridges;
             l.overlays = [];
 
             // Make a local copy of the catalogue
-            var c = l.elementCatalogue.slice();
+            c = l.elementCatalogue.slice();
 
             // Sort the local catalogue by string length of the symbol, from long to small
             c.sort(compare);
@@ -465,10 +467,9 @@ var libConfigBridges;
                 }
             }
 
-            var index = 0;
-
             // Copy the array to the global elements array, removing empty slots on the fly
-            $.each(elements, function (i, value) {
+           index = 0;
+           $.each(elements, function (i, value) {
                 if (value !== undefined) {
                     if ( value.symbol == "#" || value.symbol == ":") {
                         l.overlays[index-1] = value.symbol;
@@ -529,6 +530,7 @@ var libConfigBridges;
                     $.get( l.path.folderAssets + id + ".svg", function(data){
                         l.extraImages[id] = data;
                     }, "html" );
+                    l.extraImagesCount++;
                 } else {
                     $li = $('<li class="element"></li>').appendTo(libConfigBridges.$toolbar)
                         .attr({"title": tooltip, "data-ref": key})
@@ -538,20 +540,18 @@ var libConfigBridges;
                         .load(l.path.folderAssets + id + ".svg", libConfigBridges.elementLoaded);
 
                     // rework the SVG after all the SVG's are rendered
-                    libConfigBridges.observer.observe($li[0], {childList: true});
+                    l.observer.observe($li[0], {childList: true});
                 }
             });
-
-            console.log(l.extraImages);
         },
 
-        // Keeps track of the number of elements loaded
+        // run drawDiagram when after all the elements have been loaded
         elementLoaded: function(){
             var l = libConfigBridges;
+
             l.countElementsLoaded++;
 
-            if (l.countElementsLoaded == l.elementCatalogue.length){
-
+            if (l.countElementsLoaded == (l.elementCatalogue.length - l.extraImagesCount )){
                 if ( l.strConfig != null ){
                     libConfigBridges.drawDiagram();
                 }
@@ -563,20 +563,9 @@ var libConfigBridges;
             l = libConfigBridges;
             l.elementCatalogue = jsyaml.load(data);
             l.addElementsToToolbar();
-            l.preloadExtraImages();
         },
 
-        // preload some extra images that are added to the final SVG
-        preloadExtraImages: function () {
-            l = libConfigBridges;
-
-            $.get("ui-images/network-dir-n-brug.svg", function (data) {
-                l.extraImages['network-dir-n'] = data;
-            }, 'text');
-
-        },
-
-        // Scale the SVG-elements, so they take up less space
+        // invoked after each element has rendered:
         elementRendered: function(mutationRecords) {
             var $li = $(mutationRecords["0"].target);
             var $svg = $li.find("svg");
@@ -710,7 +699,6 @@ var libConfigBridges;
                 for (i = 0; i < l.L; i++) {
                     hasLabel = l.element[i]['hasLabel'];
                     $svg = l.arr$SVG[i];
-                    console.log(i,hasLabel);
 
                     if (hasLabel === true) {
                         labelNumber++;
@@ -723,8 +711,13 @@ var libConfigBridges;
                         }
                     }
                 }
-            }
 
+                // If there's only one DVO, remove the suffix again
+                if ( labelNumber == 1){
+                    $svg.find("text").first().html("1");
+                }
+
+            }
         },
 
         // offer a string containing SVG as download
@@ -818,7 +811,6 @@ var libConfigBridges;
 
             // Disable the buoyage buttons that are irrelevant to the chosen flow-direction
             if (l.flowDirection !== null ){
-                console.log("#buoyage-direction-" + l.flowDirection);
                 $("[id*='buoyage-direction-'] input").prop("disabled",true);
                 $("#buoyage-direction-" + l.flowDirection + " input").prop("disabled",false);
             }
@@ -862,17 +854,16 @@ var libConfigBridges;
                     switch (l.buoyageDirection) {
                         case "none":
                         case "redright":
-                            pushImage("afvaart-omlaag.svg", "96px 24px", "left 40% bottom 24px");
+                            pushImage("afvaart-omlaag.svg", "96px 24px", "left 40% bottom 6px");
                             break;
                         case "redleft":
-                            pushImage("afvaart-omhoog.svg", "96px 24px", "left 40% bottom 24px");
+                            pushImage("afvaart-omhoog.svg", "96px 24px", "left 40% bottom 6px");
                     }
                 }
-
             }
 
             // Flow direction
-            pushImage("stroomafwaarts.svg","96px 24px","right 35% bottom 24px");
+            pushImage("stroomafwaarts.svg","96px 24px","right 35% bottom 6px");
 
             l.$diagram.css({
                 "background-image": images.map(l.getCssAssetsUrl).join((", ")),
@@ -890,7 +881,7 @@ var libConfigBridges;
 
 
         // --- CSS Helper functions ---
-        // Helper function to construct a css-style url for an image.
+        // Helper function to construct a css-style url for an ui-image.
         getCssUrl: function (filename){
             var l = libConfigBridges;
 
@@ -898,6 +889,7 @@ var libConfigBridges;
             return "url("+l.path.folderImages + filename + ")";
         },
 
+        // Helper function to construct a css-style url for an assets. (also an image)
         getCssAssetsUrl: function(filename){
             return "url("+l.path.folderAssets + filename + ")";
         },
