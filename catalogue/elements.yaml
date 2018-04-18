@@ -93,10 +93,16 @@
 - name: stroomafwaarts
   symbol: false
 
-- name: opvaart
+- name: opvaart-omhoog
   symbol: false
 
-- name: afvaart
+- name: afvaart-omhoog
+  symbol: false
+
+- name: opvaart-omlaag
+  symbol: false
+
+- name: afvaart-omlaag
   symbol: false
 
 - name: betonning-rood-links

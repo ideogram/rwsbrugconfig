@@ -57,7 +57,7 @@ var libConfigBridges;
         overlays: [],
         L : 0,
         strConfig: "",
-        height: 700,
+        height: 720,
         overlayNames: [],
         extraImages: [],
         extraImagesCount: 0,
@@ -212,7 +212,11 @@ var libConfigBridges;
                 });
             });
 
-            // ...  invisible div containing the SVG just before it gets downloaded
+            l.createResultWrapper();        },
+
+        // Create  invisible div containing the SVG just before it gets downloaded
+
+        createResultWrapper: function(){
             var $resultWrapper =
                 $('<div id="bridges-result"></div>')
                     .insertAfter("#bridges-diagram-wrapper");
@@ -223,6 +227,8 @@ var libConfigBridges;
                     "xmlns": "http://www.w3.org/2000/svg",
                     "xmlns:xlink": "http://www.w3.org/1999/xlink"
                 });
+
+
         },
 
         /**
@@ -298,41 +304,76 @@ var libConfigBridges;
 
             w = (x+2*margin);
 
-            /*
-            // Show  N, W, O or Z on top and bottom
-            switch (l.networkDirection){
-                case "N":
-                    strTop= "N"; strBottom = "Z";
-                    break;
-                case "Z":
-                    strTop= "Z"; strBottom = "N";
-                    break;
-                case "O":
-                    strTop= "O"; strBottom = "W";
-                    break;
-                case "W":
-                    strTop= "W"; strBottom = "O";
-                    break;
+            // Add some extra images
+            // ... wind points
+
+            flowIndex = ["north", "east", "south", "west"].indexOf(l.flowDirection);
+
+            images = l.arrayRotate(["n", "o", "z", "w"], flowIndex);
+
+            windPoints = {
+                $top: $(l.extraImages[images[0]]).appendTo(l.$result),
+                $right: $(l.extraImages[images[1]]).appendTo(l.$result),
+                $bottom: $(l.extraImages[images[2]]).appendTo(l.$result),
+                $left: $(l.extraImages[images[3]]).appendTo(l.$result)
+            };
+
+            $.each(windPoints, function(index, $windpoint){
+                $windpoint.attr({width: 24, height: 24});
+            });
+
+            windPoints.$top.attr({x: w/2-12, y: 24});
+            windPoints.$right.attr({x: w-24, y: h/2});
+            windPoints.$bottom.attr({x: w/2-12, y: h-24});
+            windPoints.$left.attr({x: 24, y: h/2});
+
+            // ... flow direction
+            $(l.extraImages['stroomafwaarts']).appendTo(l.$result).attr({
+                x: 0.60*w-48,
+                y: h-24-6,
+                width: 96,
+                height: 24
+            });
+
+            // ..."Afvaart" en "Opvaart
+            if (l.buoyageDirection !== null) {
+                switch (l.buoyageDirection) {
+                    case "none":
+                    case "redright":
+                        $afvaart = $(l.extraImages['afvaart-omhoog']).appendTo(l.$result);
+                        break;
+                    case "redleft":
+                        $afvaart = $(l.extraImages['afvaart-omlaag']).appendTo(l.$result);
+                }
             }
 
-            $("<text />").appendTo(l.$result).attr({
-                x: x/2 + margin/2,
-                y: h-24})
-                .attr(textStyle)
-                .html( strTop );
+            $afvaart.attr({
+               x: 0.4*w-48,
+               y: h-24-6,
+               width: 96,
+               height: 24
+            });
 
-            $("<text />").appendTo(l.$result).attr({
-                x: x/2 + margin/2,
-                y: 24})
-                .attr(textStyle)
-                .html( strBottom );
-            */
+            // ... buoyns
+            if (l.buoyageDirection !== null && l.buoyageDirection !== "none"){
+                switch(l.buoyageDirection){
+                    case "redright":
+                        $buoyns = $(l.extraImages['betonning-rood-rechts']).appendTo(l.$result);
+                        break;
+                    case "redleft":
+                        $buoyns = $(l.extraImages['betonning-rood-links']).appendTo(l.$result);
+                        break;
+                }
+            }
 
-            // Add the background images as SVG
-            $(l.extraImages['network-dir-n']).appendTo(l.$result);
+            $buoyns.attr({
+                x: w/2-180,
+                y: margin,
+                width: 360,
+                height: 720
+            });
 
-            // Adjust width and heigth
-
+            // Adjust width and height
             l.$result.attr("width", w + "px");
             l.$result.attr("height", h + "px");
 
@@ -733,7 +774,7 @@ var libConfigBridges;
             downloadLink.click();
         },
 
-        // Set the configuration strings options
+        // Set the configuration strings options. Handle the logic of showing and hiding the UI-elements
         optionChanged: function() {
             var l = libConfigBridges;
             var $me = $(this);
@@ -854,10 +895,10 @@ var libConfigBridges;
                     switch (l.buoyageDirection) {
                         case "none":
                         case "redright":
-                            pushImage("afvaart-omlaag.svg", "96px 24px", "left 40% bottom 6px");
+                            pushImage("afvaart-omhoog.svg", "96px 24px", "left 40% bottom 6px");
                             break;
                         case "redleft":
-                            pushImage("afvaart-omhoog.svg", "96px 24px", "left 40% bottom 6px");
+                            pushImage("afvaart-omlaag.svg", "96px 24px", "left 40% bottom 6px");
                     }
                 }
             }
