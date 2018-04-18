@@ -1,0 +1,6 @@
+%li#network-direction.diagram-editor-options
+  %legend Netwerk richting
+
+  - ["north","east","south","west"].each do |windpoint|
+    %input{:name => "network-direction", :type => "radio", :value => "#{windpoint}", :id => "network-direction-#{windpoint}"}
+    %label{ :for => "network-direction-#{windpoint}", :id => "label-network-direction-#{windpoint}"}

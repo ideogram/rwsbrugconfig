@@ -1,90 +1,92 @@
 - name: wal
-  tooltip: "Wal"
-  symbol: "W01"
+  tooltip: Wal
+  symbol: Wal
 
 - name: wal-links
-  tooltip: "Overgang tussen brug en wal. Links"
-  symbol: "W02"
+  tooltip: Overgang tussen brug en wal. Links
+  symbol: WlL
+  direction: L
 
 - name: wal-rechts
-  tooltip: "Overgang tussen brug en wal. Links"
-  symbol: "W03"
+  tooltip: Overgang tussen brug en wal. Rechts
+  symbol: WlR
 
 - name: boven-land
-  tooltip: "brugdeel over land"
-  symbol: "F01"
+  tooltip: brugdeel over land
+  symbol: BLN
+  direction: N
 
 - name: ellipses
-  tooltip: "Weggelaten doorvaartopening(en)"
-  symbol: "E01"
+  tooltip: Weggelaten doorvaartopening(en)"
+  symbol: BEN
 
 - name: geen-doorvaart
-  tooltip: "Geen doorvaartopening"
-  symbol: "E02"
+  tooltip: Geen doorvaartopening
+  symbol: B0N
 
 - name: vast
-  tooltip: "Vaste brug"
-  symbol: "E10"
+  tooltip: Vaste brug
+  symbol: BVN
   hasLabel: true
 
 - name: draai
-  tooltip: "Draaibrug"
-  symbol: "E20"
+  tooltip: Draaibrug
+  symbol: BDN
   hasLabel: true
 
 - name: draai-enkel-A
-  tooltip: "Ongelijkarmige draaibrug"
-  symbol: "E21"
+  tooltip: Ongelijkarmige draaibrug
+  symbol: BDL
   hasLabel: true
 
 - name: draai-enkel-B
-  tooltip: "Ongelijkarmige draaibrug"
-  symbol: "E22"
+  tooltip: Ongelijkarmige draaibrug
+  symbol: BDR
   hasLabel: true
 
 - name: hef
-  tooltip: "Hefbrug"
-  symbol: "E30"
+  tooltip: Hefbrug
+  symbol: BHN
   hasLabel: true
 
 - name: bascule-A
-  tooltip: "Basculebrug of klapbrug"
-  symbol: "E40"
+  tooltip: Basculebrug of klapbrug
+  symbol: BKL
   hasLabel: true
 
 - name: bascule-B
-  tooltip: "Basculebrug of klapbrug"
-  symbol: "E41"
+  tooltip: Basculebrug of klapbrug
+  symbol: BKR
   hasLabel: true
 
 - name: bascule-overtrokken-A
-  tooltip: "Overtrekbare basculebrug"
-  symbol: "E42"
+  tooltip: Overtrekbare basculebrug
+  symbol: BOL
   hasLabel: true
 
 - name: bascule-overtrokken-B
-  tooltip: "Overtrekbare basculebrug"
-  symbol: "E43"
+  tooltip: Overtrekbare basculebrug
+  symbol: BOR
   hasLabel: true
 
 - name: dubbele-bascule
-  tooltip: "Dubbele basculebrug"
-  symbol: "E44"
+  tooltip: Dubbele basculebrug
+  symbol: BKN
   hasLabel: true
 
 - name: dubbele-bascule-overtrokken
-  tooltip: "Dubbele, overtrekbare basculebrug"
-  symbol: "E45"
+  tooltip: Dubbele, overtrekbare basculebrug
+  symbol: BON
   hasLabel: true
 
 - name: over-sluishoofd-A
-  tooltip: "DVO overspant hoofd van sluiskolk."
-  symbol: "Q01"
+  tooltip: DVO overspant hoofd van sluiskolk.
+  symbol: Q01
   overlay: true
 
 - name: over-sluishoofd-B
-  tooltip: "DVO overspant hoofd van sluiskolk."
-  symbol: "Q02"
+  tooltip: DVO overspant hoofd van sluiskolk.
+  symbol: Q02
   overlay: true
 
 - name: stroomopwaarts
@@ -122,4 +124,5 @@
 
 - name: w
   symbol: false
+
 ...

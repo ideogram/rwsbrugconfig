@@ -21,17 +21,11 @@ var libConfigBridges;
             folderImages: 'ui-images/',
         },
 
-        // Defaults
-        // Todo: check if these defaults are still needed and acurate.
-        // Todo: remove commented-out default properties in the rest of this codebase
+        // Defaults if no config string is given
         default: {
             networkDirection : "Z",
-            strConfig : null,
-            flowDirection: null,
-            buoyageDirection: null
-            // dvoNumbering: "default",
-            // buoys: "show",
-            // streamDirection: "up"
+            flowDirection: "N",
+            buoyage: "rood-rechts"
         },
 
         // Behaviour
@@ -41,7 +35,7 @@ var libConfigBridges;
         // Variables
         networkDirection : null,
         flowDirection: null,
-        buoyageDirection: null,
+        buoyage: null,
 
         diagramTool: {},
         $toolbar: null,
@@ -68,10 +62,10 @@ var libConfigBridges;
             [".btn-remove","delete-forever.svg"],
             [".btn-remove:hover","delete-forever-hover.svg"],
 
-            ["#label-dir-n","network-direction-north.svg"],
-            ["#label-dir-e","network-direction-east.svg"],
-            ["#label-dir-s","network-direction-south.svg"],
-            ["#label-dir-w","network-direction-west.svg"],
+            ["#label-network-direction-north","network-direction-north.svg"],
+            ["#label-network-direction-east","network-direction-east.svg"],
+            ["#label-network-direction-south","network-direction-south.svg"],
+            ["#label-network-direction-west","network-direction-west.svg"],
 
             ["#label-flow-direction-down","flow-direction-down.svg"],
             ["#label-flow-direction-up","flow-direction-up.svg"],
@@ -173,7 +167,7 @@ var libConfigBridges;
          * @param {string} strSelector jQuery/CSS style selector
          * @memberof libConfig
          */
-        setDiagram: function(strSelector) {
+        setDiagram: function (strSelector) {
             var l = libConfigBridges;
             l.$diagram = $(strSelector);
 
@@ -207,15 +201,23 @@ var libConfigBridges;
                     $(data).appendTo(l.$options)
                         .find("input").on("change", libConfigBridges.optionChanged); // set event handler for the on-change event
 
-                    $("#flow-and-buoyage-direction").find("input").prop("disabled",true);
+
+                    /*
+                    $("#flow-and-buoyage-direction").find("input").prop("disabled", true);
                     $("#flow-direction, #buoyage-direction").find("legend").addClass("disabled");
+                    */
+
+                    // Update the GUI to reflect settings from the configstring
+                    l.setGUIState();
+                    l.updateGUI();
+
                 });
             });
 
-            l.createResultWrapper();        },
+            l.createResultWrapper();
+        },
 
         // Create  invisible div containing the SVG just before it gets downloaded
-
         createResultWrapper: function(){
             var $resultWrapper =
                 $('<div id="bridges-result"></div>')
@@ -247,15 +249,17 @@ var libConfigBridges;
             l.strConfig = [
                 "(",
                 l.networkDirection,
-                L.dvoNumbering,
+                l.networkDirection === l.flowDirection ? "tegen" : "mee",
+                l.buoyage,
                 ")"
             ].join(" ");
 
             for (var i = 0; i < l.L; i++) {
-                l.strConfig += l.element[i]['symbol'];
+
+                l.strConfig += " " + l.element[i]['symbol'];
 
                 if ( typeof l.overlays[i] !== "undefined" ){
-                    l.strConfig += l.overlays[i];
+                    l.strConfig += " " + l.overlays[i];
                 }
             }
 
@@ -339,8 +343,8 @@ var libConfigBridges;
             });
 
             // ..."Afvaart" en "Opvaart
-            if (l.buoyageDirection !== null) {
-                switch (l.buoyageDirection) {
+            if (l.buoyage !== null) {
+                switch (l.buoyage) {
                     case "none":
                     case "redright":
                         $afvaart = $(l.extraImages['afvaart-omhoog']).appendTo(l.$result);
@@ -358,8 +362,8 @@ var libConfigBridges;
             });
 
             // ... buoyns
-            if (l.buoyageDirection !== null && l.buoyageDirection !== "none"){
-                switch(l.buoyageDirection){
+            if (l.buoyage !== null && l.buoyage !== "none"){
+                switch(l.buoyage){
                     case "redright":
                         $buoyns = $(l.extraImages['betonning-rood-rechts']).appendTo(l.$result);
                         break;
@@ -384,12 +388,15 @@ var libConfigBridges;
         },
 
         /**
-         * Set the configuration string. The chamber-id, network direction, gate numbering and comments are also set
+         * Set the configuration string within the editor.
          * @param {string} strConfig A complete configuration string
          * @memberof libConfig
          */
         setConfigString: function(strConfig){
             var l = libConfigBridges;
+            var arrPre = [];
+            var strPre = "";
+            var flowChoice = null;
 
             // Check if the config string is empty. If so, re-install defaults.
             if (strConfig == "") {
@@ -401,13 +408,13 @@ var libConfigBridges;
                 return;
             }
 
-            var matches = strConfig.match(/\((.*?)\)/g);
-            var strPre;
+            arrPre = strConfig.match(/\((.*?)\)/g);
 
-            // Split the string into three parts and keep the middle part
-            if (matches.length > 0) {
-                strPre = matches[0];
+            // Split the string into two parts: the pre fix and the sequence of symbols
+            if (arrPre.length > 0) {
+                strPre = arrPre[0];
 
+                // strip the config string from it's prefix
                 strConfig = strConfig.replace(strPre, "");
 
                 // From the first part,
@@ -416,17 +423,47 @@ var libConfigBridges;
                 strPre = strPre.replace("(", "");
                 strPre = strPre.replace(")", "");
 
-                // ... and extract network direction
-                l.setNetworkDirection(strPre.match(/[NOZW]/)[0]);
+                // ... and extract the fairway options
+                // ... ... network direction
+                arrNetwork = strPre.match(/N|Z|W|O/);
+                if ( arrNetwork !== null ) {
+                    l.networkDirection = arrNetwork[0];
+                }
+
+                // ... .. flow direction
+                arrFlowChoice = strPre.match(/mee|tegen/);
+                if ( arrFlowChoice !== null && l.networkDirection){
+                    flowChoice = arrFlowChoice[0];
+                    l.flowDirection = {
+                        'mee': {
+                            'N': 'Z',
+                            'O': 'W',
+                            'Z': 'N',
+                            'W': 'O'
+                        },
+                        'tegen': {
+                            'N': 'N',
+                            'O': 'O',
+                            'Z': 'Z',
+                            'W': 'W'
+                        }
+                    }[flowChoice][l.networkDirection];
+                }
+
+                arrBuoyage  = strPre.match(/rood-rechts|rood-links|geen/);
+                if (arrBuoyage !== null) {
+                    l.buoyage = arrBuoyage[0];
+                }
             }
 
             // What remains is the 'actual' config string, the part
-            // that contains all the symbols, like e.g. <S.<.   .>
+            // that contains all the symbols
+
             l.strConfig = strConfig;
         },
 
         /**
-         * set the Network direction. This represents the direction of the entrance of the chamber according to RWS network direction
+         * set the Network direction.
          * @param {string} value Either "N","Z","O" or "W"
          * @memberof libConfig
          */
@@ -451,7 +488,7 @@ var libConfigBridges;
          */
         drawDiagram: function () {
             var l = libConfigBridges;
-            var s = l.strConfig;
+            var configstring = l.strConfig;
             var elements = [];
             var fill = "";
             var pos = "";
@@ -459,7 +496,7 @@ var libConfigBridges;
             var name = "";
             var htmlDiagram = "";
             var i;
-            var c = null;
+            var catalogue = null;
             var index = 0;
 
             // Pre-flight check
@@ -472,6 +509,14 @@ var libConfigBridges;
                 return;
             }
 
+            if (l.detectIE()){
+                alert(
+                    "Het lijkt erop dat u Internet Explorer gebruikt. De werking van deze" +
+                    "pagina is niet gegarandeerd onder deze browser. Probeer een andere browser," +
+                    "zoals Chrome of Firefox."
+                )
+            }
+
             // Clear the diagram
             l.$diagram.html("");
             l.element = [];
@@ -479,10 +524,10 @@ var libConfigBridges;
             l.overlays = [];
 
             // Make a local copy of the catalogue
-            c = l.elementCatalogue.slice();
+            catalogue = l.elementCatalogue.slice();
 
             // Sort the local catalogue by string length of the symbol, from long to small
-            c.sort(compare);
+            catalogue.sort(compare);
 
             function compare(a,b) {
                 if (a.symbol.length > b.symbol.length)
@@ -493,19 +538,19 @@ var libConfigBridges;
             }
 
             // Find occurrences of every symbol in the config-string and store them in an array
-            for (i=0; i<c.length; i++ ){
+            for (i=0; i<catalogue.length; i++ ){
 
-                symbol = c[i].symbol;
-                name = c[i].name;
+                symbol = catalogue[i].symbol;
+                name = catalogue[i].name;
 
-                pos = s.indexOf( symbol );
+                pos = configstring.indexOf( symbol );
 
                 while (pos !== -1) {
-                    elements[pos] = c[i];
+                    elements[pos] = catalogue[i];
                     elements[pos]['ref'] = i;
                     fill = "".padStart(symbol.length,"@");
-                    s = s.replace( symbol, fill );
-                    pos = s.indexOf(symbol, pos + 1 );
+                    configstring = configstring.replace( symbol, fill );
+                    pos = configstring.indexOf(symbol, pos + 1 );
                 }
             }
 
@@ -513,7 +558,7 @@ var libConfigBridges;
            index = 0;
            $.each(elements, function (i, value) {
                 if (value !== undefined) {
-                    if ( value.symbol == "#" || value.symbol == ":") {
+                    if ( value.overlay === true) {
                         l.overlays[index-1] = value.symbol;
                     } else {
                         l.element.push(value);
@@ -523,7 +568,7 @@ var libConfigBridges;
             });
 
             // Fill the diagram with copies of the elements in the toolbar
-            for(i=0; i<l.element.length; i++){
+           for(i=0; i<l.element.length; i++){
                 name = l.element[i].name;
                 $e = l.$toolbar.find("."+name);
                 htmlDiagram +=  $e[0].outerHTML;
@@ -782,20 +827,48 @@ var libConfigBridges;
             var varName = $me.attr("name");
             var value = $me.val();
 
-            switch (varName ){
+            switch (varName) {
                 case "network-direction":
-                    l.networkDirection = value;
+                    l.networkDirection = { "north": "N", "south": "Z", "east": "O", "west": "W" }[value];
                     l.flowDirection = null;
-                    $("[name='flow-direction']").prop("checked",false);
+                    $("[name='flow-direction']").prop("checked", false);
                     break;
                 case "flow-direction":
-                    l.flowDirection = value;
-                    l.buoyageDirection = null;
-                    $("[name='buoyage-direction']").prop("checked",false);
+                    l.flowDirection = { "north": "N", "south": "Z", "east": "O", "west": "W" }[value];
+                    l.buoyage = null;
+                    $("[name='buoyage-direction']").prop("checked", false);
                     break;
                 case "buoyage-direction":
-                    l.buoyageDirection = value;
+                    l.buoyage = { "redright": "rood-rechts", "redleft": "rood-links", "none": "geen" }[value];
             }
+
+            l.updateGUI();
+        },
+
+        setGUIState: function () {
+
+            // Network direction
+            var windpoint = { N: "north", Z: "south", O: "east", W: "west" }[l.networkDirection];
+
+            if (l.networkDirection !== null) {
+                $("#network-direction-" + windpoint ).prop("checked", true);
+            }
+
+            // Flow direction
+            var flow=  { N: "north", Z: "south", O: "east", W: "west" }[l.flowDirection];
+            if (l.flowDirection !== null) {
+                $("#flow-direction-" + flow ).prop("checked", true);
+            }
+
+            var buoyn = {"rood-rechts": "redright", "rood-links": "redleft", "geen": "none" }[l.buoyage];
+            // Buoyage
+            if (l.buoyage !== null ){
+                $("#buoyage-direction-"+ flow + "-" + buoyn).prop("checked",true);
+            }
+
+        },
+
+        updateGUI: function(){
 
             // Enable / Disable the flow direction buttons, depending on whether network direction is set
             if (l.networkDirection == null ){
@@ -810,51 +883,49 @@ var libConfigBridges;
             // Hide the flow direction buttons that are irrelevant to the given network-direction
             if (l.networkDirection !== null){
                 switch (l.networkDirection){
-                    case "north":
-                    case "south":
+                    case "N":
+                    case "Z":
                         $("#label-flow-direction-north, #label-flow-direction-south").show();
                         $("#label-flow-direction-east, #label-flow-direction-west").hide();
                         break;
-                    case "east":
-                    case "west":
+                    case "O":
+                    case "W":
                         $("#label-flow-direction-north, #label-flow-direction-south").hide();
                         $("#label-flow-direction-east, #label-flow-direction-west").show();
                         break;
                 }
             }
-            // Enable / Disabe buoyage direction, depending on whether flow direction is set
+
+            // Enable / Disable buoyage direction, depending on whether flow direction is set
             if (l.flowDirection == null ){
                 $("#buoyage-direction").find("input").prop("disabled",true);
                 $("#buoyage-direction").find("legend").addClass("disabled");
-
             } else {
                 $("#buoyage-direction").find("input").prop("disabled", false);
                 $("#buoyage-direction").find("legend").removeClass("disabled");
-
             }
 
-            // Hide the buoyage direction buttons that are irrelevant to the given network-direction
+            // Hide the buoyage direction buttons that are irrelevant to the given flow direction
             if (l.networkDirection !== null){
                 switch (l.networkDirection){
-                    case "north":
-                    case "south":
+                    case "N":
+                    case "Z":
                         $("#buoyage-direction-east, #buoyage-direction-west").hide();
                         $("#buoyage-direction-north, #buoyage-direction-south").show();
                         break;
-                    case "east":
-                    case "west":
+                    case "O":
+                    case "W":
                         $("#buoyage-direction-north, #buoyage-direction-south").hide();
                         $("#buoyage-direction-east, #buoyage-direction-west").show();
                         break;
                 }
             }
 
-
-
             // Disable the buoyage buttons that are irrelevant to the chosen flow-direction
+            var flow = { N: "north", Z: "south", O: "east", W: "west" }[l.flowDirection];
             if (l.flowDirection !== null ){
                 $("[id*='buoyage-direction-'] input").prop("disabled",true);
-                $("#buoyage-direction-" + l.flowDirection + " input").prop("disabled",false);
+                $("#buoyage-direction-" + flow + " input").prop("disabled",false);
             }
 
             l.drawExtraImages();
@@ -871,20 +942,20 @@ var libConfigBridges;
 
             // Wind points
             if (l.flowDirection !== null ) {
-                flowIndex = ["north", "east", "south", "west"].indexOf(l.flowDirection);
+                flowIndex = ["N", "O", "Z", "W"].indexOf(l.flowDirection);
 
                 images = l.arrayRotate(["n.svg", "o.svg", "z.svg", "w.svg"], flowIndex);
                 positions = ["top", "right", "bottom", "left"];
                 sizes = ["24px 24px", "24px 24px", "24px 24px", "24px 24px"];
 
                 // Buoyns
-                if (l.buoyageDirection !== null && l.buoyageDirection !== "none"){
-                    switch(l.buoyageDirection){
-                        case "redright":
+                if (l.buoyage !== null && l.buoyage !== "geen"){
+                    switch(l.buoyage){
+                        case "rood-rechts":
                             pushImage("betonning-rood-rechts.svg", "contain","center")
 
                             break;
-                        case "redleft":
+                        case "rood-links":
                             pushImage("betonning-rood-links.svg", "contain","center")
 
                             break;
@@ -892,13 +963,13 @@ var libConfigBridges;
                 }
 
                 // "Afvaart" en "Opvaart
-                if (l.buoyageDirection !== null) {
-                    switch (l.buoyageDirection) {
-                        case "none":
-                        case "redright":
+                if (l.buoyage !== null) {
+                    switch (l.buoyage) {
+                        case "geen":
+                        case "rood-rechts":
                             pushImage("afvaart-omhoog.svg", "96px 24px", "left 40% bottom 6px");
                             break;
-                        case "redleft":
+                        case "rood-links":
                             pushImage("afvaart-omlaag.svg", "96px 24px", "left 40% bottom 6px");
                     }
                 }
@@ -922,7 +993,8 @@ var libConfigBridges;
         },
 
 
-        // --- CSS Helper functions ---
+        // HELPER FUNCTIONS
+
         // Helper function to construct a css-style url for an ui-image.
         getCssUrl: function (filename){
             var l = libConfigBridges;
@@ -959,8 +1031,39 @@ var libConfigBridges;
             }
         },
 
+        // Helper function to rotate an array
         arrayRotate: function(array, n) {
             return array.slice(n, array.length).concat(array.slice(0, n));
+        },
+
+        /**
+         * detect IE
+         * returns version of IE or false, if browser is not Internet Explorer
+         */
+        detectIE: function() {
+            var ua = window.navigator.userAgent;
+
+            var msie = ua.indexOf('MSIE ');
+            if (msie > 0) {
+                // IE 10 or older => return version number
+                return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+            }
+
+            var trident = ua.indexOf('Trident/');
+            if (trident > 0) {
+                // IE 11 => return version number
+                var rv = ua.indexOf('rv:');
+                return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+            }
+
+            var edge = ua.indexOf('Edge/');
+            if (edge > 0) {
+                // Edge (IE 12+) => return version number
+                return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+            }
+
+            // other browser
+            return false;
         }
     }
 })(window);

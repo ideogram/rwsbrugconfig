@@ -36,8 +36,12 @@
   libConfigBridges.loadAssetsAndCatalogue();
   libConfigBridges.setToolbar('#bridges-toolbar');
   libConfigBridges.setDiagram('#bridges-diagram');
-  libConfigBridges.setConfigString("(Z 123)W01W02E01E02E20E30E42W03W01"); // implicit drawDiagram
+  libConfigBridges.setConfigString("() Wal WlL BLN BEN D0N BVN BHN WlR Wal"); // implicit drawDiagram
 //  libConfigBridges.setConfigString(""); // clear the diagram
+
+  setTimeout(function(){   console.log(libConfigBridges.getConfigString()); }, 1000);
+
+
 
   // Add download button to options bar. This button should be implemented into the app-menu-bar
   $download = $('<li><button id="bridges-download">Download</button></li>').appendTo('#bridges-options');
