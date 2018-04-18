@@ -221,7 +221,10 @@ var libConfigBridges;
                 $('<div id="bridges-result"></div>')
                     .insertAfter("#bridges-diagram-wrapper");
 
-            l.$result = $('<svg></svg>')
+            var svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            l.$result = $(svgElement);
+
+            l.$result
                 .appendTo($resultWrapper)
                 .attr({
                     "xmlns": "http://www.w3.org/2000/svg",
@@ -322,10 +325,10 @@ var libConfigBridges;
                 $windpoint.attr({width: 24, height: 24});
             });
 
-            windPoints.$top.attr({x: w/2-12, y: 24});
-            windPoints.$right.attr({x: w-24, y: h/2});
-            windPoints.$bottom.attr({x: w/2-12, y: h-24});
-            windPoints.$left.attr({x: 24, y: h/2});
+            windPoints.$top.attr({x: w/2-12, y: 6});
+            windPoints.$right.attr({x: w-30, y: h/2});
+            windPoints.$bottom.attr({x: w/2-12, y: h-30});
+            windPoints.$left.attr({x: 6, y: h/2});
 
             // ... flow direction
             $(l.extraImages['stroomafwaarts']).appendTo(l.$result).attr({
@@ -374,9 +377,7 @@ var libConfigBridges;
             });
 
             // Adjust width and height
-            l.$result.attr("width", w + "px");
-            l.$result.attr("height", h + "px");
-
+            l.$result.attr("viewBox",[0,0,w,h].join(" ") );
 
             // Offer the download
             libConfigBridges.offerDownload(l.$result[0].outerHTML, strFileName );
