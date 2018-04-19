@@ -1,0 +1,14 @@
+<svg id="9121cbd6-9b16-4bfb-abb8-d4da6ee1c43e" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72">
+  <title>buoyage-direction-n-rood-links</title>
+  <g>
+    <rect x="8.2" y="30.6" width="10.8" height="10.83" fill="#d52b1e"/>
+    <polygon points="63.8 41.4 53 41.4 53 37.3 58.4 30.6 63.8 37.3 63.8 41.4" fill="#39870c" fill-rule="evenodd"/>
+  </g>
+  <g>
+    <path d="M35,61.1c0-3.3,4-3.3,4-6.6s-4-3.4-4-6.7,4-3.3,4-6.6-4-3.4-4-6.7,4-3.3,4-6.7-4-3.3-4-6.6" fill="none" stroke="#59a9db" stroke-miterlimit="10" stroke-width="3"/>
+    <g>
+      <line x1="35" y1="21.2" x2="35" y2="17.3" fill="none" stroke="#59a9db" stroke-miterlimit="10" stroke-width="3"/>
+      <polygon points="39.5 18.7 35 10.9 30.5 18.7 39.5 18.7" fill="#59a9db"/>
+    </g>
+  </g>
+</svg>
