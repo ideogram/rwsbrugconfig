@@ -759,8 +759,17 @@ var libConfigBridges;
             var $li = $me.closest("li");
             var i = $li.index();
 
-            $li.remove();
-            l.diagramChanged();
+            if (i in l.overlays ){
+                // remove overlay, but not the underlying element
+                $li.find("g[data-name='overlay']").remove();
+                delete l.overlays[i];
+            } else {
+                // remove the element
+                l.overlays.splice(i,1);
+                $li.remove();
+                l.diagramChanged();
+            }
+
         },
 
         // Put a label under each DVO

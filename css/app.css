@@ -34,7 +34,7 @@ body {
   margin-top: 10px; }
   #bridges-toolbar li {
     margin: 2px;
-    outline: 1px solid silver;
+    outline: 1px solid green;
     background-color: #f8f8f8; }
     #bridges-toolbar li[title]:hover::after {
       content: attr(title);
@@ -183,3 +183,5 @@ svg {
 #buoyage-direction label:last-child {
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px; }
+
+/*# sourceMappingURL=app.css.map */
