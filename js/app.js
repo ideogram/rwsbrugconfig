@@ -29,7 +29,7 @@ var libConfigBridges;
         },
 
         // Behaviour
-        draggableOptions : {connectToSortable: null, helper: "clone", revert: "invalid"},
+        draggableOptions : {connectToSortable: null, helper: "clone", revert: "invalid" },
         scale: "3", // How much should the tiles be scaled down when used in the toolbar? 3 means 33% of the original
 
         // Variables
@@ -55,6 +55,7 @@ var libConfigBridges;
         overlayNames: [],
         extraImages: [],
         extraImagesCount: 0,
+        disableNetworkDirection: false,
 
         // Assets
         ui_images : [
@@ -186,9 +187,7 @@ var libConfigBridges;
             l.$diagramWrapper = l.$diagram.find("#bridges-diagram-wrapper");
 
             // ... options: contains a series of options that can be set on the diagram
-            l.$options =
-                $("<ul id='bridges-options' />")
-                    .prependTo("#bridges-diagram-wrapper");
+            l.$options = $("<ul id='bridges-options' />").insertBefore($("#bridges-toolbar-wrapper"));
 
             // ...load a series of partials into the options-div
             $.get(l.path.folderPartials + "option-network-direction.partial.html", function (data) {
@@ -391,10 +390,10 @@ var libConfigBridges;
          * @memberof libConfig
          */
         setConfigString: function(strConfig){
-            var l = libConfigBridges;
-            var arrPre = [];
-            var strPre = "";
-            var flowChoice = null;
+            let l = libConfigBridges;
+            let arrPre;
+            let strPre = "";
+            let flowChoice;
 
             // Check if the config string is empty. If so, re-install defaults.
             if (strConfig == "") {
@@ -428,6 +427,7 @@ var libConfigBridges;
                 // ... ... network direction
                 if ( arrParts.length > 0 ) {
                     l.networkDirection = arrParts[0];
+                    l.disableNetworkDirection = true;
                 }
 
                 // ... .. flow direction
@@ -826,7 +826,8 @@ var libConfigBridges;
             downloadLink.click();
         },
 
-        // Set the configuration strings options. Handle the logic of showing and hiding the UI-elements
+        // Set the configuration strings options. Handle the logic of checking and un-checking options based
+        // on other options
         optionChanged: function() {
             var l = libConfigBridges;
             var $me = $(this);
@@ -854,20 +855,26 @@ var libConfigBridges;
         setGUIState: function () {
 
             // Network direction
-            var windpoint = l.networkDirection;
+            let windpoint = l.networkDirection;
 
             if (l.networkDirection !== null) {
-                $("#network-direction-" + windpoint ).prop("checked", true);
+                $("#network-direction-" + windpoint).prop("checked", true);
             }
 
+            if (l.disableNetworkDirection === true ){
+                $("#network-direction").addClass("readonly");
+            }
+
+
+
             // Flow direction
-            var flow=  l.flowDirection;
+            let flow=  l.flowDirection;
             if (l.flowDirection !== null) {
                 $("#flow-direction-" + flow ).prop("checked", true);
             }
 
             // Buoyage
-            var buoyn = l.buoyage;
+            let buoyn = l.buoyage;
             if (l.buoyage !== null ){
                 $("#buoyage-direction-"+ flow + "-" + buoyn).prop("checked",true);
             }
@@ -876,39 +883,50 @@ var libConfigBridges;
 
         updateGUI: function(){
 
-            // Enable / Disable the flow direction buttons, depending on whether network direction is set
-            if (l.networkDirection == null ){
-                $("#flow-direction").find("input").prop("disabled",true);
-                $("#flow-direction").find("legend").addClass("disabled");
-            } else {
-                $("#flow-direction").find("input").prop("disabled",false);
-                $("#flow-direction").find("legend").removeClass("disabled");
+            let $flowDirection = $("#flow-direction");
+            let $buttonGroupNZ = $("#button-group-n, #button-group-z");
+            let $buttonGroupOW = $("#button-group-o, #button-group-w");
+            let $buoyageDirectionInput = $("[id^='buoyage-direction-']");
+            let $buoyageDirectionLabel = $("[id^='label-buoyage-direction']");
+            let $buoyageDirectionOW = $("#buoyage-direction-o, #buoyage-direction-w");
+            let $buoyageDirectionNZ = $("#buoyage-direction-n, #buoyage-direction-z");
 
+            // Enable / Disable the flow direction buttons, depending on whether network direction is set
+
+            if (l.networkDirection == null ){
+                $flowDirection.find("input").prop("disabled",true);
+                $flowDirection.find("legend").addClass("disabled");
+            } else {
+                $flowDirection.find("input").prop("disabled",false);
+                $flowDirection.find("legend").removeClass("disabled");
             }
 
             // Hide the flow direction buttons that are irrelevant to the given network-direction
             if (l.networkDirection !== null){
+
                 switch (l.networkDirection){
                     case "n":
                     case "z":
-                        $("#label-flow-direction-n, #label-flow-direction-z").show();
-                        $("#label-flow-direction-o, #label-flow-direction-w").hide();
+                        $buttonGroupNZ.show();
+                        $buttonGroupOW.hide();
                         break;
                     case "o":
                     case "w":
-                        $("#label-flow-direction-n, #label-flow-direction-z").hide();
-                        $("#label-flow-direction-o, #label-flow-direction-w").show();
+                        $buttonGroupNZ.hide();
+                        $buttonGroupOW.show();
                         break;
                 }
             }
 
             // Enable / Disable buoyage direction, depending on whether flow direction is set
             if (l.flowDirection == null ){
-                $("#buoyage-direction").find("input").prop("disabled",true);
-                $("#buoyage-direction").find("legend").addClass("disabled");
+                $buoyageDirectionInput.prop("disabled",true);
+                $buoyageDirectionLabel.addClass("disabled");
+                // $buoyageDirection.find("legend").addClass("disabled");
             } else {
-                $("#buoyage-direction").find("input").prop("disabled", false);
-                $("#buoyage-direction").find("legend").removeClass("disabled");
+                $buoyageDirectionInput.prop("disabled", false);
+                $buoyageDirectionLabel.removeClass("disabled");
+                // $buoyageDirection.find("legend").removeClass("disabled");
             }
 
             // Hide the buoyage direction buttons that are irrelevant to the given flow direction
@@ -916,13 +934,13 @@ var libConfigBridges;
                 switch (l.networkDirection){
                     case "n":
                     case "z":
-                        $("#buoyage-direction-o, #buoyage-direction-w").hide();
-                        $("#buoyage-direction-n, #buoyage-direction-z").show();
+                        $buoyageDirectionNZ.hide();
+                        $buoyageDirectionOW.show();
                         break;
                     case "o":
                     case "w":
-                        $("#buoyage-direction-n, #buoyage-direction-z").hide();
-                        $("#buoyage-direction-o, #buoyage-direction-w").show();
+                        $buoyageDirectionOW.hide();
+                        $buoyageDirectionNZ.show();
                         break;
                 }
             }
@@ -930,8 +948,8 @@ var libConfigBridges;
             // Disable the buoyage buttons that are irrelevant to the chosen flow-direction
             var flow = l.flowDirection;
             if (l.flowDirection !== null ){
-                $("[id*='buoyage-direction-'] input").prop("disabled",true);
-                $("#buoyage-direction-" + flow + " input").prop("disabled",false);
+                $buoyageDirectionInput.prop("disabled",true);
+                $("[id^='buoyage-direction-" + flow + "']").prop("disabled",false);
             }
 
             l.drawExtraImages();

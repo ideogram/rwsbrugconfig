@@ -1,3 +1,4 @@
+$labelSize: 48px
 body, html
   height: 100%
   padding: 0
@@ -18,7 +19,7 @@ body
   overflow: hidden
   display: block
   padding: 24px 0
-  background-color: white
+  //background-color: transparent
   position: relative
 
   li
@@ -36,8 +37,7 @@ body
 
   li
     margin: 2px
-    outline: 1px solid green
-    background-color: #f8f8f8
+    outline: 1px solid silver
     &[title]:hover::after
       content: attr(title)
       padding: 4px 8px
@@ -65,7 +65,7 @@ body
     position: relative
     &:hover
       cursor: ew-resize
-      background-color: #f8f8f8
+      background-color: transparent
       z-index: 1000
       .btn-remove
         cursor: pointer
@@ -101,7 +101,7 @@ body
     background-color: #f8f8f8
 
 .ui-sortable-placeholder
-  background-color: azure
+  background-color: transparent
   outline: 1px solid red
 
 svg
@@ -129,14 +129,16 @@ svg
       background-color: #DEECF8
       border-color: #8CC3E7
       opacity: 1
+      box-shadow: inset 2px 2px 2px 1px rgba(0,0,0,0.18)
+
 
     &:disabled + label
       filter: grayscale(100%) blur(2px)
       opacity: 0.35
 
   label
-    width: 72px
-    height: 72px
+    width: $labelSize
+    height: $labelSize
     box-sizing: border-box
     border-radius: 0px
     display: block
@@ -149,59 +151,52 @@ svg
       size: 100%
     transition: filter 300ms
 
-#label-dir-n
-  border-top-left-radius: 8px
-  border-bottom-left-radius: 8px
+#label-network-direction-n
+  border-top-left-radius: $labelSize/8
+  border-bottom-left-radius: $labelSize/8
 
-#label-dir-w
-  border-top-right-radius: 8px
-  border-bottom-right-radius: 8px
+#label-network-direction-w
+  border-top-right-radius: $labelSize/8
+  border-bottom-right-radius: $labelSize/8
+
+#network-direction.readonly
+  label
+    border-radius: $labelSize/8
+    background-color: white
+    //border-color: #e0e0e0
+    box-shadow: inset 2px 2px 2px 1px rgba(0,0,0,0.18)
+
+  input:not(:checked)
+    & + label
+      display: none
+
 
 #flow-and-buoyage-direction
   & > ul
-    width: 288px+144px
+    width: 4*$labelSize
     display: block
     padding: 0
-    list-type: none
+    list-style: none
     padding: 0
     margin: 0
     overflow: hidden
 
-#flow-direction, #buoyage-direction
-  //&.li
-  display: block
-  padding-left: 144px
-  position: relative
-  overflow: hidden
+    li
+      display: block
+      overflow: hidden
 
-  legend
-    display: block
-    width: 140px
-    position: absolute
-    margin: 0 0 0 -144px
-    text-align: left
+    label
+      display: block
+      float: left
 
-#buoyage-direction
-  .buttongroup
-    width: 72px
-    float: left
+#label-flow-direction-n, #label-flow-direction-o
+  border-top-left-radius: $labelSize/8
 
+#label-flow-direction-z, #label-flow-direction-w
+  border-bottom-left-radius: $labelSize/8
 
-#label-flow-direction-north, #label-flow-direction-east
-  border-top-left-radius: 8px
+#label-buoyage-direction-n-geen, #label-buoyage-direction-o-geen
+  border-top-right-radius: $labelSize/8
 
-#label-flow-direction-south, #label-flow-direction-west
-  border-top-right-radius: 8px
-
-#buoyage-direction
-  label
-    border-top-width: 0
-
-  input:checked + label
-    background-color: mix(#8CC3E7,#DEECF8)
-
-  label:last-child
-    border-bottom-left-radius: 8px
-    border-bottom-right-radius: 8px
-
-
+#label-buoyage-direction-z-geen, #label-buoyage-direction-w-geen
+  border-bottom-right-radius: $labelSize/8
