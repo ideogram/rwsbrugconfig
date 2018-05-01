@@ -101,7 +101,7 @@ var libConfigBridges;
          * @memberof libConfig
          */
         setPaths: function (objPathOptions) {
-            var l = libConfigBridges;
+            let l = libConfigBridges;
             // use the jQuery extend option to override the default path settings:
             jQuery.extend(l.path, objPathOptions);
             libConfigBridges.loadImagesUI();
@@ -111,14 +111,14 @@ var libConfigBridges;
          * Force loading of the images of the GUI. This is only needed if 'setPaths' is never called
          */
         loadImagesUI: function(){
-            var l = libConfigBridges;
-            var sheet = libConfigBridges.addStyleSheet();
+            let l = libConfigBridges;
+            let sheet = libConfigBridges.addStyleSheet();
 
-            var strSelector, strRule = "";
+            let strSelector, strRule = "";
 
-            var images = l.ui_images;
+            let images = l.ui_images;
 
-            for(var i=0; i<images.length; i++){
+            for(let i=0; i<images.length; i++){
                 strSelector = images[i][0];
 
                 if ( images[i][1].constructor === Array) {
@@ -167,7 +167,7 @@ var libConfigBridges;
          * @memberof libConfig
          */
         setDiagram: function (strSelector) {
-            var l = libConfigBridges;
+            let l = libConfigBridges;
             l.$diagram = $(strSelector);
 
             l.draggableOptions.connectToSortable = strSelector;
@@ -216,11 +216,11 @@ var libConfigBridges;
 
         // Create  invisible div containing the SVG just before it gets downloaded
         createResultWrapper: function(){
-            var $resultWrapper =
+            let $resultWrapper =
                 $('<div id="bridges-result"></div>')
                     .insertAfter("#bridges-diagram-wrapper");
 
-            var svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            let svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
             l.$result = $(svgElement);
 
             l.$result
@@ -239,7 +239,7 @@ var libConfigBridges;
          * @memberof libConfig
          */
         getConfigString: function () {
-            var l = libConfigBridges;
+            let l = libConfigBridges;
 
             l.strConfig = "";
 
@@ -251,7 +251,7 @@ var libConfigBridges;
                 ")"
             ].join(" ");
 
-            for (var i = 0; i < l.L; i++) {
+            for (let i = 0; i < l.L; i++) {
 
                 l.strConfig += " " + l.element[i]['symbol'];
 
@@ -270,12 +270,12 @@ var libConfigBridges;
          * @memberof libConfig
          */
         composeSVG: function(strFileName) {
-            var l = libConfigBridges;
-            var margin = 32;
-            var h = l.height + 2*margin;
-            var strLeft, strRight;
+            let l = libConfigBridges;
+            let margin = 32;
+            let h = l.height + 2*margin;
+            let strLeft, strRight;
 
-            var textStyle = {
+            let textStyle = {
                 "font-family": "sans-serif",
                 "font-size": 24,
                 "text-anchor": "middle",
@@ -285,13 +285,13 @@ var libConfigBridges;
             // Fill the 'result'-SVG  with the bridge-elements
             l.$result.html("");
 
-            var x = 0;
-            for (var i = 0; i < l.L; i++) {
-                var $svg = l.arr$SVG[i];
-                var html = $svg.html();
-                var w = l.scale * parseFloat($svg.attr("width"));
-                var viewBox = $svg.attr("viewBox");
-                var y = 0;
+            let x = 0;
+            for (let i = 0; i < l.L; i++) {
+                let $svg = l.arr$SVG[i];
+                let html = $svg.html();
+                let w = l.scale * parseFloat($svg.attr("width"));
+                let viewBox = $svg.attr("viewBox");
+                let y = 0;
 
                 // Remove the viewbox and wrap the element in a <g>-tag instead
                 if (viewBox !== undefined) {
@@ -397,7 +397,7 @@ var libConfigBridges;
 
             // Check if the config string is empty. If so, re-install defaults.
             if (strConfig == "") {
-                for (var property in l.default ) {
+                for (let property in l.default ) {
                     if (l.default.hasOwnProperty(property)) {
                         l[property] = l.default[property];
                     }
@@ -465,7 +465,7 @@ var libConfigBridges;
          * @memberof libConfig
          */
         setNetworkDirection : function( value ){
-            var l = libConfigBridges;
+            let l = libConfigBridges;
             l.networkDirection = value;
         },
 
@@ -475,7 +475,7 @@ var libConfigBridges;
          * @memberof libConfig
          */
         getNetworkDirection : function(  ){
-            var l = libConfigBridges;
+            let l = libConfigBridges;
             return l.networkDirection;
         },
 
@@ -484,17 +484,17 @@ var libConfigBridges;
          * @memberof libConfig
          */
         drawDiagram: function () {
-            var l = libConfigBridges;
-            var configstring = l.strConfig;
-            var elements = [];
-            var fill = "";
-            var pos = "";
-            var symbol = "";
-            var name = "";
-            var htmlDiagram = "";
-            var i;
-            var catalogue = null;
-            var index = 0;
+            let l = libConfigBridges;
+            let configstring = l.strConfig;
+            let elements = [];
+            let fill = "";
+            let pos = "";
+            let symbol = "";
+            let name = "";
+            let htmlDiagram = "";
+            let i;
+            let catalogue = null;
+            let index = 0;
 
             // Pre-flight check
             if (!(l.$diagram instanceof jQuery)) {
@@ -576,7 +576,7 @@ var libConfigBridges;
             l.$diagramElements = l.$diagram.find(".element");
 
             l.$diagramElements.each(function (i) {
-                var $me = $(this);
+                let $me = $(this);
                 l.arr$SVG[i] = $me.find("svg");
                 libConfigBridges.prepareForDiagramLife($me);
             });
@@ -589,16 +589,16 @@ var libConfigBridges;
 
         // Iterate over the elements array and add the drawings to the toolbar
         addElementsToToolbar: function() {
-            var l = libConfigBridges;
-            var arrOverlays = []
+            let l = libConfigBridges;
+            let arrOverlays = []
             l.countElementsLoaded = 0;
 
             $.each( l.elementCatalogue, function (key, val) {
-                var id = val.name;
-                var tooltip = val.tooltip;
-                var $li = null;
-                var draggableOptionsElement = null;
-                var varName = "test";
+                let id = val.name;
+                let tooltip = val.tooltip;
+                let $li = null;
+                let draggableOptionsElement = null;
+                let varName = "test";
 
                 // Overlays may be draggable, but should not be allowed to end up in the diagram as separate entities
                 draggableOptionsElement = l.draggableOptions;
@@ -631,7 +631,7 @@ var libConfigBridges;
 
         // run drawDiagram when after all the elements have been loaded
         elementLoaded: function(){
-            var l = libConfigBridges;
+            let l = libConfigBridges;
 
             l.countElementsLoaded++;
 
@@ -651,13 +651,13 @@ var libConfigBridges;
 
         // invoked after each element has rendered:
         elementRendered: function(mutationRecords) {
-            var $li = $(mutationRecords["0"].target);
-            var $svg = $li.find("svg");
-            var id = $svg.attr("id");
-            var l = libConfigBridges;
+            let $li = $(mutationRecords["0"].target);
+            let $svg = $li.find("svg");
+            let id = $svg.attr("id");
+            let l = libConfigBridges;
 
             // Scale the element down and remove height-attribute
-            var w = $svg.attr("width");
+            let w = $svg.attr("width");
             $svg.attr('width', w / l.scale );
             $svg.removeAttr("height");
 
@@ -669,7 +669,7 @@ var libConfigBridges;
 
         // Update the diagram after adding, removing or re-arranging elements
         diagramChanged: function() {
-            var l = libConfigBridges;
+            let l = libConfigBridges;
 
             // Store the element-information from the palette
             // into a an array connected to every element in the #diagram
@@ -684,7 +684,7 @@ var libConfigBridges;
             l.L = l.$diagramElements.length;
 
             l.$diagramElements.each(function (i) {
-                var $me = $(this);
+                let $me = $(this);
                 l.element[i] = l.elementCatalogue[$me.attr("data-ref")];
                 l.arr$SVG[i] = $me.find("svg");
             });
@@ -700,14 +700,14 @@ var libConfigBridges;
 
         // Preparing an element for it's life inside the diagram
         prepareForDiagramLife: function( $target ){
-            var l = libConfigBridges;
+            let l = libConfigBridges;
 
             // Add a button to erase the element from the diagram again
-            var $btnRemove = $("<a></a>").appendTo($target).addClass("btn-remove");
+            let $btnRemove = $("<a></a>").appendTo($target).addClass("btn-remove");
 
             $btnRemove.on("click", libConfigBridges.removeElement );
 
-            var strOverlaysSelector = "." + l.overlayNames.join(", .");
+            let strOverlaysSelector = "." + l.overlayNames.join(", .");
 
             // Allow for an overlay to be dropped on the element.
             $target.droppable(
@@ -725,18 +725,18 @@ var libConfigBridges;
 
         // Draw an overlay over the target element
         drawOverlay: function($target, $overlay) {
-            var l = libConfigBridges;
-            var viewBox;
+            let l = libConfigBridges;
+            let viewBox;
 
             // Determine the right DOM-elements to include.
-            var $svg = $target.find("svg");
-            var $overlayGroup = $overlay.find("[data-name=\'overlay']");
-            var i = $target.index();
+            let $svg = $target.find("svg");
+            let $overlayGroup = $overlay.find("[data-name=\'overlay']");
+            let i = $target.index();
 
             // Calculate the position
-            var pxTargetWidth = l.scale * parseFloat($svg.attr("width"));
-            var pxOverlayWidth = l.scale * parseFloat($overlay.find("svg").attr("width"));
-            var pxCentre = (pxTargetWidth - pxOverlayWidth) / 2;
+            let pxTargetWidth = l.scale * parseFloat($svg.attr("width"));
+            let pxOverlayWidth = l.scale * parseFloat($overlay.find("svg").attr("width"));
+            let pxCentre = (pxTargetWidth - pxOverlayWidth) / 2;
 
             // Change the DOM of the receiving element
             $svg.append($overlayGroup);
@@ -755,9 +755,9 @@ var libConfigBridges;
 
         // Remove an element from the diagram
         removeElement: function(){
-            var $me = $(this);
-            var $li = $me.closest("li");
-            var i = $li.index();
+            let $me = $(this);
+            let $li = $me.closest("li");
+            let i = $li.index();
 
             if (i in l.overlays ){
                 // remove overlay, but not the underlying element
@@ -774,14 +774,14 @@ var libConfigBridges;
 
         // Put a label under each DVO
         annotate: function() {
-            var l = libConfigBridges;
-            var labelNumber = 0;
-            var hasLabel = false;
-            var $svg = null;
+            let l = libConfigBridges;
+            let labelNumber = 0;
+            let hasLabel = false;
+            let $svg = null;
 
             if (l.flowDirection !== null ) {
 
-                var suffix = {
+                let suffix = {
                     "n": " W",
                     "o": " N",
                     "z": " O",
@@ -815,11 +815,11 @@ var libConfigBridges;
 
         // offer a string containing SVG as download
         offerDownload: function(strDownload, fileName) {
-            var str_preface = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n';
-            var svgData = str_preface + strDownload;
-            var svgBlob = new Blob([svgData], {type: "image/svg+xml;charset=utf-8"});
-            var svgUrl = URL.createObjectURL(svgBlob);
-            var downloadLink = document.createElement("a");
+            let str_preface = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n';
+            let svgData = str_preface + strDownload;
+            let svgBlob = new Blob([svgData], {type: "image/svg+xml;charset=utf-8"});
+            let svgUrl = URL.createObjectURL(svgBlob);
+            let downloadLink = document.createElement("a");
             downloadLink.href = svgUrl;
             downloadLink.download = fileName + ".svg";
             document.body.appendChild(downloadLink);
@@ -829,10 +829,10 @@ var libConfigBridges;
         // Set the configuration strings options. Handle the logic of checking and un-checking options based
         // on other options
         optionChanged: function() {
-            var l = libConfigBridges;
-            var $me = $(this);
-            var varName = $me.attr("name");
-            var value = $me.val();
+            let l = libConfigBridges;
+            let $me = $(this);
+            let varName = $me.attr("name");
+            let value = $me.val();
 
             switch (varName) {
                 case "network-direction":
@@ -946,23 +946,23 @@ var libConfigBridges;
             }
 
             // Disable the buoyage buttons that are irrelevant to the chosen flow-direction
-            var flow = l.flowDirection;
+            let flow = l.flowDirection;
             if (l.flowDirection !== null ){
                 $buoyageDirectionInput.prop("disabled",true);
                 $("[id^='buoyage-direction-" + flow + "']").prop("disabled",false);
             }
 
-            l.drawExtraImages();
+            l.drawDiagramBackgroundImages();
             l.diagramChanged();
         },
 
         // Draw backgrounds depending on the various options
-        drawExtraImages: function () {
-            var l = libConfigBridges;
-            var images = [];
-            var positions = []
-            var sizes = [];
-            var flowIndex = null;
+        drawDiagramBackgroundImages: function () {
+            let l = libConfigBridges;
+            let images = [];
+            let positions = []
+            let sizes = [];
+            let flowIndex = null;
 
             // Wind points
             if (l.flowDirection !== null ) {
@@ -999,6 +999,15 @@ var libConfigBridges;
                 }
             }
 
+            // Network Direction
+            if (l.networkDirection !== null && l.flowDirection !== null) {
+                if (l.networkDirection == l.flowDirection) {
+                    pushImage("netwerk-omlaag.svg", "24px 24px", "right 10px top 10px");
+                } else {
+                    pushImage("netwerk-omhoog.svg", "24px 24px", "right 10px top 10px");
+                }
+            }
+
             // Flow direction
             pushImage("stroomafwaarts.svg","168px 24px","right 35% bottom 6px");
 
@@ -1016,12 +1025,11 @@ var libConfigBridges;
             }
         },
 
-
         // HELPER FUNCTIONS
 
         // Helper function to construct a css-style url for an ui-image.
         getCssUrl: function (filename){
-            var l = libConfigBridges;
+            let l = libConfigBridges;
 
             // Returns for example: url("to/images/folder/filename.jpg")
             return "url("+l.path.folderImages + filename + ")";
@@ -1029,12 +1037,14 @@ var libConfigBridges;
 
         // Helper function to construct a css-style url for an assets. (also an image)
         getCssAssetsUrl: function(filename){
+            let l = libConfigBridges;
+
             return "url("+l.path.folderAssets + filename + ")";
         },
 
         // Create a stylesheet. Returns a reference to the stylesheet
         addStyleSheet: function () {
-            var style = document.createElement("style");
+            let style = document.createElement("style");
 
             // WebKit hack :(
             style.appendChild(document.createTextNode(""));
@@ -1065,22 +1075,22 @@ var libConfigBridges;
          * returns version of IE or false, if browser is not Internet Explorer
          */
         detectIE: function() {
-            var ua = window.navigator.userAgent;
+            let ua = window.navigator.userAgent;
 
-            var msie = ua.indexOf('MSIE ');
+            let msie = ua.indexOf('MSIE ');
             if (msie > 0) {
                 // IE 10 or older => return version number
                 return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
             }
 
-            var trident = ua.indexOf('Trident/');
+            let trident = ua.indexOf('Trident/');
             if (trident > 0) {
                 // IE 11 => return version number
-                var rv = ua.indexOf('rv:');
+                let rv = ua.indexOf('rv:');
                 return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
             }
 
-            var edge = ua.indexOf('Edge/');
+            let edge = ua.indexOf('Edge/');
             if (edge > 0) {
                 // Edge (IE 12+) => return version number
                 return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);

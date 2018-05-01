@@ -125,4 +125,10 @@
 - name: w
   symbol: false
 
+- name: netwerk-omhoog
+  symbol: false
+
+- name: netwerk-omlaag
+  symbol: false
+
 ...
