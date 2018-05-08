@@ -57,7 +57,7 @@ var libConfigBridges;
         extraImagesCount: 0,
         disableNetworkDirection: false,
 
-        // Assets
+        // UI Images
         ui_images : [
             ["#bridges-diagram",["network-n-z.svg","rood-groen.svg","omlaag.svg"]],
             [".btn-remove","delete-forever.svg"],
@@ -102,6 +102,7 @@ var libConfigBridges;
          */
         setPaths: function (objPathOptions) {
             let l = libConfigBridges;
+
             // use the jQuery extend option to override the default path settings:
             jQuery.extend(l.path, objPathOptions);
             libConfigBridges.loadImagesUI();
@@ -199,11 +200,6 @@ var libConfigBridges;
                         .find("input").on("change", libConfigBridges.optionChanged); // set event handler for the on-change event
 
 
-                    /*
-                    $("#flow-and-buoyage-direction").find("input").prop("disabled", true);
-                    $("#flow-direction, #buoyage-direction").find("legend").addClass("disabled");
-                    */
-
                     // Update the GUI to reflect settings from the configstring
                     l.setGUIState();
                     l.updateGUI();
@@ -229,8 +225,6 @@ var libConfigBridges;
                     "xmlns": "http://www.w3.org/2000/svg",
                     "xmlns:xlink": "http://www.w3.org/1999/xlink"
                 });
-
-
         },
 
         /**
@@ -273,7 +267,6 @@ var libConfigBridges;
             let l = libConfigBridges;
             let margin = 32;
             let h = l.height + 2*margin;
-            let strLeft, strRight;
 
             let textStyle = {
                 "font-family": "sans-serif",
@@ -598,7 +591,7 @@ var libConfigBridges;
                 let tooltip = val.tooltip;
                 let $li = null;
                 let draggableOptionsElement = null;
-                let varName = "test";
+                let varName = "";
 
                 // Overlays may be draggable, but should not be allowed to end up in the diagram as separate entities
                 draggableOptionsElement = l.draggableOptions;
@@ -616,12 +609,12 @@ var libConfigBridges;
                     }, "html" );
                     l.extraImagesCount++;
                 } else {
-                    $li = $('<li class="element"></li>').appendTo(libConfigBridges.$toolbar)
+                    $li = $('<li class="element"></li>').appendTo(l.$toolbar)
                         .attr({"title": tooltip, "data-ref": key})
                         .addClass(val.name)
                         .disableSelection()
                         .draggable(l.draggableOptions)
-                        .load(l.path.folderAssets + id + ".svg", libConfigBridges.elementLoaded);
+                        .load(l.path.folderAssets + id + ".svg", l.elementLoaded);
 
                     // rework the SVG after all the SVG's are rendered
                     l.observer.observe($li[0], {childList: true});
@@ -653,7 +646,6 @@ var libConfigBridges;
         elementRendered: function(mutationRecords) {
             let $li = $(mutationRecords["0"].target);
             let $svg = $li.find("svg");
-            let id = $svg.attr("id");
             let l = libConfigBridges;
 
             // Scale the element down and remove height-attribute
@@ -750,7 +742,7 @@ var libConfigBridges;
             l.overlays[i] =  l.elementCatalogue[$overlay.attr('data-ref')]['symbol'];
 
             // Update drawing
-            libConfigBridges.diagramChanged();
+            l.diagramChanged();
         },
 
         // Remove an element from the diagram
