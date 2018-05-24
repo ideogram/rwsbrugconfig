@@ -95,6 +95,8 @@ body
   border: 1px solid silver
   background-color: white
   font-size: 18px
+  position: absolute
+  right: 10px
   &:hover
     background-color: #f8f8f8
 
@@ -161,8 +163,9 @@ svg
   label
     border-radius: $labelSize/8
     background-color: white
-    //border-color: #e0e0e0
-    box-shadow: inset 2px 2px 2px 1px rgba(0,0,0,0.18)
+    border-color: transparent
+    box-shadow: none
+
 
   input:not(:checked)
     & + label
@@ -186,6 +189,8 @@ svg
     label
       display: block
       float: left
+      height: (2/3)*$labelSize
+
 
 #label-flow-direction-n, #label-flow-direction-o
   border-top-left-radius: $labelSize/8

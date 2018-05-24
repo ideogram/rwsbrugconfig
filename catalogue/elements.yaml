@@ -89,6 +89,11 @@
   symbol: Q02
   overlay: true
 
+- name: over-kolk
+  tooltip: DVO overspant sluiskolk.
+  symbol: Q03
+  overlay: true
+
 - name: stroomopwaarts
   symbol: false
 

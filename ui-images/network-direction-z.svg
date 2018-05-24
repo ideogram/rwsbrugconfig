@@ -1,11 +1,14 @@
-<svg id="dfa09871-aabe-40dc-9ed2-e692ed2ffab3" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72">
+<svg id="9dad9ddb-fe47-4f62-b5c7-1e8929f1a0f7" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72">
   <title>network-direction-z</title>
   <g style="isolation: isolate">
     <path d="M32.2,56.1V54.2H40V56l-5.4,8h5.5v2H31.9V64.1l5.4-7.9H32.2Z"/>
   </g>
-  <path d="M56.5,20.2l-4,4h-34l-3-4m.3,15,2.9-4H52.6l2.9,4" fill="none" stroke="#673327" stroke-miterlimit="10" stroke-width="2"/>
-  <polygon points="40.7 17.7 35.5 5.4 30.3 17.7 34.5 15.9 34.5 22.2 36.5 22.2 36.5 15.9 40.7 17.7" fill="#999"/>
-  <rect x="34.5" y="33.2" width="2" height="13.16" fill="#999"/>
-  <circle cx="35.5" cy="46.2" r="3.8" fill="#fff"/>
-  <path d="M35.5,50.4h0a4.3,4.3,0,1,1,4.3-4.2A4.2,4.2,0,0,1,35.5,50.4Zm-3.3-4.2h0a3.3,3.3,0,0,0,6.6,0,3.3,3.3,0,1,0-6.6,0Z" fill="#999"/>
+  <g>
+    <line x1="36" y1="12" x2="36" y2="38.1" fill="none" stroke="#999" stroke-miterlimit="10" stroke-width="2"/>
+    <g>
+      <path d="M32.2,12.3A3.8,3.8,0,1,1,36,16,3.8,3.8,0,0,1,32.2,12.3Z" fill="#fff"/>
+      <path d="M31.7,12.3a4.3,4.3,0,0,0,8.6,0,4.3,4.3,0,1,0-8.6,0Zm7.6,0a3.3,3.3,0,0,1-6.6,0,3.3,3.3,0,1,1,6.6,0Z" fill="#999"/>
+    </g>
+    <polygon points="36 48 30.3 34.1 36 37.4 41.7 34.1 36 48" fill="#999"/>
+  </g>
 </svg>

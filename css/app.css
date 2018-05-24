@@ -89,7 +89,9 @@ body {
   height: 40px;
   border: 1px solid silver;
   background-color: white;
-  font-size: 18px; }
+  font-size: 18px;
+  position: absolute;
+  right: 10px; }
   #bridges-download:hover {
     background-color: #f8f8f8; }
 
@@ -147,7 +149,8 @@ svg {
 #network-direction.readonly label {
   border-radius: 6px;
   background-color: white;
-  box-shadow: inset 2px 2px 2px 1px rgba(0, 0, 0, 0.18); }
+  border-color: transparent;
+  box-shadow: none; }
 #network-direction.readonly input:not(:checked) + label {
   display: none; }
 
@@ -164,7 +167,8 @@ svg {
     overflow: hidden; }
   #flow-and-buoyage-direction > ul label {
     display: block;
-    float: left; }
+    float: left;
+    height: 32px; }
 
 #label-flow-direction-n, #label-flow-direction-o {
   border-top-left-radius: 6px; }

@@ -1,13 +1,15 @@
-<svg id="9a07cad7-bddf-40c3-80a0-4c2742c243ba" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72">
+<svg id="be5e615f-a72f-4051-a772-3fa923f569a2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="72" height="48" viewBox="0 0 72 48">
   <title>flow-direction-w</title>
   <g>
-    <path d="M1.9,36c3.3,0,3.3,4,6.6,4s3.4-4,6.7-4,3.3,4,6.6,4,3.4-4,6.7-4,3.3,4,6.7,4,3.3-4,6.6-4" fill="none" stroke="#59a9db" stroke-miterlimit="10" stroke-width="3"/>
     <g>
-      <line x1="41.8" y1="36" x2="45.7" y2="36" fill="none" stroke="#59a9db" stroke-miterlimit="10" stroke-width="3"/>
-      <polygon points="44.3 40.5 52.1 36 44.3 31.5 44.3 40.5" fill="#59a9db"/>
+      <path d="M70,24c-3.3,0-3.3-4-6.7-4s-3.3,4-6.6,4-3.3-4-6.7-4-3.3,4-6.6,4-3.4-4-6.7-4-3.3,4-6.6,4" fill="none" stroke="#59a9db" stroke-miterlimit="10" stroke-width="3"/>
+      <g>
+        <line x1="30.1" y1="24" x2="26.2" y2="24" fill="none" stroke="#59a9db" stroke-miterlimit="10" stroke-width="3"/>
+        <polygon points="27.5 19.5 19.7 24 27.5 28.5 27.5 19.5" fill="#59a9db"/>
+      </g>
     </g>
-  </g>
-  <g style="isolation: isolate">
-    <path d="M56.2,41.1l-3-11.8h2.6L58,38.9h.1l2.3-7.2-.8-2.4h2.6L65,38.9h.1l2.1-9.6h2.5L66.6,41.1H63.4l-1.9-6.6h-.1l-2,6.6Z" fill="#154273"/>
+    <g style="isolation: isolate">
+      <path d="M5.3,29.1,2.2,17.3H4.8l2.3,9.6h.1l2.2-7.2-.7-2.4h2.5L14,26.9h.1l2.2-9.6h2.4L15.6,29.1H12.4l-1.9-6.6h-.1l-2,6.6Z" fill="#154273"/>
+    </g>
   </g>
 </svg>

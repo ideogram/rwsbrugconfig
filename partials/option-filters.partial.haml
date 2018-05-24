@@ -1,0 +1,9 @@
+%ul#element-filters
+  %li
+    %legend Toon:
+  - ['kolksegment','kolkovergang','deur','hoogwaterkering','brug of weg'].each do |category|
+    %li
+      - caption = category
+      - id = category
+      %input{:type=>"checkbox", :id => "filter-#{id}", :value => "show", :name=>"#{id}", :checked => "checked" }
+      %label{:for => "filter-#{id}"} #{caption}
