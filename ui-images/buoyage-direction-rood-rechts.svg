@@ -1,12 +1,1 @@
-<svg id="3910527f-8fbe-4f60-b67b-56ab9f118572" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="72" height="48" viewBox="0 0 72 48">
-  <title>buoyage-direction-rood-rechts</title>
-  <g>
-    <path d="M60.9,24.8c-3.3,0-3.3-4-6.6-4s-3.4,4-6.7,4-3.3-4-6.6-4-3.4,4-6.7,4-3.3-4-6.7-4-3.3,4-6.6,4" fill="none" stroke="#59a9db" stroke-miterlimit="10" stroke-width="3"/>
-    <g>
-      <line x1="21" y1="24.8" x2="17.1" y2="24.8" fill="none" stroke="#59a9db" stroke-miterlimit="10" stroke-width="3"/>
-      <polygon points="18.4 20.3 10.7 24.8 18.4 29.3 18.4 20.3" fill="#59a9db"/>
-    </g>
-  </g>
-  <rect x="30.8" y="5.4" width="10" height="10" transform="translate(46.2 -25.4) rotate(90)" fill="#d52b1e"/>
-  <polygon points="30.4 43.6 41.2 43.6 41.2 39.5 35.8 32.8 30.4 39.5 30.4 43.6" fill="#39870c" fill-rule="evenodd"/>
-</svg>
+<svg id="efd85c07-93de-440d-96f8-7ac67a2914fa" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="72" height="48" viewBox="0 0 72 48"><title>buoyage-direction-rood-rechts</title><path d="M35.5,45c0-2.7,4-2.7,4-5.4s-4-2.7-4-5.5,4-2.7,4-5.4-4-2.7-4-5.4,4-2.7,4-5.5-4-2.7-4-5.4" fill="none" stroke="#59a9db" stroke-miterlimit="10" stroke-width="3"/><line x1="35.5" y1="12.4" x2="35.5" y2="10.5" fill="none" stroke="#59a9db" stroke-miterlimit="10" stroke-width="3"/><polygon points="40 11.8 35.5 4 31 11.8 40 11.8" fill="#59a9db"/><rect x="44.9" y="19.5" width="10" height="10" transform="translate(99.8 49) rotate(-180)" fill="#d52b1e"/><polygon points="16.7 29.9 27.5 29.9 27.5 25.8 22.1 19.1 16.7 25.8 16.7 29.9" fill="#39870c" fill-rule="evenodd"/></svg>

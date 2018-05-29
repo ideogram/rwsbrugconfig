@@ -1,13 +1,1 @@
-<svg id="44b4c0f5-8b3e-491b-8189-19aa655a885f" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="72" height="48" viewBox="0 0 72 48">
-  <title>flow-direction-n</title>
-  <g>
-    <path d="M67.9,25c-3.3,0-3.3-4-6.7-4s-3.3,4-6.6,4-3.3-4-6.7-4-3.3,4-6.6,4-3.3-4-6.7-4-3.3,4-6.6,4" fill="none" stroke="#59a9db" stroke-miterlimit="10" stroke-width="3"/>
-    <g>
-      <line x1="28" y1="25" x2="24.1" y2="25" fill="none" stroke="#59a9db" stroke-miterlimit="10" stroke-width="3"/>
-      <polygon points="25.4 20.5 17.7 25 25.4 29.5 25.4 20.5" fill="#59a9db"/>
-    </g>
-    <g style="isolation: isolate">
-      <path d="M11.1,29.1,7.8,19.6H7.7v9.5H5.6V17.3H9.2l3.3,9.5h.1V17.3h2.1V29.1Z" fill="#154273"/>
-    </g>
-  </g>
-</svg>
+<svg id="187c0e63-e48f-4074-ae33-39d7cc363a3e" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="72" height="48" viewBox="0 0 72 48"><title>flow-direction-n</title><path d="M40.9,44.5c0-2.7,3.8-2.7,3.8-5.4s-3.8-2.7-3.8-5.5,3.8-2.7,3.8-5.4-3.8-2.7-3.8-5.4,3.8-2.7,3.8-5.5-3.8-2.7-3.8-5.4" fill="none" stroke="#59a9db" stroke-miterlimit="10" stroke-width="3"/><line x1="40.9" y1="11.9" x2="40.9" y2="10" fill="none" stroke="#59a9db" stroke-miterlimit="10" stroke-width="3"/><polygon points="45.4 11.3 40.9 3.5 36.4 11.3 45.4 11.3" fill="#59a9db"/><g style="isolation:isolate"><path d="M11.1,29.1,7.8,19.6H7.7v9.5H5.6V17.3H9.2l3.3,9.5h.1V17.3h2.1V29.1Z" fill="#154273"/></g></svg>

@@ -1,8 +1,1 @@
-<svg id="ede84498-49a6-435b-88f3-5d02501c8653" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-  <title>delete-forever</title>
-  <path d="M5.1,9.3,6.4,22.2a.9.9,0,0,0,.9.8h9.4a.9.9,0,0,0,.9-.8L18.9,9.3Z" fill="#999"/>
-  <rect x="11.4" y="11.7" width="1.3" height="8.85" fill="#fff"/>
-  <polygon points="15.2 20.6 13.9 20.6 15.1 11.7 16.4 11.7 15.2 20.6" fill="#fff"/>
-  <polygon points="10.2 20.6 8.9 20.6 7.6 11.7 8.9 11.7 10.2 20.6" fill="#fff"/>
-  <path d="M19,5.6H15.1V3.9c0-.5-.6-.9-1.1-.9H10.1c-.5,0-1.2.3-1.2.8V5.5H5a.9.9,0,0,0-.9.9h0V8H19.9V6.5a.9.9,0,0,0-.9-.9Zm-8.9-.8c0-.4.4-.7,1-.7H13c.6,0,1,.3,1,.7v.8H10.1V4.8Z" fill="#999"/>
-</svg>
+<svg id="b83777e2-d916-4d05-bff4-6d239f95f31f" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><title>delete-forever</title><path d="M5.1,9.3,6.4,22.2a.9.9,0,0,0,.9.8h9.4a.9.9,0,0,0,.9-.8L18.9,9.3Z" fill="#999"/><rect x="11.4" y="11.7" width="1.3" height="8.85" fill="#fff"/><polygon points="15.2 20.6 13.9 20.6 15.1 11.7 16.4 11.7 15.2 20.6" fill="#fff"/><polygon points="10.2 20.6 8.9 20.6 7.6 11.7 8.9 11.7 10.2 20.6" fill="#fff"/><path d="M19,5.6H15.1V3.9c0-.5-.6-.9-1.1-.9H10.1c-.5,0-1.2.3-1.2.8V5.5H5a.9.9,0,0,0-.9.9h0V8H19.9V6.5a.9.9,0,0,0-.9-.9Zm-8.9-.8c0-.4.4-.7,1-.7H13c.6,0,1,.3,1,.7v.8H10.1V4.8Z" fill="#999"/></svg>
